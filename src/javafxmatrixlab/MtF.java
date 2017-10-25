@@ -1,45 +1,89 @@
 package javafxmatrixlab;
 
 import java.lang.*;
+import java.util.Random;
 
 public class MtF {
 
+    //Сделать переименовку матрицы
+    
     public static class Matrix {
 
         private int n, m;
         private String name;
 
-        public Matrix(int n, int m, String name) {
+        //Копирование размерности другой матрицы
+        public Matrix(Matrix M) {
+            this.n = M.getN();
+            this.m = M.getM();
+            this.name = "Ans";
+        }
+        
+        public Matrix(String name, int n, int m) {
             this.n = n;
             this.m = m;
             this.name = name;
         }
 
-        public Matrix(int n, int m) {
-            this.n = n;
-            this.m = m;
-            this.name = "Answer";
-        }
-
-        public Matrix(int n, String name) {
+        public Matrix(String name,int n) {
             this.n = n;
             this.m = n;
             this.name = name;
+        }
+        
+        public Matrix(String name){
+            this.n = 0;
+            this.m = 0;
+            this.name = name;
+        }
+        
+        public Matrix(int n, int m) {
+            this.n = n;
+            this.m = m;
+            this.name = "Ans";
         }
 
         public Matrix(int n) {
             this.n = n;
             this.m = n;
-            this.name = "Answer";
+            this.name = "Ans";
+        }
+        
+        public Matrix() {
+            this.n = 0;
+            this.m = 0;
+            this.name = "";
         }
 
-        //Копирование размерности другой матрицы
-        public Matrix(Matrix M) {
-            this.n = M.getN();
-            this.m = M.getM();
-            this.name = "Answer";
+        //Создание матрицы после создания экземпляра
+        public void setMatrix(String name,int n, int m){
+            float [][] res = new float[n][m];
+            this.matrix = res;
+            this.n = n;
+            this.m = m;
+            this.name = name;
         }
-
+        
+        public void setMatrix(int n, int m){
+            float [][] res = new float[n][m];
+            this.matrix = res;
+            this.n = n;
+            this.m = m;
+            this.name = "Ans";
+        }
+        
+        public void setMatrix(int n){
+            float [][] res = new float[n][n];
+            this.matrix = res;
+            this.n = n;
+            this.m = n;
+            this.name = "Ans";
+        }
+        
+        public void setName(String name) {
+            this.name = name;
+        }
+                
         public int getN() {
             return this.n;
         }
@@ -52,9 +96,7 @@ public class MtF {
             return this.name;
         }
 
-        public void setName(String name) {
-            this.name = name;
-        }
+
 
         float[][] matrix = new float[n][m];
 
@@ -82,10 +124,18 @@ public class MtF {
 
         //заполнение матрицы и целыми и вещественными числами - не сделано
         public void autoSetIntFloat(float range) {
+            Random random = new Random();
             float[][] res = new float[n][m];
             for (int i = 0; i < n; i++) {
                 for (int j = 0; j < m; j++) {
-                    res[i][j] = (float) (Math.random() * range * 2) - range;
+                    switch ((int) Math.round(Math.random())) {
+                        case 0:
+                            res[i][j] = (float) Math.round(Math.random() * range * 2) - range;
+                            break;
+                        case 1:
+                            res[i][j] = (float) (Math.random() * range * 2) - range;
+                            break;
+                    }
                 }
             }
             this.matrix = res;
@@ -134,8 +184,20 @@ public class MtF {
         return Res;
     }
 
+    public static Matrix reverSignMatrix(Matrix A){
+        Matrix Res = new Matrix(A);
+        float[][] res = A.matrix;
+        for (int i = 0; i < A.getN(); i++) {
+            for (int j = 0; j < A.getM(); j++) {
+                res[i][j] *=  -1; 
+            }
+        }
+        Res.matrix = res;
+        return Res;
+    }
+   
     //Поэлементная сумма матрицы
-    public static Matrix SumMatrixEl(int k, Matrix A) {
+    public static Matrix SumMatrixEl(float k, Matrix A) {
         Matrix Res = new Matrix(A);
 
         for (int i = 0; i < A.getN(); i++) {
@@ -213,10 +275,26 @@ public class MtF {
     }
 
     //МинорМатрицы - не готово
-    public static float MinorMatrix(Matrix M) {
-        float m = 0;
-
-        return m;
+    public static Matrix MinorMatrix(Matrix M,int n,int m) {
+        n--;
+        m--;
+        boolean fl = false;
+        Matrix Minor = new Matrix();
+        float[][] res = new float[n][m];
+        Minor.setMatrix(n, m);
+        
+        for (int i = 0; i < Minor.getN(); i++) {
+            for (int j = 0; j < Minor.getM(); j++) {
+                if (!fl) {
+                    res[i][j] = M.matrix[i][j];
+                } else {
+                    res[i][j] = M.matrix[i+1][j+1];
+                }
+            }
+        }
+        
+        Minor.matrix = res;
+        return Minor;
     }
 
     //Ранг матрицы

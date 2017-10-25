@@ -16,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafxmatrixlab.ErrorFunc;
 import javafxmatrixlab.ModalWindow;
 
 
@@ -42,7 +43,7 @@ public class homeMatrixLabController implements Initializable {
     //Создание экземпляров класса
     JavaFXMatrixLab javaFXMatrixLab = new JavaFXMatrixLab();
     ModalWindow modalWindow = new ModalWindow();
-    
+    ErrorFunc errorFunc = new ErrorFunc();
     
     //Глобальные переменные
     ObservableList<String> listOfHistory = FXCollections.observableArrayList();//Массив текста из истории
@@ -83,8 +84,9 @@ public class homeMatrixLabController implements Initializable {
         }else{
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle(javaFXMatrixLab.nameProgram);
-            alert.setHeaderText("Look, an Error Dialog");
-            alert.setContentText("Ooops, there was an error!");
-            alert.showAndWait();        }
+            alert.setHeaderText("Ошибка");
+            alert.setContentText("Вы не выбрали матрицу в таблице которую хотите удалить");
+            alert.showAndWait();        
+        }
     }
 }

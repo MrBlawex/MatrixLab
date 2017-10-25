@@ -1,9 +1,6 @@
 package javafxmatrixlab;
 
-public class Errors {
-    public Errors() {
-        
-    }
+public class ErrorFunc {
     
     public final String wrongName(){
         return "Неправильное имя";

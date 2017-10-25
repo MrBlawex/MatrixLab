@@ -27,6 +27,7 @@ public class SintacsisFunc {
         
         
         
+        
         return stringReturn;
     }
     
