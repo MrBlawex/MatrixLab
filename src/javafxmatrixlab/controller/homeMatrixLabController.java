@@ -5,10 +5,13 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafxmatrixlab.JavaFXMatrixLab;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
@@ -37,10 +40,13 @@ public class homeMatrixLabController implements Initializable {
     private ListView<String> historyContainer;
 
     //Создание экземпляров класса
+    JavaFXMatrixLab javaFXMatrixLab = new JavaFXMatrixLab();
     ModalWindow modalWindow = new ModalWindow();
+    
     
     //Глобальные переменные
     ObservableList<String> listOfHistory = FXCollections.observableArrayList();//Массив текста из истории
+  
     
     //Внутренние переменные
     String OutputText = null;//Текст из поля вывода
@@ -59,19 +65,26 @@ public class homeMatrixLabController implements Initializable {
     
     @FXML
     public void addMatrix() throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/javafx_equalmathlab/fxml/createMatrix.fxml"));
-        modalWindow.newWindow(root,"Добавить матрицу",false);
+        Parent root = FXMLLoader.load(getClass().getResource("/javafxmatrixlab/fxml/createMatrix.fxml"));
+        modalWindow.newWindow(root,javaFXMatrixLab.nameProgram + " - " + "Добавить матрицу",false);
     }
     
+    @FXML
     public void editMatrix() throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/javafx_equalmathlab/fxml/editMatrix.fxml"));
-        modalWindow.newWindow(root,"Редактирование матрицы",false);
+        Parent root = FXMLLoader.load(getClass().getResource("/javafxmatrixlab/fxml/editMatrix.fxml"));
+        modalWindow.newWindow(root,javaFXMatrixLab.nameProgram + " - " + "Редактирование матрицы",false);
     }
     
     @FXML
     public void deleteMatrix() { 
-        int selectionIndex = historyContainer.getSelectionModel().getSelectedIndex();
-        
-        listOfHistory.remove(selectionIndex);
+        if (historyContainer.getSelectionModel().getSelectedIndex() == 1) {
+            int selectionIndex = historyContainer.getSelectionModel().getSelectedIndex();
+            listOfHistory.remove(selectionIndex);
+        }else{
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle(javaFXMatrixLab.nameProgram);
+            alert.setHeaderText("Look, an Error Dialog");
+            alert.setContentText("Ooops, there was an error!");
+            alert.showAndWait();        }
     }
 }

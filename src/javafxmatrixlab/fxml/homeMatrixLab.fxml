@@ -40,7 +40,7 @@
          <children>
             <HBox alignment="CENTER" prefHeight="40.0" prefWidth="200.0" style="-fx-border-color: rgb(223,223,223);" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Button fx:id="btn_add" alignment="CENTER" focusTraversable="false" mnemonicParsing="false" prefHeight="30.0" prefWidth="90.0" text="+">
+                  <Button fx:id="btn_add" alignment="CENTER" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#addMatrix" prefHeight="30.0" prefWidth="90.0" text="+">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -48,7 +48,7 @@
                         <Insets right="7.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="btn_remove" alignment="CENTER" focusTraversable="false" mnemonicParsing="false" prefHeight="30.0" prefWidth="90.0" text="-">
+                  <Button fx:id="btn_remove" alignment="CENTER" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#deleteMatrix" prefHeight="30.0" prefWidth="90.0" text="-">
                      <font>
                         <Font size="14.0" />
                      </font>

@@ -7,8 +7,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxmatrixlab.controller.editMatrixController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="javafxmatrixlab.controller.editMatrixController">
     <stylesheets>
-        <URL value="@/javafxmatrixlab/css/style.css"/>
+        <URL value="@/javafxmatrixlab/css/style.css" />
     </stylesheets>
+   <children>
+      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Button" />
+   </children>
 </AnchorPane>

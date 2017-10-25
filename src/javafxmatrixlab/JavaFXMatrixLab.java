@@ -9,6 +9,8 @@ import javafx.stage.Stage;
 
 public class JavaFXMatrixLab extends Application {
     
+    public String nameProgram = "MatrixLab";
+    
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/javafxmatrixlab/fxml/homeMatrixLab.fxml"));
@@ -18,7 +20,7 @@ public class JavaFXMatrixLab extends Application {
         
         stage.setMinWidth(850);
         stage.setMinHeight(headpix + 550);
-        stage.setTitle("MatrixLab");
+        stage.setTitle(nameProgram);
         
         stage.setScene(scene);
         stage.show();
