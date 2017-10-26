@@ -1,4 +1,4 @@
-package javafxmatrixlab;
+package mtrxf;
 
 import java.lang.*;
 import java.util.Random;
@@ -6,7 +6,6 @@ import java.util.Random;
 public class MtF {
 
     //Сделать переименовку матрицы
-    
     public static class Matrix {
 
         private int n, m;
@@ -18,25 +17,25 @@ public class MtF {
             this.m = M.getM();
             this.name = "Ans";
         }
-        
+
         public Matrix(String name, int n, int m) {
             this.n = n;
             this.m = m;
             this.name = name;
         }
 
-        public Matrix(String name,int n) {
+        public Matrix(String name, int n) {
             this.n = n;
             this.m = n;
             this.name = name;
         }
-        
-        public Matrix(String name){
+
+        public Matrix(String name) {
             this.n = 0;
             this.m = 0;
             this.name = name;
         }
-        
+
         public Matrix(int n, int m) {
             this.n = n;
             this.m = m;
@@ -48,7 +47,7 @@ public class MtF {
             this.m = n;
             this.name = "Ans";
         }
-        
+
         public Matrix() {
             this.n = 0;
             this.m = 0;
@@ -56,34 +55,34 @@ public class MtF {
         }
 
         //Создание матрицы после создания экземпляра
-        public void setMatrix(String name,int n, int m){
-            float [][] res = new float[n][m];
+        public void setMatrix(String name, int n, int m) {
+            float[][] res = new float[n][m];
             this.matrix = res;
             this.n = n;
             this.m = m;
             this.name = name;
         }
-        
-        public void setMatrix(int n, int m){
-            float [][] res = new float[n][m];
+
+        public void setMatrix(int n, int m) {
+            float[][] res = new float[n][m];
             this.matrix = res;
             this.n = n;
             this.m = m;
             this.name = "Ans";
         }
-        
-        public void setMatrix(int n){
-            float [][] res = new float[n][n];
+
+        public void setMatrix(int n) {
+            float[][] res = new float[n][n];
             this.matrix = res;
             this.n = n;
             this.m = n;
             this.name = "Ans";
         }
-        
+
         public void setName(String name) {
             this.name = name;
         }
-                
+
         public int getN() {
             return this.n;
         }
@@ -95,8 +94,6 @@ public class MtF {
         public String getName() {
             return this.name;
         }
-
-
 
         float[][] matrix = new float[n][m];
 
@@ -184,18 +181,18 @@ public class MtF {
         return Res;
     }
 
-    public static Matrix reverSignMatrix(Matrix A){
+    public static Matrix reverSignMatrix(Matrix A) {
         Matrix Res = new Matrix(A);
         float[][] res = A.matrix;
         for (int i = 0; i < A.getN(); i++) {
             for (int j = 0; j < A.getM(); j++) {
-                res[i][j] *=  -1; 
+                res[i][j] *= -1;
             }
         }
         Res.matrix = res;
         return Res;
     }
-   
+
     //Поэлементная сумма матрицы
     public static Matrix SumMatrixEl(float k, Matrix A) {
         Matrix Res = new Matrix(A);
@@ -218,7 +215,6 @@ public class MtF {
                 res[i][j] = 0;
             }
         }
-        //
         for (int y = 0; y < Res.getN(); y++) {
             for (int x = 0; x < Res.getM(); x++) {
                 for (int j = 0; j < A.getM(); j++) {
@@ -252,52 +248,37 @@ public class MtF {
         return Res;
     }
 
-    //Определитель матрицы - не готово
+    //Определитель матрицы - не готово -----------------------------------------
     public static float DetMatrix(Matrix M) {
         float det = 0;
 
         return det;
     }
 
-    //Матрица n-1 x m-1  - не готово
-    public static Matrix UnderMatrix(Matrix M, int k) {
-        int n = M.getN() - 1, m = M.getM() - 1;
-        Matrix Res = new Matrix(n, m);
-        float[][] res = new float[n][m];
+    //МинорМатрицы
+    public static Matrix MinorMatrix(Matrix Mt, int row, int col) {
+        Matrix minor = new Matrix(Mt.getN() - 1, Mt.getM() - 1);
+        float[][] res = new float[minor.getN()][minor.getM()];
 
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
-                res[i][j] = M.matrix[i + 1][j + 1];
-            }
-        }
-        Res.matrix = res;
-        return Res;
-    }
+        for (int i = 0; i < Mt.getN(); i++) {
+            boolean isRowDeleted = row < i;
+            int resRowIndex = isRowDeleted ? i - 1 : i;
 
-    //МинорМатрицы - не готово
-    public static Matrix MinorMatrix(Matrix M,int n,int m) {
-        n--;
-        m--;
-        boolean fl = false;
-        Matrix Minor = new Matrix();
-        float[][] res = new float[n][m];
-        Minor.setMatrix(n, m);
-        
-        for (int i = 0; i < Minor.getN(); i++) {
-            for (int j = 0; j < Minor.getM(); j++) {
-                if (!fl) {
-                    res[i][j] = M.matrix[i][j];
-                } else {
-                    res[i][j] = M.matrix[i+1][j+1];
+            for (int j = 0; j < Mt.matrix[i].length; j++) {
+                boolean isColDeleted = col < j;
+                int resColIndex = isColDeleted ? j - 1 : j;
+
+                if (row != i && col != j) {
+                    res[resRowIndex][resColIndex] = Mt.matrix[i][j];
                 }
             }
         }
-        
-        Minor.matrix = res;
-        return Minor;
+
+        minor.matrix = res;
+        return minor;
     }
 
-    //Ранг матрицы
+    //Ранг матрицы - не готово ------------------------------------------------- 
     public static float RangeMatrix(Matrix M) {
         float range = 0;
         float[][] res = new float[M.getN()][M.getM()];
@@ -305,14 +286,14 @@ public class MtF {
         return range;
     }
 
-    //Обратная матрица - не готово
+    //Обратная матрица - не готово ---------------------------------------------
     public static Matrix ReversMatrix(Matrix M) {
         Matrix Res = new Matrix(M.getN(), M.getM());
 
         return Res;
     }
 
-    //Алгебраическое дополнение - не готово
+    //Алгебраическое дополнение - не готово ------------------------------------
     public static Matrix AlgComlementMatrix(Matrix M) {
         Matrix Res = new Matrix(M.getN(), M.getM());
 
@@ -332,9 +313,9 @@ public class MtF {
         return Res;
     }
 
-    //Решение СЛАУ методом какого то там - не готово
-    public static Matrix awd(Matrix M) {
-        Matrix Res = new Matrix(1, M.getM());
+    //Решение СЛАУ методом Крамера - не готово ---------------------------------
+    public static Matrix equationKramar(Matrix M) {
+        Matrix Res = new Matrix(M.getN(), 1);
 
         return Res;
     }
