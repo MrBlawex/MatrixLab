@@ -1,4 +1,4 @@
-package mtrxf;
+package javafxmatrixlab;
 
 import java.lang.*;
 import java.util.Random;
@@ -261,12 +261,10 @@ public class MtF {
         float[][] res = new float[minor.getN()][minor.getM()];
 
         for (int i = 0; i < Mt.getN(); i++) {
-            boolean isRowDeleted = row < i;
-            int resRowIndex = isRowDeleted ? i - 1 : i;
+            int resRowIndex = row < i ? i - 1 : i;
 
             for (int j = 0; j < Mt.matrix[i].length; j++) {
-                boolean isColDeleted = col < j;
-                int resColIndex = isColDeleted ? j - 1 : j;
+                int resColIndex = col < j ? j - 1 : j;
 
                 if (row != i && col != j) {
                     res[resRowIndex][resColIndex] = Mt.matrix[i][j];

@@ -5,7 +5,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafxmatrixlab.JavaFXMatrixLab;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -18,6 +17,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafxmatrixlab.ErrorFunc;
 import javafxmatrixlab.ModalWindow;
+import javafxmatrixlab.MtF;
+import javafxmatrixlab.JavaFXMatrixLab;
 
 
 public class homeMatrixLabController implements Initializable {
@@ -44,13 +45,13 @@ public class homeMatrixLabController implements Initializable {
     JavaFXMatrixLab javaFXMatrixLab = new JavaFXMatrixLab();
     ModalWindow modalWindow = new ModalWindow();
     ErrorFunc errorFunc = new ErrorFunc();
-    
+     
     //Глобальные переменные
     ObservableList<String> listOfHistory = FXCollections.observableArrayList();//Массив текста из истории
   
     
     //Внутренние переменные
-    String OutputText = null;//Текст из поля вывода
+    String OutputText = "";//Текст из поля вывода
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
