@@ -24,11 +24,20 @@ public class SintacsisFunc {
     
     public static String readCommand(Sintacsis sintacsis){
         String stringReturn = null;
+        Matcher r;
         
-        
-        
-        
+        r = searchEqual(sintacsis.getString(), "dwadwa");
+        r.find();
         return stringReturn;
     }
     
+    public static Matcher searchEqual(String commandOnString,String patternOnString){
+        Pattern pattern = Pattern.compile(patternOnString);
+        Matcher matcher = pattern.matcher(commandOnString);
+        
+        if (true) {
+            
+        }
+        return matcher;
+    }
 }
