@@ -67,6 +67,9 @@
                <font>
                   <Font size="14.0" />
                </font>
+               <padding>
+                  <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+               </padding>
             </TextArea>
             <TextField fx:id="homeTextField" layoutX="14.0" layoutY="473.0" prefHeight="31.0" prefWidth="530.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="80.0">
                <font>
