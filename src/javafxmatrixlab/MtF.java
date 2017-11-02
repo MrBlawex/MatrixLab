@@ -139,7 +139,7 @@ public class MtF {
         }
 
         //перевод матрицы в строку
-        public String toStringM(int length) {
+        public String toString(int length) {
             String str = "\t" + name + ":\n";
             String lth = "%." + length + "f";
             float[][] matr = this.matrix;
@@ -248,15 +248,52 @@ public class MtF {
         return Res;
     }
 
-    //Определитель матрицы - не готово -----------------------------------------
-    public static float DetMatrix(Matrix M) {
-        float det = 0;
+    //Определитель матрицы методом гаусса
+    public static float DetGauss(Matrix Mt) {
+        float det = 1;
+        float s = 0;
+        int n = Mt.getM(), k = 0;
+        final float E = 0.01f;
 
+        for (int i = 0; i < n; i++) {
+            k = i;
+            for (int j = i + 1; j < n; j++) {
+                if (Math.abs(Mt.matrix[j][i]) > Math.abs(Mt.matrix[k][i])) {
+                    k = j;
+                }
+            }
+            if (Math.abs(Mt.matrix[k][i]) < E) {
+                det = 0;
+                break;
+            }
+            //Swap
+            for (int l = 0; l < Mt.getN(); l++) {
+                s = Mt.matrix[i][l];
+                Mt.matrix[i][l] = Mt.matrix[k][l];
+                Mt.matrix[k][l] = s;
+            }
+            if (i != k) {
+                det *= -1;
+            }
+            det *= Mt.matrix[i][i];
+            for (int j = i + 1; j < n; j++) {
+                Mt.matrix[i][j] /= Mt.matrix[i][i];
+            }
+
+            for (int j = 0; j < n; j++) {
+                if ((j != i) && (Math.abs(Mt.matrix[j][i]) > E)) {
+                    for (k = i + 1; k < n; k++) {
+                        Mt.matrix[j][k] -= Mt.matrix[i][k] * Mt.matrix[j][i];
+                    }
+                }
+            }
+        }
+        det = Math.round(det * 100) * 0.01f;
         return det;
     }
 
-    //МинорМатрицы
-    public static Matrix MinorMatrix(Matrix Mt, int row, int col) {
+    //МинорМатрицы (НЕ ДЕТЕРМИНАНТ)
+    public static Matrix UnderMatrix(Matrix Mt, int row, int col) {
         Matrix minor = new Matrix(Mt.getN() - 1, Mt.getM() - 1);
         float[][] res = new float[minor.getN()][minor.getM()];
 
@@ -271,9 +308,21 @@ public class MtF {
                 }
             }
         }
-
         minor.matrix = res;
         return minor;
+    }
+
+    //Минор матрицы
+    public static float MinorMatrix(Matrix Mt, int row, int col) {
+        float DetMinor = 0;
+        if (Mt.getN() == 2) {
+            DetMinor = Mt.matrix[0][0] * Mt.matrix[1][1] - Mt.matrix[0][1] * Mt.matrix[1][0];
+        }
+        if (Mt.getN() > 2) {
+            DetMinor = DetGauss(UnderMatrix(Mt, row, col));
+        }
+
+        return DetMinor;
     }
 
     //Ранг матрицы - не готово ------------------------------------------------- 
