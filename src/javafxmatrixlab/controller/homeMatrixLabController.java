@@ -19,6 +19,7 @@ import javafxmatrixlab.ErrorFunc;
 import javafxmatrixlab.ModalWindow;
 import javafxmatrixlab.MtF;
 import javafxmatrixlab.JavaFXMatrixLab;
+import javafxmatrixlab.SintacsisFunc;
 
 
 public class homeMatrixLabController implements Initializable {
@@ -43,6 +44,7 @@ public class homeMatrixLabController implements Initializable {
 
     //Создание экземпляров класса
     JavaFXMatrixLab javaFXMatrixLab = new JavaFXMatrixLab();
+    SintacsisFunc sintacsisFunc = new SintacsisFunc();
     ModalWindow modalWindow = new ModalWindow();
     ErrorFunc errorFunc = new ErrorFunc();
      
@@ -58,6 +60,14 @@ public class homeMatrixLabController implements Initializable {
         ObservableList<String> value = FXCollections.observableArrayList("hi","Bro");
     }    
     
+    @FXML
+    public void readCommand(){
+        SintacsisFunc.Sintacsis sintacsis = null;
+        if (homeTextField.getText() != "") {
+            sintacsis = new SintacsisFunc.Sintacsis(homeTextField.getText());
+        }
+        OutputText += SintacsisFunc.readCommand(sintacsis);
+    }
     @FXML//Очистить поле вывода
     public void ClearArea() {
         OutputText = "";

@@ -76,7 +76,7 @@
                   <Font size="14.0" />
                </font>
             </TextField>
-            <Button fx:id="btn_enter" contentDisplay="CENTER" focusTraversable="false" layoutX="551.0" layoutY="477.0" mnemonicParsing="false" prefWidth="60.0" text="Ввод" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+            <Button fx:id="btn_enter" contentDisplay="CENTER" focusTraversable="false" layoutX="551.0" layoutY="477.0" mnemonicParsing="false" onAction="#readCommand" prefWidth="60.0" text="Ввод" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
             <ImageView fx:id="ViewTrash" fitHeight="24.0" fitWidth="24.0" layoutX="578.0" layoutY="14.0" onMouseClicked="#ClearArea" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
                <image>
                   <Image url="@icon/trash.png" />
