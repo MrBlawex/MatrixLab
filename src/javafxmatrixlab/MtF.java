@@ -78,7 +78,7 @@ public class MtF {
             this.m = n;
             this.name = "Ans";
         }
-
+        
         public void setName(String name) {
             this.name = name;
         }
@@ -137,7 +137,18 @@ public class MtF {
             }
             this.matrix = res;
         }
-
+        
+        /*
+        [21,32,45,21]
+        [1.1,2;4.2,43]
+        [4.3,2.1;533,123,41;55.3,21]
+        Предавать в метод буду текст без квадратных скобок
+        Нужно сделать и проверку количества заданных значений 
+        */
+        public void autoSetString(String numbersOnString){
+            
+        }
+        
         //перевод матрицы в строку
         public String toString(int length) {
             String str = "\t" + name + ":\n";

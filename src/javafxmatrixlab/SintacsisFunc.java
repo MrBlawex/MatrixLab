@@ -1,5 +1,6 @@
 package javafxmatrixlab;
 
+import java.util.regex.PatternSyntaxException;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 import javafxmatrixlab.MtF;
@@ -122,23 +123,21 @@ public class SintacsisFunc{
     public static String readCommand(Sintacsis sintacsis){
         String stringReturn = null;
         
-        if (searchEqual(sintacsis.getString(), PatternConst.CREATE_MATRIX).find()) {
+        if (createMatcher(sintacsis.getString(), PatternConst.CREATE_MATRIX).find()) {
             System.out.println("YEAH1!!!");
+            System.out.println(createMatcher(sintacsis.getString(), PatternConst.CREATE_MATRIX).group(0));
         }
-        if (searchEqual(sintacsis.getString(), PatternConst.CREATE_NULL_MATRIX).find()) {
+        if (createMatcher(sintacsis.getString(), PatternConst.CREATE_NULL_MATRIX).find()) {
             System.out.println("YEAH2!!!");
         }
         
         return stringReturn;
     }
 
-    public static Matcher searchEqual(String commandOnString,String patternOnString){
+    public static Matcher createMatcher(String commandOnString,String patternOnString){
         Pattern pattern = Pattern.compile(patternOnString);
         Matcher matcher = pattern.matcher(commandOnString);
         
-        if (true) {
-
-        }
         return matcher;
     }
     

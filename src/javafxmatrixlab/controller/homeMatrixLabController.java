@@ -16,6 +16,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafxmatrixlab.ErrorFunc;
+import javafxmatrixlab.ErrorFunc.ErrorType;
 import javafxmatrixlab.ModalWindow;
 import javafxmatrixlab.MtF;
 import javafxmatrixlab.JavaFXMatrixLab;
@@ -50,7 +51,7 @@ public class homeMatrixLabController implements Initializable {
      
     //Глобальные переменные
     ObservableList<String> listOfHistory = FXCollections.observableArrayList();//Массив текста из истории
-  
+    
     
     //Внутренние переменные
     String OutputText = "";//Текст из поля вывода
@@ -104,11 +105,10 @@ public class homeMatrixLabController implements Initializable {
      */
     @FXML
     public void deleteMatrix() { 
-        if (historyContainer.getSelectionModel().getSelectedIndex() == 1) {
-            int selectionIndex = historyContainer.getSelectionModel().getSelectedIndex();
-            listOfHistory.remove(selectionIndex);
+        if (historyContainer.getSelectionModel().getSelectedIndex() != -1) {
+            historyContainer.getItems().remove(historyContainer.getSelectionModel().getSelectedIndex());
         }else{
-            modalWindow.newAlert(AlertType.ERROR, "Ошибка", "Вы не выбрали матрицу в таблице которую хотите удалить");
+            modalWindow.newAlert(AlertType.ERROR, null, "Вы не выбрали матрицу в таблице которую хотите удалить");
         }
     }
 }
