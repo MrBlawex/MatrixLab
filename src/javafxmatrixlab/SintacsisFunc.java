@@ -123,10 +123,10 @@ public class SintacsisFunc{
         String stringReturn = null;
         
         if (searchEqual(sintacsis.getString(), PatternConst.CREATE_MATRIX).find()) {
-            System.out.println("YEAH!!!");
+            System.out.println("YEAH1!!!");
         }
         if (searchEqual(sintacsis.getString(), PatternConst.CREATE_NULL_MATRIX).find()) {
-            System.out.println("YEAH!!!");
+            System.out.println("YEAH2!!!");
         }
         
         return stringReturn;
