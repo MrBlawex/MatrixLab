@@ -3,13 +3,24 @@ package javafxmatrixlab;
 import java.io.IOException;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafxmatrixlab.JavaFXMatrixLab;
 
 public class ModalWindow {
-    public void newWindow(Parent root,String title,Boolean resizeble) throws IOException{        
+    JavaFXMatrixLab javaFXMatrixLab = new JavaFXMatrixLab();
+
+    /**
+     * Создание нового окна
+     * @param rootStage - ссылка на документ разметки
+     * @param title - название окна
+     * @param resizeble - изменение размера окна
+     * @throws IOException
+     */
+    public void newWindow(Parent rootStage,String title,Boolean resizeble) throws IOException{        
         int headpix = 50;
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(rootStage);
         
         Stage stage = new Stage();
 //        stage.setMinWidth(640);
@@ -20,5 +31,19 @@ public class ModalWindow {
         
         stage.setScene(scene);
         stage.show();
+    }
+    
+    /**
+     * Создание диалогового окна
+     * @param alertType - тип окна
+     * @param HeaderText - текст верхней части окна
+     * @param ContextText - текст оснвной части окна
+     */
+    public void newAlert(Alert.AlertType alertType,String HeaderText,String ContextText){
+        Alert alert = new Alert(alertType);
+        alert.setTitle(javaFXMatrixLab.nameProgram);
+        alert.setHeaderText(HeaderText);
+        alert.setContentText(ContextText);
+        alert.showAndWait();
     }
 }
