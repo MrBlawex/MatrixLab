@@ -58,6 +58,8 @@ public class homeMatrixLabController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        SintacsisFunc.PatternConst.initialize();
+        
         ObservableList<String> value = FXCollections.observableArrayList("hi","Bro");
         historyContainer.setItems(value);
     }    
