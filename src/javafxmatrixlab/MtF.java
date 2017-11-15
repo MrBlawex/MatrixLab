@@ -19,12 +19,12 @@ package javafxmatrixlab;
     - revS(A) возвращает матрицу -A (меняя исходную!)
 -------------------------------------
  */
-
 import java.io.*;
 import java.lang.*;
+import java.util.ArrayList;
 import java.util.Random;
-
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MtF {
 
@@ -32,6 +32,15 @@ public class MtF {
 
         private int n, m;
         private String name;
+
+        public Matrix(String name, String line) {
+            this.name = name;
+            
+            ArrayList<String> rowList = new ArrayList<>();
+            /* Тут нужно написать код который выдирает из line текст
+                который разделен знаком ';' и сует в rowList
+            */
+        }
 
         public Matrix(String name, int n, int m) {
             this.n = n;
@@ -93,7 +102,7 @@ public class MtF {
             this.m = n;
             this.name = "Ans";
         }
-        
+
         public void setName(String name) {
             this.name = name;
         }
@@ -160,18 +169,18 @@ public class MtF {
             }
             this.matrix = res;
         }
-        
+
         /*
         [21,32,45,21]
         [1.1,2;4.2,43]
         [4.3,2.1;533,123,41;55.3,21]
         Предавать в метод буду текст без квадратных скобок
         Нужно сделать и проверку количества заданных значений 
-        */
-        public void autoSetString(String numbersOnString){
-            
+         */
+        public void autoSetString(String numbersOnString) {
+            ;
         }
-        
+
         //перевод матрицы в строку
         public String toString(int length) {
             String str = "\t" + name + ":\n";
@@ -402,5 +411,39 @@ public class MtF {
         Matrix Res = new Matrix(1, K.getN());
 
         return Res;
+    }
+
+    //Работа с синтаксисом
+    //Возвращает массив(флоат) строки матрицы который потом нужно присваивать матрице  
+    public static float[] getRowFromSintacsis(String line) {
+        //Нужно реализовать считывание не только константных чисел а и переменных
+        ArrayList<Float> listOfNumber = new ArrayList<Float>();
+        String patternOnString = "[-]{0,1}[\\d]{0,}[\\056]{0,1}[\\d]{1,}";
+        int len = 0;
+        Pattern pattern = Pattern.compile(patternOnString);
+
+        boolean fl = true;
+        while (fl) {
+            Matcher m = pattern.matcher(line);
+            float bew = 0;
+            if (m.find()) {
+                bew = Float.valueOf(m.group(0));
+                listOfNumber.add(bew);
+                len++;
+                if (!line.isEmpty()) {
+                    line = line.substring(m.end());
+                }
+            } else {
+
+                fl = false;
+
+            }
+        }
+
+        float[] res = new float[len];
+        for (int i = 0; i < len; i++) {
+            res[i] = listOfNumber.get(i);
+        }
+        return res;
     }
 }
