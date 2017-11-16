@@ -56,8 +56,30 @@ public class MtF {
                     fl = false;
                 }
             }
+            boolean isTrue = true; 
+            nSize = rowList.size();
+            mSize = getRowFromSintacsis(rowList.get(0)).length;
+            for (int i = 1; i < nSize; i++) {
+                if (getRowFromSintacsis(rowList.get(i)).length != mSize) {
+                    //Тут блок кода если происходит ошибка в размерности матрицы                   
+                    
+                    
+                    isTrue = false;
+                    break;
+                }
+            }
+            float[][] res = new float[nSize][mSize];
             
-            this.n = rowList.size();
+            if (isTrue) {
+                for (int i = 0; i < nSize; i++) {
+                    res[i] = getRowFromSintacsis(rowList.get(i));
+                }
+            }
+            
+            
+            this.n = nSize;
+            this.m = mSize;
+            this.matrix = res;
         }
 
         public Matrix(String name, int n, int m) {

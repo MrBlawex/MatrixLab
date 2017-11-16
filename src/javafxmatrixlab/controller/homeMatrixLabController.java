@@ -62,14 +62,10 @@ public class homeMatrixLabController implements Initializable {
         PublicVar.listOfHistory.add("hi");
         historyContainer.setItems(PublicVar.listOfHistory);
         
-        MtF.Matrix A = new MtF.Matrix("A", 3,3);
-        A.autoSetIntFloat(10.50f, 2);
+        String command = "1,2,3.14,3;4,5,6;7,8,9";
+        MtF.Matrix A = new MtF.Matrix("A", command);
         PublicVar.OutputText = A.toString(2);
         textOut.setText(PublicVar.OutputText);
-        
-        String command = "1,2,4;42.4,42.15";
-        MtF.Matrix matrix = new MtF.Matrix("A", command);
-        
     }    
     
     @FXML
