@@ -192,36 +192,42 @@ public class SintacsisFunc {
             cout++;
         }
         
+        homeMatrixLabController hController = new homeMatrixLabController();
+        
         if (IndexOfExeptPattern == -1) {
+            
             stringReturn = formatStringForReturn(sintacsis.getString(), ErrorFunc.ErrorType.WRONG_FUNC_STRING);
+            
         }else if (IndexOfExeptPattern == 0) {//Создание матрицы
+            
             String nameMatrix = "";
             MtF.Matrix Matrix = null;
-            
-            homeMatrixLabController hController = new homeMatrixLabController();
-            
+              
             matcher = createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern));//Готовый матчер с паттерном
             try {
                 if (matcher.find()) {
                     Matrix = new MtF.Matrix(matcher.group(1), matcher.group(2));
-                    nameMatrix = "Matrix " + matcher.group(1);
+                    nameMatrix = matcher.group(1);
                 }
             }
             catch (Exception e) {
                 System.out.println("Неизвестная ошибка");
             }
 
-            homeMatrixLabController.PublicConst.DATA_BASE_MATRIX.put(nameMatrix, Matrix);
-            homeMatrixLabController.PublicConst.listOfHistory.add(nameMatrix);
+            homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.put(nameMatrix, Matrix);
+            homeMatrixLabController.PublicVar.listOfHistory.add(nameMatrix);
             
-            hController.refreshHistoryOfMatrix();
+//            hController.refreshHistoryOfMatrix();
             
-            stringReturn = formatStringForReturn(sintacsis.getString(),"Сработал шаблон под номером: " + IndexOfExeptPattern);
+            stringReturn = formatStringForReturn(sintacsis.getString(),Matrix.toString(2));
+            
         }else if (IndexOfExeptPattern == 1) {
          
+            
         
         }else if (IndexOfExeptPattern == 2) {
          
+            
         
         }else if (IndexOfExeptPattern == 3) {
          
@@ -281,7 +287,20 @@ public class SintacsisFunc {
          
         
         }else if (IndexOfExeptPattern == 22) {
-         
+            Float returnNum = 0f;
+            
+            matcher = createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern));//Готовый матчер с паттерном
+            
+            try {
+                if (matcher.find()) {
+                    returnNum = MtF.DetGauss(homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(1)));
+                }
+            }
+            catch (Exception e) {
+                System.out.println("Неизвестная ошибка");
+            }
+            
+            stringReturn = formatStringForReturn(sintacsis.getString(),"Ans = " + String.valueOf(returnNum));
         }
         
         return stringReturn;

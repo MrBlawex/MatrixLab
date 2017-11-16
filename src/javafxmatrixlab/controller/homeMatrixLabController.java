@@ -50,24 +50,22 @@ public class homeMatrixLabController implements Initializable {
     ErrorFunc errorFunc = new ErrorFunc();
      
     
-    public static class PublicConst{
+    public static class PublicVar{
         public static ObservableList<String> listOfHistory = FXCollections.observableArrayList();//Массив текста из истории
         public static HashMap<String, MtF.Matrix> DATA_BASE_MATRIX = new HashMap<String, MtF.Matrix>();
+        static String OutputText = "";//Текст из поля вывода
     }
-    
-    //Внутренние переменные
-    String OutputText = "";//Текст из поля вывода
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         SintacsisFunc.PatternConst.initialize();
-        ObservableList<String> value = FXCollections.observableArrayList("hi","Bro");
-        historyContainer.setItems(value);
+        PublicVar.listOfHistory.add("hi");
+        historyContainer.setItems(PublicVar.listOfHistory);
         
         MtF.Matrix A = new MtF.Matrix("A", 3,3);
         A.autoSetIntFloat(10.50f, 2);
-        OutputText = A.toString(2);
-        textOut.setText(OutputText);
+        PublicVar.OutputText = A.toString(2);
+        textOut.setText(PublicVar.OutputText);
         
         String command = "1,2,4;42.4,42.15";
         MtF.Matrix matrix = new MtF.Matrix("A", command);
@@ -79,9 +77,11 @@ public class homeMatrixLabController implements Initializable {
         SintacsisFunc.Sintacsis sintacsis = null;
         if (!homeTextField.getText().isEmpty()) {
             sintacsis = new SintacsisFunc.Sintacsis(homeTextField.getText());
-            OutputText += SintacsisFunc.readCommand(sintacsis);
-            textOut.setText(OutputText);
+            PublicVar.OutputText += SintacsisFunc.readCommand(sintacsis);
+            textOut.setText(PublicVar.OutputText);
         }
+        homeMatrixLabController.PublicVar.listOfHistory.add("dwawd");
+        homeTextField.setText("");
     }
 
     /**
@@ -89,7 +89,7 @@ public class homeMatrixLabController implements Initializable {
      */
     @FXML
     public void ClearArea() {
-        OutputText = "";
+        PublicVar.OutputText = "";
         textOut.setText("");
     }
     
@@ -125,7 +125,7 @@ public class homeMatrixLabController implements Initializable {
         }
     }
     
-    public void refreshHistoryOfMatrix(){
-        historyContainer.setItems(PublicConst.listOfHistory);
+    public void setNewVerList(){
+        PublicVar.listOfHistory.add("dwadwa");
     }
 }
