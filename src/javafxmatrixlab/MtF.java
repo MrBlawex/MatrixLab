@@ -37,9 +37,29 @@ public class MtF {
             this.name = name;
             
             ArrayList<String> rowList = new ArrayList<>();
-            /* Тут нужно написать код который выдирает из line текст
-                который разделен знаком ';' и сует в rowList
-            */
+            String patternString = "[[[-]{0,1}[\\d]{0,}[\\056]{0,1}[\\d]{1,}]{1,}[,]]{0,}[[-]{0,1}[\\d]{0,}[\\056]{0,1}[\\d]{1,}]{1,}";
+           
+            Pattern pattern = Pattern.compile(patternString);
+            
+            boolean fl = true;
+            while (fl) {
+                Matcher matcher = pattern.matcher(line);
+                if (matcher.find() && !line.isEmpty()) {
+                    try {
+                        System.out.println(matcher.group());
+                        rowList.add(matcher.group());
+                        line = line.substring(matcher.end());
+                    }
+                    catch (Exception e) {
+                        fl = false;
+                    }
+                }else{
+                    fl = false;
+                }
+            }
+            
+            this.n = rowList.size();
+            
         }
 
         public Matrix(String name, int n, int m) {

@@ -2,6 +2,7 @@ package javafxmatrixlab.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -9,7 +10,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
@@ -18,8 +18,8 @@ import javafx.scene.control.TextField;
 import javafxmatrixlab.ErrorFunc;
 import javafxmatrixlab.ErrorFunc.ErrorType;
 import javafxmatrixlab.ModalWindow;
-import javafxmatrixlab.MtF;
 import javafxmatrixlab.JavaFXMatrixLab;
+import javafxmatrixlab.MtF;
 import javafxmatrixlab.SintacsisFunc;
 
 
@@ -49,9 +49,11 @@ public class homeMatrixLabController implements Initializable {
     ModalWindow modalWindow = new ModalWindow();
     ErrorFunc errorFunc = new ErrorFunc();
      
-    //Глобальные переменные
-    ObservableList<String> listOfHistory = FXCollections.observableArrayList();//Массив текста из истории
     
+    public static class PublicConst{
+        public static ObservableList<String> listOfHistory = FXCollections.observableArrayList();//Массив текста из истории
+        public static HashMap<String, MtF.Matrix> DATA_BASE_MATRIX = new HashMap<String, MtF.Matrix>();
+    }
     
     //Внутренние переменные
     String OutputText = "";//Текст из поля вывода
@@ -59,18 +61,23 @@ public class homeMatrixLabController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         SintacsisFunc.PatternConst.initialize();
-        
         ObservableList<String> value = FXCollections.observableArrayList("hi","Bro");
         historyContainer.setItems(value);
+        
+        
+        String command = "1,2,4;42.4,42.15";
+        MtF.Matrix matrix = new MtF.Matrix("A", command);
+        
     }    
     
     @FXML
     public void readCommand(){
         SintacsisFunc.Sintacsis sintacsis = null;
-        if (homeTextField.getText() != "") {
+        if (!homeTextField.getText().isEmpty()) {
             sintacsis = new SintacsisFunc.Sintacsis(homeTextField.getText());
+            OutputText += SintacsisFunc.readCommand(sintacsis);
+            textOut.setText(OutputText);
         }
-        OutputText += SintacsisFunc.readCommand(sintacsis);
     }
 
     /**
@@ -112,5 +119,9 @@ public class homeMatrixLabController implements Initializable {
         }else{
             modalWindow.newAlert(AlertType.ERROR, null, "Вы не выбрали матрицу в таблице которую хотите удалить");
         }
+    }
+    
+    public void refreshHistoryOfMatrix(){
+        historyContainer.setItems(PublicConst.listOfHistory);
     }
 }

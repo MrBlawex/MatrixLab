@@ -5,6 +5,7 @@ import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 import javafxmatrixlab.MtF;
 import javafxmatrixlab.controller.createMatrixController;
+import javafxmatrixlab.controller.homeMatrixLabController;
 
 public class SintacsisFunc {
 
@@ -33,7 +34,7 @@ public class SintacsisFunc {
         /**
          * Создание матрицы в строке
          */
-        public static final String CREATE_MATRIX = "^[\\s]{0,}([A-Za-z][A-Za-z0-9]{0,2})[\\s]{0,}[=][\\s]{0,}[\\x5B]([[[\\d]{0,}[\\056]{0,1}[\\d]{1,}[,]]{0,}[\\d]{0,}[\\056]{0,1}[\\d]{1,}[;]]{0,}[[\\d]{0,}[\\056]{0,1}[\\d]{1,}[,]]{0,}[\\d]{0,}[\\056]{0,1}[\\d]{1,})[\\x5D]";
+        public static final String CREATE_MATRIX = "^[\\s]{0,}([A-Za-z][A-Za-z0-9]{0,2})[\\s]{0,}[=][\\s]{0,}[\\x5B]([[[-]{0,1}[\\d]{0,}[\\056]{0,1}[\\d]{1,}[,]]{0,}[-]{0,1}[\\d]{0,}[\\056]{0,1}[\\d]{1,}[;]]{0,}[[-]{0,1}[\\d]{0,}[\\056]{0,1}[\\d]{1,}[,]]{0,}[-]{0,1}[\\d]{0,}[\\056]{0,1}[\\d]{1,})[\\x5D]";
         /**
          * Создание нулевой матрицы
          */
@@ -57,7 +58,7 @@ public class SintacsisFunc {
         /**
          * Создание клонированной матрицы
          */
-        public static final String CREATE_CLONE_MATRIX = "([A-Za-z][A-Za-z0-9]{0,2})[\\s]{0,}[=][\\s]{0,}([A-Za-z][A-Za-z0-9]{0,2})";
+        public static final String CREATE_CLONE_MATRIX = "^([A-Za-z][A-Za-z0-9]{0,2})[\\s]{0,}[=][\\s]{0,}([A-Za-z][A-Za-z0-9]{0,2})";
         /**
          * Поиск функции транспорации
          */
@@ -127,7 +128,7 @@ public class SintacsisFunc {
         /**
          * Поиск ее значений(Любое число)
          */
-        public static final String SEARCH_ELEMENTS_MATRIX = "[\\d]{0,}[\\056]{0,1}[\\d]{1,}";
+        public static final String SEARCH_ELEMENTS_MATRIX = "[-]{0,1}[\\d]{0,}[\\056]{0,1}[\\d]{1,}";
 
         /**
          * HashMap представление констант
@@ -166,13 +167,13 @@ public class SintacsisFunc {
         String stringReturn = null;
         
         Matcher matcher;
-                
+        
         int cout = 0;
-        Integer IndexOfExeptPattern = 0;
+        Integer IndexOfExeptPattern = -1;
         while (cout < PatternConst.PATTERN_CONST_HASHMAP.size()) {
             if (createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(cout)).find()) {
                 IndexOfExeptPattern = cout;
-                System.out.println(cout + " -> " + PatternConst.PATTERN_CONST_HASHMAP.get(cout));
+//                System.out.println(cout + " -> " + PatternConst.PATTERN_CONST_HASHMAP.get(cout));
                 matcher = createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(cout));
                 if (matcher.find()) {
                     boolean fl = true;
@@ -191,8 +192,96 @@ public class SintacsisFunc {
             cout++;
         }
         
-        if (IndexOfExeptPattern == 0) {
-            stringReturn = ErrorFunc.ErrorType.WRONG_FUNC_STRING;
+        if (IndexOfExeptPattern == -1) {
+            stringReturn = formatStringForReturn(sintacsis.getString(), ErrorFunc.ErrorType.WRONG_FUNC_STRING);
+        }else if (IndexOfExeptPattern == 0) {//Создание матрицы
+            String nameMatrix = "";
+            MtF.Matrix Matrix = null;
+            
+            homeMatrixLabController hController = new homeMatrixLabController();
+            
+            matcher = createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern));//Готовый матчер с паттерном
+            try {
+                if (matcher.find()) {
+                    Matrix = new MtF.Matrix(matcher.group(1), matcher.group(2));
+                    nameMatrix = "Matrix " + matcher.group(1);
+                }
+            }
+            catch (Exception e) {
+                System.out.println("Неизвестная ошибка");
+            }
+
+            homeMatrixLabController.PublicConst.DATA_BASE_MATRIX.put(nameMatrix, Matrix);
+            homeMatrixLabController.PublicConst.listOfHistory.add(nameMatrix);
+            
+            hController.refreshHistoryOfMatrix();
+            
+            stringReturn = formatStringForReturn(sintacsis.getString(),"Сработал шаблон под номером: " + IndexOfExeptPattern);
+        }else if (IndexOfExeptPattern == 1) {
+         
+        
+        }else if (IndexOfExeptPattern == 2) {
+         
+        
+        }else if (IndexOfExeptPattern == 3) {
+         
+        
+        }else if (IndexOfExeptPattern == 4) {
+         
+        
+        }else if (IndexOfExeptPattern == 5) {
+         
+        
+        }else if (IndexOfExeptPattern == 6) {
+         
+        
+        }else if (IndexOfExeptPattern == 7) {
+         
+        
+        }else if (IndexOfExeptPattern == 8) {
+         
+        
+        }else if (IndexOfExeptPattern == 9) {
+         
+        
+        }else if (IndexOfExeptPattern == 10) {
+         
+        
+        }else if (IndexOfExeptPattern == 11) {
+         
+        
+        }else if (IndexOfExeptPattern == 12) {
+         
+        
+        }else if (IndexOfExeptPattern == 13) {
+         
+        
+        }else if (IndexOfExeptPattern == 14) {
+         
+        
+        }else if (IndexOfExeptPattern == 15) {
+         
+        
+        }else if (IndexOfExeptPattern == 16) {
+         
+        
+        }else if (IndexOfExeptPattern == 17) {
+         
+        
+        }else if (IndexOfExeptPattern == 18) {
+         
+        
+        }else if (IndexOfExeptPattern == 19) {
+         
+        
+        }else if (IndexOfExeptPattern == 20) {
+         
+        
+        }else if (IndexOfExeptPattern == 21) {
+         
+        
+        }else if (IndexOfExeptPattern == 22) {
+         
         }
         
         return stringReturn;
@@ -203,5 +292,13 @@ public class SintacsisFunc {
         Matcher matcher = pattern.matcher(commandOnString);
 
         return matcher;
+    }
+    
+    public static String formatStringForReturn(String commandOnString,String result){
+        String res = null;
+        
+        res = ">> " + commandOnString + "\n" +  result + "\n";
+        
+        return res;
     }
 }
