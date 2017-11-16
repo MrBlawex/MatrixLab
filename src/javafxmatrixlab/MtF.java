@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javafxmatrixlab.controller.homeMatrixLabController;
 
 public class MtF {
 
@@ -30,53 +31,54 @@ public class MtF {
 
         private int n, m;
         private String name;
-        
+        boolean isRight = true;
+
         public Matrix(String name, String line) {
+            homeMatrixLabController hController = new homeMatrixLabController();
+
             this.name = name;
             int nSize = 0, mSize = 0;
             ArrayList<String> rowList = new ArrayList<>();
-            
+
             String patternString = "[[[-]{0,1}[\\d]{0,}[\\056]{0,1}[\\d]{1,}]{1,}[,]]{0,}[[-]{0,1}[\\d]{0,}[\\056]{0,1}[\\d]{1,}]{1,}";
-           
+
             Pattern pattern = Pattern.compile(patternString);
-            
+
             boolean fl = true;
             while (fl) {
                 Matcher matcher = pattern.matcher(line);
                 if (matcher.find() && !line.isEmpty()) {
                     try {
-                        System.out.println(matcher.group());
                         rowList.add(matcher.group());
                         line = line.substring(matcher.end());
-                    }
-                    catch (Exception e) {
+                    } catch (Exception e) {
                         fl = false;
                     }
-                }else{
+                } else {
                     fl = false;
                 }
             }
-            boolean isTrue = true; 
+            boolean isTrue = true;
             nSize = rowList.size();
             mSize = getRowFromSintacsis(rowList.get(0)).length;
             for (int i = 1; i < nSize; i++) {
                 if (getRowFromSintacsis(rowList.get(i)).length != mSize) {
-                    //Тут блок кода если происходит ошибка в размерности матрицы                   
-                    
-                    
+                    // hController.printError(ErrorFunc.ErrorType.WRONG_NAME);
+                    System.out.println("Ошибка размерности матрицы (не делай так!)");
                     isTrue = false;
                     break;
                 }
             }
             float[][] res = new float[nSize][mSize];
-            
+
             if (isTrue) {
                 for (int i = 0; i < nSize; i++) {
                     res[i] = getRowFromSintacsis(rowList.get(i));
                 }
+            } else {
+                isRight = false;
             }
-            
-            
+
             this.n = nSize;
             this.m = mSize;
             this.matrix = res;
@@ -118,6 +120,14 @@ public class MtF {
             this.name = "";
         }
 
+        //конструктор копирования другой матрицы
+        public Matrix(Matrix M) {
+            this.n = M.getN();
+            this.m = M.getM();
+            this.name = "Ans";
+            this.matrix = M.matrix;
+        }
+
         //Создание матрицы после создания экземпляра
         public void setMatrix(int n, int m) {
             float[][] res = new float[n][m];
@@ -153,14 +163,6 @@ public class MtF {
 
         float[][] matrix = new float[n][m];
 
-        //конструктор копирования другой матрицы
-        public Matrix(Matrix M) {
-            this.n = M.getN();
-            this.m = M.getM();
-            this.name = "Ans";
-            this.matrix = M.matrix;
-        }
-
         //заполнение матрицы целыми числами
         public void autoSetInt(int range) {
             float[][] res = new float[n][m];
@@ -189,7 +191,7 @@ public class MtF {
             float[][] res = new float[n][m];
             for (int i = 0; i < n; i++) {
                 for (int j = 0; j < m; j++) {
-                    int rand = (int) Math.round(Math.random()); 
+                    int rand = (int) Math.round(Math.random());
                     float buffer;
                     switch (rand) {
                         case 0:
@@ -197,9 +199,9 @@ public class MtF {
                             res[i][j] = buffer;
                             break;
                         case 1:
-                            buffer = (float)((Math.random() * range * 2) - range);
-                            buffer = Math.round((buffer * (10*digit)) );
-                            buffer /= 10*digit;
+                            buffer = (float) ((Math.random() * range * 2) - range);
+                            buffer = Math.round((buffer * (10 * digit)));
+                            buffer /= 10 * digit;
                             res[i][j] = buffer;
                             break;
                     }
@@ -208,31 +210,24 @@ public class MtF {
             this.matrix = res;
         }
 
-        /*
-        [21,32,45,21]
-        [1.1,2;4.2,43]
-        [4.3,2.1;533,123,41;55.3,21]
-        Предавать в метод буду текст без квадратных скобок
-        Нужно сделать и проверку количества заданных значений 
-         */
-        public void autoSetString(String numbersOnString) {
-            ;
-        }
-
         //перевод матрицы в строку
         public String toString(int length) {
             String str = "\t" + name + ":\n";
             String lth = "%." + length + "f";
             float[][] matr = this.matrix;
-            for (int i = 0; i < n; i++) {
-                for (int j = 0; j < m; j++) {
-                    if (matr[i][j] == Math.round(matr[i][j])) {
-                        str += "\t" + String.valueOf((int) matr[i][j]);
-                    } else {
-                        str += "\t" + String.format(lth, matr[i][j]);
+            if (isRight) {
+                for (int i = 0; i < n; i++) {
+                    for (int j = 0; j < m; j++) {
+                        if (matr[i][j] == Math.round(matr[i][j])) {
+                            str += "\t" + String.valueOf((int) matr[i][j]);
+                        } else {
+                            str += "\t" + String.format(lth, matr[i][j]);
+                        }
                     }
+                    str += "\n";
                 }
-                str += "\n";
+            } else {
+                str = ">> Неверная размерность матрицы";
             }
             return str;
         }
@@ -448,7 +443,7 @@ public class MtF {
     public static Matrix equationKramar(Matrix K, Matrix X) {
         Matrix Res = new Matrix(1, K.getN());
         float det = DetGauss(K);
-        
+
         return Res;
     }
 

@@ -196,7 +196,7 @@ public class SintacsisFunc {
         
         if (IndexOfExeptPattern == -1) {
             
-            stringReturn = formatStringForReturn(sintacsis.getString(), ErrorFunc.ErrorType.WRONG_FUNC_STRING);
+            stringReturn = formatStringForReturn(sintacsis.getString(), ErrorFunc.returnError(ErrorFunc.ErrorType.WRONG_FUNC));
             
         }else if (IndexOfExeptPattern == 0) {//Создание матрицы
             
