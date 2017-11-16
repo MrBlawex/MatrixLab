@@ -62,6 +62,11 @@ public class homeMatrixLabController implements Initializable {
         
         ObservableList<String> value = FXCollections.observableArrayList("hi","Bro");
         historyContainer.setItems(value);
+        
+        MtF.Matrix A = new MtF.Matrix("A", 3,3);
+        A.autoSetIntFloat(10.50f, 2);
+        OutputText = A.toString(2);
+        textOut.setText(OutputText);
     }    
     
     @FXML

@@ -19,8 +19,6 @@ package javafxmatrixlab;
     - revS(A) возвращает матрицу -A (меняя исходную!)
 -------------------------------------
  */
-import java.io.*;
-import java.lang.*;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.regex.Matcher;
@@ -32,14 +30,17 @@ public class MtF {
 
         private int n, m;
         private String name;
-
+        
         public Matrix(String name, String line) {
             this.name = name;
-            
+            int nSize = 0, mSize = 0;
             ArrayList<String> rowList = new ArrayList<>();
             /* Тут нужно написать код который выдирает из line текст
                 который разделен знаком ';' и сует в rowList
             */
+            
+            
+            
         }
 
         public Matrix(String name, int n, int m) {
@@ -79,14 +80,6 @@ public class MtF {
         }
 
         //Создание матрицы после создания экземпляра
-        public void setMatrix(String name, int n, int m) {
-            float[][] res = new float[n][m];
-            this.matrix = res;
-            this.n = n;
-            this.m = m;
-            this.name = name;
-        }
-
         public void setMatrix(int n, int m) {
             float[][] res = new float[n][m];
             this.matrix = res;
@@ -152,17 +145,23 @@ public class MtF {
         }
 
         //заполнение матрицы и целыми и вещественными числами - не сделано
-        public void autoSetIntFloat(float range) {
+        public void autoSetIntFloat(float range, int digit) {
             Random random = new Random();
             float[][] res = new float[n][m];
             for (int i = 0; i < n; i++) {
                 for (int j = 0; j < m; j++) {
-                    switch ((int) Math.round(Math.random())) {
+                    int rand = (int) Math.round(Math.random()); 
+                    float buffer;
+                    switch (rand) {
                         case 0:
-                            res[i][j] = (float) Math.round(Math.random() * range * 2) - range;
+                            buffer = Math.round(Math.random() * range * 2 - range);
+                            res[i][j] = buffer;
                             break;
                         case 1:
-                            res[i][j] = (float) (Math.random() * range * 2) - range;
+                            buffer = (float)((Math.random() * range * 2) - range);
+                            buffer = Math.round((buffer * (10*digit)) );
+                            buffer /= 10*digit;
+                            res[i][j] = buffer;
                             break;
                     }
                 }
@@ -409,7 +408,8 @@ public class MtF {
     //Решение СЛАУ методом Крамера - не готово ---------------------------------
     public static Matrix equationKramar(Matrix K, Matrix X) {
         Matrix Res = new Matrix(1, K.getN());
-
+        float det = DetGauss(K);
+        
         return Res;
     }
 
@@ -417,7 +417,7 @@ public class MtF {
     //Возвращает массив(флоат) строки матрицы который потом нужно присваивать матрице  
     public static float[] getRowFromSintacsis(String line) {
         //Нужно реализовать считывание не только константных чисел а и переменных
-        ArrayList<Float> listOfNumber = new ArrayList<Float>();
+        ArrayList<Float> listOfNumber = new ArrayList<>();
         String patternOnString = "[-]{0,1}[\\d]{0,}[\\056]{0,1}[\\d]{1,}";
         int len = 0;
         Pattern pattern = Pattern.compile(patternOnString);
@@ -425,10 +425,10 @@ public class MtF {
         boolean fl = true;
         while (fl) {
             Matcher m = pattern.matcher(line);
-            float bew = 0;
+            float buff;
             if (m.find()) {
-                bew = Float.valueOf(m.group(0));
-                listOfNumber.add(bew);
+                buff = Float.valueOf(m.group(0));
+                listOfNumber.add(buff);
                 len++;
                 if (!line.isEmpty()) {
                     line = line.substring(m.end());
