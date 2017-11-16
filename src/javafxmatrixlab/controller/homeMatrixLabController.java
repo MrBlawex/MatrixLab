@@ -35,7 +35,7 @@ public class homeMatrixLabController implements Initializable {
     private Button btn_remove;
 
     @FXML
-    private TextArea textOut;
+    public TextArea textOut;
     
     @FXML
     private TextField homeTextField;
@@ -61,8 +61,8 @@ public class homeMatrixLabController implements Initializable {
         SintacsisFunc.PatternConst.initialize();
         PublicVar.listOfHistory.add("hi");
         historyContainer.setItems(PublicVar.listOfHistory);
-        
-        String command = "1,2,3.14,3;4,5,6;7,8,9";
+        printError(ErrorType.WRONG_NAME);
+        String command = "13,2,3.14,3;4,5,6;7,8,9;10,11,12";
         MtF.Matrix A = new MtF.Matrix("A", command);
         PublicVar.OutputText = A.toString(2);
         textOut.setText(PublicVar.OutputText);
@@ -87,6 +87,10 @@ public class homeMatrixLabController implements Initializable {
     public void ClearArea() {
         PublicVar.OutputText = "";
         textOut.setText("");
+    }
+    
+    public void refresh(String newText) {
+        textOut.setText(newText);
     }
     
     /**
@@ -124,4 +128,12 @@ public class homeMatrixLabController implements Initializable {
     public void setNewVerList(){
         PublicVar.listOfHistory.add("dwadwa");
     }
+    
+    public void printError(ErrorType errorType) {
+        PublicVar.OutputText += "\n" + ErrorFunc.returnError(errorType);
+        refresh(PublicVar.OutputText);
+    }
+    
+    
+    
 }

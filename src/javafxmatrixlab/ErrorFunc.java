@@ -1,28 +1,39 @@
 package javafxmatrixlab;
 
 public class ErrorFunc {
-    
-    public static class ErrorType{
+
+    public static enum ErrorType {
 
         /**
-         * Возвращает константу
+         * Неправильное имя
          */
-        public static final String WRONG_NAME_STRING = "Неправильное имя";
-
+        WRONG_NAME,
         /**
-         * Возвращает константу
+         * Неправильный ввод данных
          */
-        public static final String WRONG_ITEM_STRING = "Неправильный ввод значений матрицы";
-
+        WRONG_ITEM,
         /**
-         * Возвращает константу
+         * Неверная функция
          */
-        public static final String WRONG_FUNC_STRING = "Функция отсутствует или неправильно введена";
-
+        WRONG_FUNC,
         /**
-         * Возвращает константу
+         * Неправильный размер
          */
-        public static final String WRONG_SIZE_STRING = "Размеры матриц не совпадают";
+        WRONG_SIZE
     }
-    
+
+    public static String returnError(ErrorType errorType) {
+        switch (errorType) {
+            case WRONG_FUNC:
+                return "Неправильная функция";
+            case WRONG_ITEM:
+                return "Неправильные данные";
+            case WRONG_NAME:
+                return "Неправильное имя";
+            case WRONG_SIZE:
+                return "Неверная размерность матрицы";
+        }
+        return null;
+    }
+
 }
