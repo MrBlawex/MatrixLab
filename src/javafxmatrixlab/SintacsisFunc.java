@@ -76,7 +76,7 @@ public class SintacsisFunc {
          */
         public static final String FUNC_TG_MATRIX = "^tg[(]([A-Za-z][A-Za-z0-9]{0,2})[)]";
         /**
-         * Катангенс от каждого элемента
+         * Котангенс от каждого элемента
          */
         public static final String FUNC_CTG_MATRIX = "^ctg[(]([A-Za-z][A-Za-z0-9]{0,2})[)]";
         /**

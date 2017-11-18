@@ -51,20 +51,22 @@ public class homeMatrixLabController implements Initializable {
      
     
     public static class PublicVar{
-        public static ObservableList<String> listOfHistory = FXCollections.observableArrayList();//Массив текста из истории
+        public static ObservableList<String> listOfHistory = FXCollections.observableArrayList(); //Массив текста из истории
         public static HashMap<String, MtF.Matrix> DATA_BASE_MATRIX = new HashMap<String, MtF.Matrix>();
-        static String OutputText = "";//Текст из поля вывода
+        static String OutputText = ""; //Текст из поля вывода
+        public int countOfDigits = 2;
     }
-    
+     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         SintacsisFunc.PatternConst.initialize();
-        PublicVar.listOfHistory.add("hi");
+        PublicVar.listOfHistory.add("StartItem");
         historyContainer.setItems(PublicVar.listOfHistory);
-        printError(ErrorType.WRONG_NAME);
-        String command = "13,2,3.14,3;4,5,6;7,8,9;10,11,12";
-        MtF.Matrix A = new MtF.Matrix("A", command);
-        PublicVar.OutputText = A.toString(2);
+        MtF.Matrix A = new MtF.Matrix("A",4,4);
+        A.autoSetInt(10);
+        PublicVar.OutputText += A.toString(2);
+        MtF.Matrix revA = MtF.ReversMatrix(A);
+        PublicVar.OutputText += revA.toString(4);
         textOut.setText(PublicVar.OutputText);
     }    
     
@@ -76,7 +78,6 @@ public class homeMatrixLabController implements Initializable {
             PublicVar.OutputText += SintacsisFunc.readCommand(sintacsis);
             textOut.setText(PublicVar.OutputText);
         }
-        homeMatrixLabController.PublicVar.listOfHistory.add("dwawd");
         homeTextField.setText("");
     }
 
@@ -88,11 +89,7 @@ public class homeMatrixLabController implements Initializable {
         PublicVar.OutputText = "";
         textOut.setText("");
     }
-    
-    public void refresh(String newText) {
-        textOut.setText(newText);
-    }
-    
+
     /**
      * Создает окно добавления матрицы
      * @throws IOException
@@ -128,12 +125,4 @@ public class homeMatrixLabController implements Initializable {
     public void setNewVerList(){
         PublicVar.listOfHistory.add("dwadwa");
     }
-    
-    public void printError(ErrorType errorType) {
-        PublicVar.OutputText += "\n" + ErrorFunc.returnError(errorType);
-        refresh(PublicVar.OutputText);
-    }
-    
-    
-    
 }

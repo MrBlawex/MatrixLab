@@ -31,8 +31,22 @@ public class MtF {
 
         private int n, m;
         private String name;
-        boolean isRight = true;
+        //Работа с ошибками
+        private String idError = null;
 
+        public void isWrong(String id) {
+            this.idError = id;
+        }
+
+        public void isRight() {
+            this.idError = null;
+        }
+
+        public String getIdError() {
+            return this.idError;
+        }
+
+        // Конструкторы
         public Matrix(String name, String line) {
             homeMatrixLabController hController = new homeMatrixLabController();
 
@@ -64,7 +78,6 @@ public class MtF {
             for (int i = 1; i < nSize; i++) {
                 if (getRowFromSintacsis(rowList.get(i)).length != mSize) {
                     // hController.printError(ErrorFunc.ErrorType.WRONG_NAME);
-                    System.out.println("Ошибка размерности матрицы (не делай так!)");
                     isTrue = false;
                     break;
                 }
@@ -76,7 +89,7 @@ public class MtF {
                     res[i] = getRowFromSintacsis(rowList.get(i));
                 }
             } else {
-                isRight = false;
+                idError = ">> Неверная размерность";
             }
 
             this.n = nSize;
@@ -145,6 +158,7 @@ public class MtF {
             this.name = "Ans";
         }
 
+        // Сеттеры и геттеры
         public void setName(String name) {
             this.name = name;
         }
@@ -185,7 +199,7 @@ public class MtF {
             this.matrix = res;
         }
 
-        //заполнение матрицы и целыми и вещественными числами - не сделано
+        //заполнение матрицы и целыми и вещественными числами
         public void autoSetIntFloat(float range, int digit) {
             Random random = new Random();
             float[][] res = new float[n][m];
@@ -212,28 +226,28 @@ public class MtF {
 
         //перевод матрицы в строку
         public String toString(int length) {
-            String str = "\t" + name + ":\n";
+            String result = "\t" + name + ":\n";
             String lth = "%." + length + "f";
             float[][] matr = this.matrix;
-            if (isRight) {
+            if (idError == null) {
                 for (int i = 0; i < n; i++) {
                     for (int j = 0; j < m; j++) {
                         if (matr[i][j] == Math.round(matr[i][j])) {
-                            str += "\t" + String.valueOf((int) matr[i][j]);
+                            result += "\t" + String.valueOf((int) matr[i][j]);
                         } else {
-                            str += "\t" + String.format(lth, matr[i][j]);
+                            result += "\t" + String.format(lth, matr[i][j]);
                         }
                     }
-                    str += "\n";
+                    result += "\n";
                 }
             } else {
-                str = ">> Неверная размерность матрицы";
+                result = this.idError;
             }
-            return str;
+            return result;
         }
     }
 
-    //Конец класса ------------------------------------------
+    //---------- КОНЕЦ КЛАССА --------------------------------------------------
     //Сумма матриц
     public static Matrix SumMatrix(Matrix A, Matrix B) {
         Matrix Res = new Matrix(A);
@@ -296,10 +310,12 @@ public class MtF {
     //Поэлементное умножение матрицы
     public static Matrix MultMatrixEl(float k, Matrix A) {
         Matrix Res = new Matrix(A.getN(), A.getM());
+
         float[][] res = new float[A.getN()][A.getM()];
+
         for (int i = 0; i < A.getN(); i++) {
-            for (int j = 0; i < A.getM(); j++) {
-                Res.matrix[i][j] = A.matrix[i][j] * k;
+            for (int j = 0; j < A.getM(); j++) {
+                res[i][j] = A.matrix[i][j] * k;
             }
         }
         Res.matrix = res;
@@ -320,7 +336,6 @@ public class MtF {
         final float E = 0.000001f;
         float det = 1, s;
         int n = M.getM(), k;
-
         float[][] Mt = new float[n][n];
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
@@ -419,10 +434,15 @@ public class MtF {
         return range;
     }
 
-    //Обратная матрица - не готово ---------------------------------------------
+    //Обратная матрица
     public static Matrix ReversMatrix(Matrix M) {
         Matrix Res = new Matrix(M.getN(), M.getM());
-
+        float det = DetGauss(M);
+        if (det == 0) {
+            Res.isWrong(">> Обратной матрицы не существует! определитель = 0");
+        } else {
+            Res = MultMatrixEl(1 / det, TranspMatrix(M));
+        }
         return Res;
     }
 
@@ -433,7 +453,7 @@ public class MtF {
         for (int i = 0; i < M.getM(); i++) {
             for (int j = 0; j < M.getN(); j++) {
                 res[i][j] = M.matrix[j][i];
-            } //10937/226
+            }
         }
         Res.matrix = res;
         return Res;
