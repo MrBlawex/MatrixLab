@@ -89,7 +89,7 @@ public class MtF {
                     res[i] = getRowFromSintacsis(rowList.get(i));
                 }
             } else {
-                idError = ">> Неверная размерность";
+                this.idError = ">> Неверная размерность";
             }
 
             this.n = nSize;

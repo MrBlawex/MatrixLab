@@ -53,13 +53,16 @@ public class homeMatrixLabController implements Initializable {
     public static class PublicVar{
         public static ObservableList<String> listOfHistory = FXCollections.observableArrayList(); //Массив текста из истории
         public static HashMap<String, MtF.Matrix> DATA_BASE_MATRIX = new HashMap<String, MtF.Matrix>();
-        static String OutputText = ""; //Текст из поля вывода
-        public int countOfDigits = 2;
+        public static String OutputText = ""; //Текст из поля вывода
+        public static String oldOutputText = "";//Сохраняет старый текст для возможности его восстановления
+        public static Integer countOfDigits = 2;
     }
      
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         SintacsisFunc.PatternConst.initialize();
+        
+        //Для тестов
         PublicVar.listOfHistory.add("StartItem");
         historyContainer.setItems(PublicVar.listOfHistory);
         MtF.Matrix A = new MtF.Matrix("A",4,4);
@@ -86,8 +89,28 @@ public class homeMatrixLabController implements Initializable {
      */
     @FXML
     public void ClearArea() {
-        PublicVar.OutputText = "";
-        textOut.setText("");
+        if (!PublicVar.OutputText.isEmpty()) {
+            PublicVar.oldOutputText = PublicVar.OutputText;
+            PublicVar.OutputText = "";
+            textOut.setText("");
+        }
+        else {
+            modalWindow.newAlert(AlertType.INFORMATION, null, "Окно не нуждается в очистке, так как оно не имеет текста");
+        }
+    }
+    /**
+     * Возвращает старое окно вывода
+     */
+    @FXML
+    public void getOldArea() {
+        if (!PublicVar.oldOutputText.isEmpty()) {
+            PublicVar.OutputText = PublicVar.oldOutputText;
+            PublicVar.oldOutputText = "";
+            textOut.setText(PublicVar.OutputText);
+        }
+        else {
+            modalWindow.newAlert(AlertType.INFORMATION, null, "Старой версии текста не существует, так как не было проведено очистки окна");
+        }
     }
 
     /**
@@ -116,13 +139,11 @@ public class homeMatrixLabController implements Initializable {
     @FXML
     public void deleteMatrix() { 
         if (historyContainer.getSelectionModel().getSelectedIndex() != -1) {
+            PublicVar.DATA_BASE_MATRIX.remove(historyContainer.getSelectionModel().getSelectedItem());
             historyContainer.getItems().remove(historyContainer.getSelectionModel().getSelectedIndex());
         }else{
             modalWindow.newAlert(AlertType.ERROR, null, "Вы не выбрали матрицу в таблице которую хотите удалить");
         }
     }
     
-    public void setNewVerList(){
-        PublicVar.listOfHistory.add("dwadwa");
-    }
 }

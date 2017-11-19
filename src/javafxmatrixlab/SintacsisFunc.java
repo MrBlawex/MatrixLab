@@ -34,7 +34,7 @@ public class SintacsisFunc {
         /**
          * Создание матрицы в строке
          */
-        public static final String CREATE_MATRIX = "^[\\s]{0,}([A-Za-z][A-Za-z0-9]{0,2})[\\s]{0,}[=][\\s]{0,}[\\x5B]([[[-]{0,1}[\\d]{0,}[\\056]{0,1}[\\d]{1,}[,]]{0,}[-]{0,1}[\\d]{0,}[\\056]{0,1}[\\d]{1,}[;]]{0,}[[-]{0,1}[\\d]{0,}[\\056]{0,1}[\\d]{1,}[,]]{0,}[-]{0,1}[\\d]{0,}[\\056]{0,1}[\\d]{1,})[\\x5D]";
+        public static final String CREATE_MATRIX = "^[\\s]{0,}([A-Za-z][A-Za-z0-9]{0,7})[\\s]{0,}[=][\\s]{0,}[\\x5B]([[[-]{0,1}[\\d]{0,}[\\056]{0,1}[\\d]{1,}[,]]{0,}[-]{0,1}[\\d]{0,}[\\056]{0,1}[\\d]{1,}[;]]{0,}[[-]{0,1}[\\d]{0,}[\\056]{0,1}[\\d]{1,}[,]]{0,}[-]{0,1}[\\d]{0,}[\\056]{0,1}[\\d]{1,})[\\x5D]";
         /**
          * Создание нулевой матрицы
          */
@@ -46,7 +46,7 @@ public class SintacsisFunc {
         /**
          * Создание матрицы с нулями кроме диагонали
          */
-        public static final String CREATE_DIAG_MATRIX = "^diag[(]([A-Za-z][A-Za-z0-9]{0,2})[)]";
+        public static final String CREATE_DIAG_MATRIX = "^diag[(]([A-Za-z][A-Za-z0-9]{0,7})[)]";
         /**
          * Создание единичной матрицы
          */
@@ -54,77 +54,77 @@ public class SintacsisFunc {
         /**
          * Создание инвертированной матрицы
          */
-        public static final String CREATE_INV_MATRIX = "^inv[(]([A-Za-z][A-Za-z0-9]{0,2})[)]";
+        public static final String CREATE_INV_MATRIX = "^inv[(]([A-Za-z][A-Za-z0-9]{0,7})[)]";
         /**
          * Создание клонированной матрицы
          */
-        public static final String CREATE_CLONE_MATRIX = "^([A-Za-z][A-Za-z0-9]{0,2})[\\s]{0,}[=][\\s]{0,}([A-Za-z][A-Za-z0-9]{0,2})";
+        public static final String CREATE_CLONE_MATRIX = "^([A-Za-z][A-Za-z0-9]{0,7})[\\s]{0,}[=][\\s]{0,}([A-Za-z][A-Za-z0-9]{0,7})";
         /**
          * Поиск функции транспорации
          */
-        public static final String FUNC_TRANSPORATION = "[A-Za-z][A-Za-z0-9]{0,2}[\\x27]";
+        public static final String FUNC_TRANSPORATION = "[A-Za-z][A-Za-z0-9]{0,7}[\\x27]";
         /**
          * Синус от каждого элемента
          */
-        public static final String FUNC_SIN_MATRIX = "^sin[(]([A-Za-z][A-Za-z0-9]{0,2})[)]";
+        public static final String FUNC_SIN_MATRIX = "^sin[(]([A-Za-z][A-Za-z0-9]{0,7})[)]";
         /**
          * Косинус от каждого элемента
          */
-        public static final String FUNC_COS_MATRIX = "^cos[(]([A-Za-z][A-Za-z0-9]{0,2})[)]";
+        public static final String FUNC_COS_MATRIX = "^cos[(]([A-Za-z][A-Za-z0-9]{0,7})[)]";
         /**
          * Тангенс от каждого элемента
          */
-        public static final String FUNC_TG_MATRIX = "^tg[(]([A-Za-z][A-Za-z0-9]{0,2})[)]";
+        public static final String FUNC_TG_MATRIX = "^tg[(]([A-Za-z][A-Za-z0-9]{0,7})[)]";
         /**
          * Котангенс от каждого элемента
          */
-        public static final String FUNC_CTG_MATRIX = "^ctg[(]([A-Za-z][A-Za-z0-9]{0,2})[)]";
+        public static final String FUNC_CTG_MATRIX = "^ctg[(]([A-Za-z][A-Za-z0-9]{0,7})[)]";
         /**
          * Поэлементное умножение матриц
          */
-        public static final String FUNC_EL_PROD_MATRIX = "([A-Za-z][A-Za-z0-9]{0,2})[\\x2E][\\x2A]([A-Za-z][A-Za-z0-9]{0,2})";
+        public static final String FUNC_EL_PROD_MATRIX = "([A-Za-z][A-Za-z0-9]{0,7})[\\x2E][\\x2A]([A-Za-z][A-Za-z0-9]{0,7})";
         /**
          * Поэлементное деление матриц
          */
-        public static final String FUNC_EL_DIV_MATRIX = "([A-Za-z][A-Za-z0-9]{0,2})[\\x2E][\\x2F]([A-Za-z][A-Za-z0-9]{0,2})";
+        public static final String FUNC_EL_DIV_MATRIX = "([A-Za-z][A-Za-z0-9]{0,7})[\\x2E][\\x2F]([A-Za-z][A-Za-z0-9]{0,7})";
         /**
          * Поэлементное возведение в степень
          */
-        public static final String FUNC_EL_SQR_MATRIX = "([A-Za-z][A-Za-z0-9]{0,2})[\\x2E][\\x5E]([A-Za-z][A-Za-z0-9]{0,2})";
+        public static final String FUNC_EL_SQR_MATRIX = "([A-Za-z][A-Za-z0-9]{0,7})[\\x2E][\\x5E]([A-Za-z][A-Za-z0-9]{0,7})";
         /**
          * Поэлементное добавление
          */
-        public static final String FUNC_ADD_MATRIX = "([A-Za-z][A-Za-z0-9]{0,2})[\\x2B]([A-Za-z][A-Za-z0-9]{0,2})";
+        public static final String FUNC_ADD_MATRIX = "([A-Za-z][A-Za-z0-9]{0,7})[\\x2B]([A-Za-z][A-Za-z0-9]{0,7})";
         /**
          * Поэлементное отнимание
          */
-        public static final String FUNC_MIN_MATRIX = "([A-Za-z][A-Za-z0-9]{0,2})[\\x2D]([A-Za-z][A-Za-z0-9]{0,2})";
+        public static final String FUNC_MIN_MATRIX = "([A-Za-z][A-Za-z0-9]{0,7})[\\x2D]([A-Za-z][A-Za-z0-9]{0,7})";
         /**
          * Поэлементное умножение
          */
-        public static final String FUNC_MULT_MATRIX = "([A-Za-z][A-Za-z0-9]{0,2})[\\x2A]([A-Za-z][A-Za-z0-9]{0,2})";
+        public static final String FUNC_MULT_MATRIX = "([A-Za-z][A-Za-z0-9]{0,7})[\\x2A]([A-Za-z][A-Za-z0-9]{0,7})";
         /**
          * Поэлементное деление
          */
-        public static final String FUNC_DIV_MATRIX = "([A-Za-z][A-Za-z0-9]{0,2})[\\x2F]([A-Za-z][A-Za-z0-9]{0,2})";
+        public static final String FUNC_DIV_MATRIX = "([A-Za-z][A-Za-z0-9]{0,7})[\\x2F]([A-Za-z][A-Za-z0-9]{0,7})";
         /**
          * Поэлементное возведение в степень
          */
-        public static final String FUNC_SQR_MATRIX = "([A-Za-z][A-Za-z0-9]{0,2})[\\x5E]([A-Za-z][A-Za-z0-9]{0,2})";
+        public static final String FUNC_SQR_MATRIX = "([A-Za-z][A-Za-z0-9]{0,7})[\\x5E]([A-Za-z][A-Za-z0-9]{0,7})";
         /**
          * Вывести размер матрицы
          */
-        public static final String VIEW_SIZE_MATRIX = "^size[(]([A-Za-z][A-Za-z0-9]{0,2})[)]";
+        public static final String VIEW_SIZE_MATRIX = "^size[(]([A-Za-z][A-Za-z0-9]{0,7})[)]";
         /**
          * Вывести элемент матрицы или ее столбец или ее рядок
          */
-        public static final String VIEW_El_MATRIX = "^([A-Za-z][A-Za-z0-9]{0,2})[(][[\\d]{1,}|[\\x3A]][,][[\\d]{1,}|[\\x3A]][)]";
+        public static final String VIEW_El_MATRIX = "^([A-Za-z][A-Za-z0-9]{0,7})[(][[\\d]{1,}|[\\x3A]][,][[\\d]{1,}|[\\x3A]][)]";
         /**
          * Вывести определитель матрицы
          */
-        public static final String VIEW_DET_MATRIX = "^det[(]([A-Za-z][A-Za-z0-9]{0,2})[)]";     
+        public static final String VIEW_DET_MATRIX = "^det[(]([A-Za-z][A-Za-z0-9]{0,7})[)]";     
         
-        //Спецефические паттерны
+        //Специфические паттерны
         /**
          * Поиск ее значений(Любое число)
          */
@@ -173,21 +173,6 @@ public class SintacsisFunc {
         while (cout < PatternConst.PATTERN_CONST_HASHMAP.size()) {
             if (createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(cout)).find()) {
                 IndexOfExeptPattern = cout;
-//                System.out.println(cout + " -> " + PatternConst.PATTERN_CONST_HASHMAP.get(cout));
-                matcher = createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(cout));
-                if (matcher.find()) {
-                    boolean fl = true;
-                    int i = 0;
-                    while (fl) {
-                        try {
-                            System.out.println("Найдено значение: " + matcher.group(i));
-                        }
-                        catch (Exception e) {
-                            fl = false;
-                        }
-                        i++;
-                    }
-                }
             }
             cout++;
         }
@@ -200,26 +185,7 @@ public class SintacsisFunc {
             
         }else if (IndexOfExeptPattern == 0) {//Создание матрицы
             
-            String nameMatrix = "";
-            MtF.Matrix Matrix = null;
-              
-            matcher = createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern));//Готовый матчер с паттерном
-            try {
-                if (matcher.find()) {
-                    Matrix = new MtF.Matrix(matcher.group(1), matcher.group(2));
-                    nameMatrix = matcher.group(1);
-                }
-            }
-            catch (Exception e) {
-                System.out.println("Неизвестная ошибка");
-            }
-
-            homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.put(nameMatrix, Matrix);
-            homeMatrixLabController.PublicVar.listOfHistory.add(nameMatrix);
-            
-//            hController.refreshHistoryOfMatrix();
-            
-            stringReturn = formatStringForReturn(sintacsis.getString(),Matrix.toString(2));
+            stringReturn = formatStringForReturn(sintacsis.getString(), CreateMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
             
         }else if (IndexOfExeptPattern == 1) {
          
@@ -243,7 +209,8 @@ public class SintacsisFunc {
         
         }else if (IndexOfExeptPattern == 7) {
          
-        
+            
+            
         }else if (IndexOfExeptPattern == 8) {
          
         
@@ -286,7 +253,7 @@ public class SintacsisFunc {
         }else if (IndexOfExeptPattern == 21) {
          
         
-        }else if (IndexOfExeptPattern == 22) {
+        }else if (IndexOfExeptPattern == 22) {//Определитель
             Float returnNum = 0f;
             
             matcher = createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern));//Готовый матчер с паттерном
@@ -306,6 +273,36 @@ public class SintacsisFunc {
         return stringReturn;
     }
 
+    /**
+     * Создает матрицу и добавляет ее в HashMap 
+     * @param matcher - для создания матрицы 
+     * @return Матрицу в виде строки
+     */
+    public static String CreateMatrix(Matcher matcher) {
+        MtF.Matrix Matrix = null;
+
+        try {
+            if (matcher.find() && !homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.containsKey(matcher.group(1))) {
+                Matrix = new MtF.Matrix(matcher.group(1), matcher.group(2));
+
+                homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.put(matcher.group(1), Matrix);
+                homeMatrixLabController.PublicVar.listOfHistory.add(matcher.group(1));
+            }else{
+                homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.remove(matcher.group(1));
+                homeMatrixLabController.PublicVar.listOfHistory.remove(matcher.group(1));
+                
+                Matrix = new MtF.Matrix(matcher.group(1), matcher.group(2));
+
+                homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.put(matcher.group(1), Matrix);
+                homeMatrixLabController.PublicVar.listOfHistory.add(matcher.group(1));
+            }
+        }
+        catch (Exception e) {
+            System.out.println("Неизвестная ошибка");
+        }
+        return Matrix.toString(homeMatrixLabController.PublicVar.countOfDigits);
+    }
+    
     public static Matcher createMatcher(String commandOnString, String patternOnString) {
         Pattern pattern = Pattern.compile(patternOnString);
         Matcher matcher = pattern.matcher(commandOnString);
