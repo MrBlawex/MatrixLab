@@ -18,7 +18,7 @@ public class JavaFXMatrixLab extends Application {
         int headpix = 50;
         Scene scene = new Scene(root);
         
-        stage.setMinWidth(850);
+        stage.setMinWidth(870);
         stage.setMinHeight(headpix + 550);
         stage.setTitle(nameProgram);
         

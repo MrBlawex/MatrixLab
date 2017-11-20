@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -15,6 +18,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafxmatrixlab.ErrorFunc;
 import javafxmatrixlab.ErrorFunc.ErrorType;
 import javafxmatrixlab.ModalWindow;
@@ -61,6 +68,7 @@ public class homeMatrixLabController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         SintacsisFunc.PatternConst.initialize();
+        allEvent();
         
         //Для тестов
         PublicVar.listOfHistory.add("StartItem");
@@ -77,13 +85,13 @@ public class homeMatrixLabController implements Initializable {
     public void readCommand(){
         SintacsisFunc.Sintacsis sintacsis = null;
         if (!homeTextField.getText().isEmpty()) {
-            sintacsis = new SintacsisFunc.Sintacsis(homeTextField.getText());
+            sintacsis = new SintacsisFunc.Sintacsis(homeTextField.getText().replace(" ", ""));
             PublicVar.OutputText += SintacsisFunc.readCommand(sintacsis);
             textOut.setText(PublicVar.OutputText);
         }
         homeTextField.setText("");
     }
-
+    
     /**
      * Очищает окно вывода
      */
@@ -128,9 +136,11 @@ public class homeMatrixLabController implements Initializable {
      * @throws IOException
      */
     @FXML
-    public void editMatrix() throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/javafxmatrixlab/fxml/editMatrix.fxml"));
-        modalWindow.newWindow(root,javaFXMatrixLab.nameProgram + " - " + "Редактирование матрицы",false);
+    public void editMatrix(MouseEvent mouseEvent) throws IOException {
+        if (mouseEvent.getClickCount() == 2) {
+            Parent root = FXMLLoader.load(getClass().getResource("/javafxmatrixlab/fxml/editMatrix.fxml"));
+            modalWindow.newWindow(root, javaFXMatrixLab.nameProgram + " - " + "Редактирование матрицы", false);
+        }
     }
     
     /**
@@ -146,4 +156,14 @@ public class homeMatrixLabController implements Initializable {
         }
     }
     
+    public void allEvent(){
+        //По нажатию ENTER активируется функция
+        homeTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            public void handle(KeyEvent ke) {
+                if (ke.getCode() == KeyCode.ENTER) {
+                    readCommand();
+                }
+            }
+        });
+    }
 }

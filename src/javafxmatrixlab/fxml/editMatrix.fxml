@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.net.*?>
 <?import java.util.*?>
@@ -7,11 +9,25 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="javafxmatrixlab.controller.editMatrixController">
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="850.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxmatrixlab.controller.editMatrixController">
     <stylesheets>
         <URL value="@/javafxmatrixlab/css/style.css" />
     </stylesheets>
    <children>
-      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Button" />
+      <Label layoutX="15.0" layoutY="14.0" text="Название матрицы" AnchorPane.topAnchor="14.0">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <TextField alignment="CENTER" layoutX="11.0" layoutY="39.0" prefHeight="37.0" prefWidth="150.0" AnchorPane.leftAnchor="11.0" AnchorPane.topAnchor="39.0">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </TextField>
+      <ScrollPane layoutX="14.0" layoutY="84.0" prefHeight="456.0" prefWidth="830.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="80.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="457.0" prefWidth="827.0" />
+        </content>
+      </ScrollPane>
    </children>
 </AnchorPane>
