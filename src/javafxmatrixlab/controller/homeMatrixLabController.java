@@ -26,7 +26,6 @@ import javafxmatrixlab.JavaFXMatrixLab;
 import javafxmatrixlab.ModalWindow;
 import javafxmatrixlab.MtF;
 import javafxmatrixlab.SintacsisFunc;
-import javax.print.attribute.standard.OutputDeviceAssigned;
 
 
 public class homeMatrixLabController implements Initializable {
