@@ -254,13 +254,18 @@ public class SintacsisFunc {
         }else if (IndexOfExeptPattern == 20) {
          
         
-        }else if (IndexOfExeptPattern == 21) {
+        }else if (IndexOfExeptPattern == 21) {//Вывод матрицы
          
+            stringReturn = formatStringForReturn(sintacsis.getString(), viewMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
         
         }else if (IndexOfExeptPattern == 22) {//Определитель
             
             stringReturn = formatStringForReturn(sintacsis.getString(),"Ans = " + viewDetMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
         
+        }else if(IndexOfExeptPattern == 23) {
+        
+            
+            
         }
         
         return stringReturn;
@@ -296,6 +301,11 @@ public class SintacsisFunc {
         return Matrix.toString(homeMatrixLabController.PublicVar.countOfDigits);
     }
     
+    /**
+     * Создает или заменяет матрицу на ту что указана после = 
+     * @param matcher
+     * @return
+     */
     public static String createCloneMatrix(Matcher matcher) {//6
         MtF.Matrix Matrix = null;
         
@@ -322,6 +332,11 @@ public class SintacsisFunc {
         return Matrix.toString(homeMatrixLabController.PublicVar.countOfDigits);
     }
     
+    /**
+     * Выводит определитель матрицы
+     * @param matcher
+     * @return
+     */
     public static String viewDetMatrix(Matcher matcher){//23
         
         Float returnNum = 0f;
@@ -336,6 +351,26 @@ public class SintacsisFunc {
         }          
         
         return String.valueOf(returnNum);
+    }
+    
+    /**
+     * Выводит выбранную матрицу
+     * @param matcher
+     * @return
+     */
+    public static String viewMatrix(Matcher matcher){//21
+        MtF.Matrix Matrix = null;
+        
+        try {
+            if (matcher.find()) {
+                Matrix = homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(1));
+            }
+        }
+        catch (Exception e) {
+            System.out.println("Неизвестная ошибка");
+        }
+        
+        return Matrix.toString(homeMatrixLabController.PublicVar.countOfDigits);
     }
     
     public static Matcher createMatcher(String commandOnString, String patternOnString) {
