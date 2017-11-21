@@ -258,14 +258,14 @@ public class SintacsisFunc {
          
             stringReturn = formatStringForReturn(sintacsis.getString(), viewMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
         
-        }else if (IndexOfExeptPattern == 22) {//Определитель
+        }else if (IndexOfExeptPattern == 22) {
             
+            
+            
+        }else if (IndexOfExeptPattern == 23) {//Определитель
+        
             stringReturn = formatStringForReturn(sintacsis.getString(),"Ans = " + viewDetMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
-        
-        }else if(IndexOfExeptPattern == 23) {
-        
-            
-            
+
         }
         
         return stringReturn;
