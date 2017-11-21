@@ -9,7 +9,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="850.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxmatrixlab.controller.editMatrixController">
+<AnchorPane prefHeight="550.0" prefWidth="850.0" styleClass="editMatrixFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxmatrixlab.controller.editMatrixController">
     <stylesheets>
         <URL value="@/javafxmatrixlab/css/style.css" />
     </stylesheets>
@@ -26,7 +26,7 @@
       </TextField>
       <ScrollPane layoutX="14.0" layoutY="84.0" prefHeight="456.0" prefWidth="830.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="80.0">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="457.0" prefWidth="827.0" />
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="457.0" prefWidth="827.0" styleClass="table" />
         </content>
       </ScrollPane>
    </children>

@@ -8,10 +8,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -20,12 +20,10 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafxmatrixlab.ErrorFunc;
-import javafxmatrixlab.ErrorFunc.ErrorType;
-import javafxmatrixlab.ModalWindow;
 import javafxmatrixlab.JavaFXMatrixLab;
+import javafxmatrixlab.ModalWindow;
 import javafxmatrixlab.MtF;
 import javafxmatrixlab.SintacsisFunc;
 
@@ -49,7 +47,7 @@ public class homeMatrixLabController implements Initializable {
 
     @FXML
     private ListView<String> historyContainer;
-
+    
     //Создание экземпляров класса
     JavaFXMatrixLab javaFXMatrixLab = new JavaFXMatrixLab();
     SintacsisFunc sintacsisFunc = new SintacsisFunc();
@@ -133,6 +131,7 @@ public class homeMatrixLabController implements Initializable {
     
     /**
      * Создает окно редактирования матрицы
+     * @param mouseEvent
      * @throws IOException
      */
     @FXML
@@ -159,11 +158,16 @@ public class homeMatrixLabController implements Initializable {
     public void allEvent(){
         //По нажатию ENTER активируется функция
         homeTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
             public void handle(KeyEvent ke) {
                 if (ke.getCode() == KeyCode.ENTER) {
                     readCommand();
                 }
             }
         });
+    }
+    
+    public void closeProgram(ActionEvent actionEvent){
+        ((Node)actionEvent.getSource()).getScene().getWindow().hide();
     }
 }

@@ -1,10 +1,8 @@
 package javafxmatrixlab;
 
 import java.util.HashMap;
-import java.util.regex.Pattern;
 import java.util.regex.Matcher;
-import javafxmatrixlab.MtF;
-import javafxmatrixlab.controller.createMatrixController;
+import java.util.regex.Pattern;
 import javafxmatrixlab.controller.homeMatrixLabController;
 
 public class SintacsisFunc {
