@@ -26,6 +26,7 @@ import javafxmatrixlab.JavaFXMatrixLab;
 import javafxmatrixlab.ModalWindow;
 import javafxmatrixlab.MtF;
 import javafxmatrixlab.SintacsisFunc;
+import javax.print.attribute.standard.OutputDeviceAssigned;
 
 
 public class homeMatrixLabController implements Initializable {
@@ -74,8 +75,6 @@ public class homeMatrixLabController implements Initializable {
         MtF.Matrix A = new MtF.Matrix("A",4,4);
         A.autoSetInt(10);
         PublicVar.OutputText += A.toString(2);
-        MtF.Matrix revA = MtF.ReversMatrix(A);
-        PublicVar.OutputText += revA.toString(4);
         textOut.setText(PublicVar.OutputText);
     }    
     

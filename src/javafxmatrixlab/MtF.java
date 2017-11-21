@@ -51,7 +51,7 @@ public class MtF {
             homeMatrixLabController hController = new homeMatrixLabController();
 
             this.name = name;
-            int nSize = 0, mSize = 0;
+            int nSize, mSize;
             ArrayList<String> rowList = new ArrayList<>();
 
             String patternString = "[[[-]{0,1}[\\d]{0,}[\\056]{0,1}[\\d]{1,}]{1,}[,]]{0,}[[-]{0,1}[\\d]{0,}[\\056]{0,1}[\\d]{1,}]{1,}";
@@ -248,6 +248,28 @@ public class MtF {
     }
 
     //---------- КОНЕЦ КЛАССА --------------------------------------------------
+    //Получить столбец матрицы
+    public static Matrix getColumMatrix(Matrix A, int n) {
+        n--;
+        Matrix Res = new Matrix(A.getN(), 1);
+        float[][] res = new float[A.getN()][1];
+        for (int i = 0; i < A.getN(); i++) {
+            res[i][0] = A.matrix[i][n];
+        }
+        Res.matrix = res;
+        return Res;
+    }
+    //Получить строку матрицы
+    public static Matrix getRowMatrix(Matrix A, int n) {
+        n--;
+        Matrix Res = new Matrix(1,A.getM());
+        float[][] res = new float[1][A.getM()];
+        for (int i = 0; i < A.getM(); i++) {
+            res[0][i] = A.matrix[n][i];
+        }
+        Res.matrix = res;
+        return Res;
+    }
     //Сумма матриц
     public static Matrix SumMatrix(Matrix A, Matrix B) {
         Matrix Res = new Matrix(A);
@@ -500,4 +522,14 @@ public class MtF {
         }
         return res;
     }
+    /*
+    yourType[] arr = new yourType[10];
+    for (int i = 0; i< 10; i++) {
+        yourType newObj = new yourType;
+        arr[i] = newObj;
+    }
+    
+    arr[2].using(); 
+    */
 }
+
