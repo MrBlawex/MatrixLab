@@ -56,7 +56,7 @@ public class SintacsisFunc {
         /**
          * Создание клонированной матрицы
          */
-        public static final String CREATE_CLONE_MATRIX = "^([A-Za-z][A-Za-z0-9]{0,7})[\\s]{0,}[=][\\s]{0,}([A-Za-z][A-Za-z0-9]{0,7})";
+        public static final String CREATE_CLONE_MATRIX = "^[\\s]{0,}([A-Za-z][A-Za-z0-9]{0,7})[\\s]{0,}[=][\\s]{0,}([A-Za-z][A-Za-z0-9]{0,7})";
         /**
          * Поиск функции транспорации
          */
@@ -116,6 +116,10 @@ public class SintacsisFunc {
         /**
          * Вывести элемент матрицы или ее столбец или ее рядок
          */
+        public static final String VIEW_MATRIX = "^([A-Za-z][A-Za-z0-9]{0,7})[(][)]";
+        /**
+         * Вывести элемент матрицы или ее столбец или ее рядок
+         */
         public static final String VIEW_El_MATRIX = "^([A-Za-z][A-Za-z0-9]{0,7})[(][[\\d]{1,}|[\\x3A]][,][[\\d]{1,}|[\\x3A]][)]";
         /**
          * Вывести определитель матрицы
@@ -155,8 +159,9 @@ public class SintacsisFunc {
             PATTERN_CONST_HASHMAP.put(18, FUNC_DIV_MATRIX);
             PATTERN_CONST_HASHMAP.put(19, FUNC_SQR_MATRIX);
             PATTERN_CONST_HASHMAP.put(20, VIEW_SIZE_MATRIX);
-            PATTERN_CONST_HASHMAP.put(21, VIEW_El_MATRIX);
-            PATTERN_CONST_HASHMAP.put(22, VIEW_DET_MATRIX);
+            PATTERN_CONST_HASHMAP.put(21, VIEW_MATRIX);
+            PATTERN_CONST_HASHMAP.put(22, VIEW_El_MATRIX);
+            PATTERN_CONST_HASHMAP.put(23, VIEW_DET_MATRIX);
         }
 
     }
@@ -204,6 +209,7 @@ public class SintacsisFunc {
         
         }else if (IndexOfExeptPattern == 6) {
          
+            stringReturn = formatStringForReturn(sintacsis.getString(), createCloneMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
         
         }else if (IndexOfExeptPattern == 7) {
          
@@ -252,20 +258,9 @@ public class SintacsisFunc {
          
         
         }else if (IndexOfExeptPattern == 22) {//Определитель
-            Float returnNum = 0f;
             
-            matcher = createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern));//Готовый матчер с паттерном
-            
-            try {
-                if (matcher.find()) {
-                    returnNum = MtF.DetGauss(homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(1)));
-                }
-            }
-            catch (Exception e) {
-                System.out.println("Неизвестная ошибка");
-            }
-            
-            stringReturn = formatStringForReturn(sintacsis.getString(),"Ans = " + String.valueOf(returnNum));
+            stringReturn = formatStringForReturn(sintacsis.getString(),"Ans = " + viewDetMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
+        
         }
         
         return stringReturn;
@@ -276,7 +271,7 @@ public class SintacsisFunc {
      * @param matcher - для создания матрицы 
      * @return Матрицу в виде строки
      */
-    public static String CreateMatrix(Matcher matcher) {
+    public static String CreateMatrix(Matcher matcher) {//0
         MtF.Matrix Matrix = null;
 
         try {
@@ -299,6 +294,48 @@ public class SintacsisFunc {
             System.out.println("Неизвестная ошибка");
         }
         return Matrix.toString(homeMatrixLabController.PublicVar.countOfDigits);
+    }
+    
+    public static String createCloneMatrix(Matcher matcher) {//6
+        MtF.Matrix Matrix = null;
+        
+        try {
+            if (matcher.find() && !homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.containsKey(matcher.group(1))) {
+                Matrix = new MtF.Matrix(matcher.group(1), homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(2)));
+
+                homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.put(matcher.group(1), Matrix);
+                homeMatrixLabController.PublicVar.listOfHistory.add(matcher.group(1));
+            }else{
+                homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.remove(matcher.group(1));
+                homeMatrixLabController.PublicVar.listOfHistory.remove(matcher.group(1));
+                
+                Matrix = new MtF.Matrix(matcher.group(1), homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(2)));
+
+                homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.put(matcher.group(1), Matrix);
+                homeMatrixLabController.PublicVar.listOfHistory.add(matcher.group(1));
+            }
+        }
+        catch (Exception e) {
+            System.out.println("Неизвестная ошибка");
+        }
+        
+        return Matrix.toString(homeMatrixLabController.PublicVar.countOfDigits);
+    }
+    
+    public static String viewDetMatrix(Matcher matcher){//23
+        
+        Float returnNum = 0f;
+        
+        try {
+            if (matcher.find()) {
+                returnNum = MtF.DetGauss(homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(1)));
+            }
+        }
+        catch (Exception e) {
+            System.out.println("Неизвестная ошибка");
+        }          
+        
+        return String.valueOf(returnNum);
     }
     
     public static Matcher createMatcher(String commandOnString, String patternOnString) {

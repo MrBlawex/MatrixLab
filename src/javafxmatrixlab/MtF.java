@@ -137,10 +137,16 @@ public class MtF {
         public Matrix(Matrix M) {
             this.n = M.getN();
             this.m = M.getM();
-            this.name = "Ans";
+            this.name = M.name;
             this.matrix = M.matrix;
         }
 
+        public Matrix(String name, Matrix M) {
+            this.n = M.getN();
+            this.m = M.getM();
+            this.name = name;
+            this.matrix = M.matrix;
+        }
         //Создание матрицы после создания экземпляра
         public void setMatrix(int n, int m) {
             float[][] res = new float[n][m];
