@@ -48,8 +48,6 @@ public class MtF {
 
         // Конструкторы
         public Matrix(String name, String line) {
-            homeMatrixLabController hController = new homeMatrixLabController();
-
             this.name = name;
             int nSize, mSize;
             ArrayList<String> rowList = new ArrayList<>();
@@ -77,7 +75,6 @@ public class MtF {
             mSize = getRowFromSintacsis(rowList.get(0)).length;
             for (int i = 1; i < nSize; i++) {
                 if (getRowFromSintacsis(rowList.get(i)).length != mSize) {
-                    // hController.printError(ErrorFunc.ErrorType.WRONG_NAME);
                     isTrue = false;
                     break;
                 }
@@ -89,7 +86,7 @@ public class MtF {
                     res[i] = getRowFromSintacsis(rowList.get(i));
                 }
             } else {
-                this.idError = ">> Неверная размерность";
+                this.idError = "\n>> Неверная размерность";
             }
 
             this.n = nSize;
@@ -251,6 +248,11 @@ public class MtF {
             }
             return result;
         }
+        // возвращает размер матрицы в строке
+        public String getSize() {
+            String result = "N." + this.n + " M." + this.m;
+            return result;
+        }
     }
 
     //---------- КОНЕЦ КЛАССА --------------------------------------------------
@@ -318,20 +320,24 @@ public class MtF {
     public static Matrix MultMatrix(Matrix A, Matrix B) {
         Matrix Res = new Matrix(A.getN(), B.getM());
         float[][] res = new float[A.getN()][B.getM()];
-
-        for (int i = 0; i < Res.getN(); i++) {
-            for (int j = 0; j < Res.getM(); j++) {
-                res[i][j] = 0;
-            }
-        }
-        for (int y = 0; y < Res.getN(); y++) {
-            for (int x = 0; x < Res.getM(); x++) {
-                for (int j = 0; j < A.getM(); j++) {
-                    res[y][x] += A.matrix[y][j] * B.matrix[j][x];
+        
+        if (A.getM() != B.getN()) {
+            Res.isWrong("\n>> Не подходят размерности");
+        } else {
+            for (int i = 0; i < Res.getN(); i++) {
+                for (int j = 0; j < Res.getM(); j++) {
+                    res[i][j] = 0;
                 }
             }
+            for (int y = 0; y < Res.getN(); y++) {
+                for (int x = 0; x < Res.getM(); x++) {
+                    for (int j = 0; j < A.getM(); j++) {
+                        res[y][x] += A.matrix[y][j] * B.matrix[j][x];
+                    }
+                }
+            }
+            Res.matrix = res; 
         }
-        Res.matrix = res;
         return Res;
     }
 
@@ -441,17 +447,29 @@ public class MtF {
         return DetMinor;
     }
 
-    //Алгебраическое дополнение - не готово ------------------------------------
+    //Алгебраическое дополнение
     public static float AlgComlementMatrix(Matrix Mt, int row, int col) {
         float AlgCompl;
         int unit = 1;
         row++;
         col++;
-        if (row + col % 2 != 0) {
+        if ( (row + col) % 2 != 0) {
             unit *= -1;
         }
         AlgCompl = unit * MinorMatrix(Mt, --row, --col);
         return AlgCompl;
+    }
+    
+    public static Matrix UnionMatrix(Matrix Mt) {
+        Matrix Res = new Matrix(Mt);
+        float[][] res = new float[Mt.getN()][Mt.getM()];
+        for (int i = 0; i < Mt.getN(); i++) {
+            for (int j = 0; j < Mt.getM(); j++) {
+                res[i][j] = AlgComlementMatrix(Mt, i, j);
+            }
+        }
+        Res.matrix = res;
+        return Res;
     }
 
     //Ранг матрицы - не готово ------------------------------------------------- 
@@ -463,13 +481,13 @@ public class MtF {
     }
 
     //Обратная матрица
-    public static Matrix ReversMatrix(Matrix M) {
+    public static Matrix InversMatrix(Matrix M) {
         Matrix Res = new Matrix(M.getN(), M.getM());
         float det = DetGauss(M);
         if (det == 0) {
-            Res.isWrong(">> Обратной матрицы не существует! определитель = 0");
+            Res.isWrong("\n>> Обратной матрицы не существует! определитель = 0");
         } else {
-            Res = MultMatrixEl(1 / det, TranspMatrix(M));
+            Res = MultMatrixEl( 1 / DetGauss(M), TranspMatrix( UnionMatrix(M) ) );
         }
         return Res;
     }
@@ -488,9 +506,11 @@ public class MtF {
     }
 
     //Решение СЛАУ методом Крамера - не готово ---------------------------------
-    public static Matrix equationKramar(Matrix K, Matrix X) {
-        Matrix Res = new Matrix(1, K.getN());
-        float det = DetGauss(K);
+    public static Matrix equationKramar(Matrix A, Matrix B) {
+        Matrix Res = new Matrix(1, A.getM());
+        float det = DetGauss(A);
+        
+        float[] Sol = new float[A.getM()];
 
         return Res;
     }
@@ -528,14 +548,5 @@ public class MtF {
         }
         return res;
     }
-    /*
-    yourType[] arr = new yourType[10];
-    for (int i = 0; i< 10; i++) {
-        yourType newObj = new yourType;
-        arr[i] = newObj;
-    }
-    
-    arr[2].using(); 
-    */
 }
 
