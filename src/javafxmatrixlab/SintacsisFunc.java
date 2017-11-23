@@ -246,7 +246,7 @@ public class SintacsisFunc {
          
         
         }else if (IndexOfExeptPattern == 17) {
-            stringReturn = formatStringForReturn(sintacsis.getString(), "Ans = " + viewMultMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
+            stringReturn = formatStringForReturn(sintacsis.getString(), viewMultMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
         
         }else if (IndexOfExeptPattern == 18) {
          
@@ -266,6 +266,7 @@ public class SintacsisFunc {
             
             
         }else if (IndexOfExeptPattern == 23) {//Определитель
+            
             stringReturn = formatStringForReturn(sintacsis.getString(), viewDetMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
 
         }else if (IndexOfExeptPattern == 24) {//Формат вывода
@@ -348,9 +349,21 @@ public class SintacsisFunc {
         return MtF.TranspMatrix(homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(1))).toString(homeMatrixLabController.PublicVar.countOfDigits);
     }
     
-    public static String viewMultMatrix (Matcher matcher) {
-        return MtF.MultMatrix(homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(1)),
-                homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(2))).toString(homeMatrixLabController.PublicVar.countOfDigits);
+    public static String viewMultMatrix (Matcher matcher) {        
+        MtF.Matrix Matrix = MtF.MultMatrix(homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(1)),
+                homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(2)));
+        
+        if (Matrix.getIdError() == null && homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.containsKey("Ans")) {
+            homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.remove("Ans");
+            homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.put("Ans", Matrix);
+            return Matrix.toString(homeMatrixLabController.PublicVar.countOfDigits);
+        }else if (Matrix.getIdError() == null){
+            homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.put("Ans", Matrix);
+            return "Ans = " + Matrix.toString(homeMatrixLabController.PublicVar.countOfDigits);
+        }else{    
+            return Matrix.getIdError();
+        }
+        
     }
     
     
