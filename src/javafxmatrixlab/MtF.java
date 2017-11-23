@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javafxmatrixlab.controller.homeMatrixLabController;
 
 public class MtF {
 
@@ -33,6 +32,7 @@ public class MtF {
         private String name;
         //Работа с ошибками
         private String idError = null;
+        public static boolean format = false;
 
         public void isWrong(String id) {
             this.idError = id;
@@ -238,7 +238,11 @@ public class MtF {
                         if (matr[i][j] == Math.round(matr[i][j])) {
                             result += "\t" + String.valueOf((int) matr[i][j]);
                         } else {
-                            result += "\t" + String.format(lth, matr[i][j]);
+                            if (!format) {
+                                result += "\t" + String.format(lth, matr[i][j]);
+                            } else {
+                                result += "\t" + toFormat(matr[i][j]);
+                            }
                         }
                     }
                     result += "\n";
@@ -256,6 +260,32 @@ public class MtF {
     }
 
     //---------- КОНЕЦ КЛАССА --------------------------------------------------
+    //Возвращает число обычной дробью
+    public static String toFormat(float val) {
+        String res = "";
+        final float ratio = 0.01f;
+        for (int i = 1; i > 0; i++) {
+            double tem = val / (1f / i);
+            if (Math.abs(tem - Math.round(tem)) < ratio) {
+               res += String.valueOf(Math.round(tem)) + "/" + i;
+               break;
+            }
+        }
+        return res;
+    }
+    // GCD 
+    public static int getGCD(int a, int b) {
+        a = Math.abs(a);
+        b = Math.abs(b);
+        if (b == 0) return a;
+        int x = a % b;
+        return getGCD(b, x);
+    }
+    
+    //Меняет режим вывод
+    public static void formatMode() {
+        Matrix.format = !Matrix.format;
+    }
     //Получить столбец матрицы
     public static Matrix getColumMatrix(Matrix A, int n) {
         n--;

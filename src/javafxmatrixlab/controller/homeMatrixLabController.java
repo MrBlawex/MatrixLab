@@ -69,9 +69,8 @@ public class homeMatrixLabController implements Initializable {
         allEvent();
         
         //Для тестов
-       // PublicVar.listOfHistory.add("StartItem");
         historyContainer.setItems(PublicVar.listOfHistory);
-        MtF.Matrix Aaa = new MtF.Matrix("Aaa", "1,2,4;4,5,6;6,7,8");
+        PublicVar.OutputText += "\n /* Стартовое окно */ \n";
         textOut.setText(PublicVar.OutputText);
     }    
     

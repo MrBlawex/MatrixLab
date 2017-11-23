@@ -60,7 +60,7 @@ public class SintacsisFunc {
         /**
          * Поиск функции транспорации
          */
-        public static final String FUNC_TRANSPORATION = "[A-Za-z][A-Za-z0-9]{0,7}[\\x27]";
+        public static final String FUNC_TRANSPORATION = "([A-Za-z][A-Za-z0-9]{0,7})[\\x39]";
         /**
          * Синус от каждого элемента
          */
@@ -132,6 +132,8 @@ public class SintacsisFunc {
          */
         public static final String SEARCH_ELEMENTS_MATRIX = "[-]{0,1}[\\d]{0,}[\\056]{0,1}[\\d]{1,}";
 
+        
+        public static final String FORMAT_MODE = "format";
         /**
          * HashMap представление констант
          */
@@ -162,6 +164,7 @@ public class SintacsisFunc {
             PATTERN_CONST_HASHMAP.put(21, VIEW_MATRIX);
             PATTERN_CONST_HASHMAP.put(22, VIEW_El_MATRIX);
             PATTERN_CONST_HASHMAP.put(23, VIEW_DET_MATRIX);
+            PATTERN_CONST_HASHMAP.put(24, FORMAT_MODE);
         }
 
     }
@@ -212,7 +215,7 @@ public class SintacsisFunc {
             stringReturn = formatStringForReturn(sintacsis.getString(), createCloneMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
         
         }else if (IndexOfExeptPattern == 7) {
-         
+            stringReturn = formatStringForReturn(sintacsis.getString(), printTransporationMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
             
             
         }else if (IndexOfExeptPattern == 8) {
@@ -234,7 +237,7 @@ public class SintacsisFunc {
          
         
         }else if (IndexOfExeptPattern == 14) {
-         
+            
         
         }else if (IndexOfExeptPattern == 15) {
          
@@ -243,7 +246,7 @@ public class SintacsisFunc {
          
         
         }else if (IndexOfExeptPattern == 17) {
-         
+            stringReturn = formatStringForReturn(sintacsis.getString(), "Ans = " + viewMultMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
         
         }else if (IndexOfExeptPattern == 18) {
          
@@ -263,10 +266,19 @@ public class SintacsisFunc {
             
             
         }else if (IndexOfExeptPattern == 23) {//Определитель
-        
-            stringReturn = formatStringForReturn(sintacsis.getString(),"Ans = " + viewDetMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
+            stringReturn = formatStringForReturn(sintacsis.getString(), viewDetMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
+
+        }else if (IndexOfExeptPattern == 24) {//Формат вывода
+            String mode;
+            if (MtF.Matrix.format)
+                mode = "on";
+            else
+                mode = "off";
+            stringReturn = formatStringForReturn(sintacsis.getString(), ">> Format:" + mode);
+            MtF.formatMode();
 
         }
+
         
         return stringReturn;
     }
@@ -332,6 +344,15 @@ public class SintacsisFunc {
         return Matrix.toString(homeMatrixLabController.PublicVar.countOfDigits);
     }
     
+    public static String printTransporationMatrix(Matcher matcher) {
+        return MtF.TranspMatrix(homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(1))).toString(homeMatrixLabController.PublicVar.countOfDigits);
+    }
+    
+    public static String viewMultMatrix (Matcher matcher) {
+        return MtF.MultMatrix(homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(1)),
+                homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(2))).toString(homeMatrixLabController.PublicVar.countOfDigits);
+    }
+    
     /**
      * Выводит определитель матрицы
      * @param matcher
@@ -339,18 +360,23 @@ public class SintacsisFunc {
      */
     public static String viewDetMatrix(Matcher matcher){//23
         
-        Float returnNum = 0f;
+        String returnNum = "";
         
         try {
             if (matcher.find()) {
-                returnNum = MtF.DetGauss(homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(1)));
+                MtF.Matrix buff = homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(1));
+                if (buff.getN() == buff.getM()) {
+                    returnNum = "Ans = " + String.valueOf(MtF.DetGauss(buff));
+                } else {
+                    returnNum = ">> Матрица не квадратная";
+                }
             }
         }
         catch (Exception e) {
-            System.out.println("Неизвестная ошибка");
+            returnNum = (">> Неизвестная ошибка");
         }          
         
-        return String.valueOf(returnNum);
+        return returnNum;
     }
     
     /**
