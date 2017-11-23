@@ -353,6 +353,27 @@ public class SintacsisFunc {
                 homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(2))).toString(homeMatrixLabController.PublicVar.countOfDigits);
     }
     
+    
+    /**
+     * Выводит выбранную матрицу
+     * @param matcher
+     * @return
+     */
+    public static String viewMatrix(Matcher matcher){//21
+        MtF.Matrix Matrix = null;
+        
+        try {
+            if (matcher.find()) {
+                Matrix = homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(1));
+            }
+        }
+        catch (Exception e) {
+            System.out.println("Неизвестная ошибка");
+        }
+        
+        return Matrix.toString(homeMatrixLabController.PublicVar.countOfDigits);
+    }
+    
     /**
      * Выводит определитель матрицы
      * @param matcher
@@ -377,26 +398,6 @@ public class SintacsisFunc {
         }          
         
         return returnNum;
-    }
-    
-    /**
-     * Выводит выбранную матрицу
-     * @param matcher
-     * @return
-     */
-    public static String viewMatrix(Matcher matcher){//21
-        MtF.Matrix Matrix = null;
-        
-        try {
-            if (matcher.find()) {
-                Matrix = homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(1));
-            }
-        }
-        catch (Exception e) {
-            System.out.println("Неизвестная ошибка");
-        }
-        
-        return Matrix.toString(homeMatrixLabController.PublicVar.countOfDigits);
     }
     
     public static Matcher createMatcher(String commandOnString, String patternOnString) {
