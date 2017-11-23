@@ -27,6 +27,7 @@
           <Menu mnemonicParsing="false" text="Правка">
             <items>
               <MenuItem mnemonicParsing="false" onAction="#getOldArea" text="Вернуть старый текст" />
+                  <MenuItem mnemonicParsing="false" onAction="#getOldArea" text="Настройки" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Помощь">

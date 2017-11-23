@@ -85,8 +85,8 @@ public class homeMatrixLabController implements Initializable {
         SintacsisFunc.Sintacsis sintacsis = null;
         if (!homeTextField.getText().isEmpty()) {
             sintacsis = new SintacsisFunc.Sintacsis(homeTextField.getText().replace(" ", ""));
-            PublicVar.OutputText += SintacsisFunc.readCommand(sintacsis);
-            textOut.setText(PublicVar.OutputText);
+            textOut.appendText(SintacsisFunc.readCommand(sintacsis));
+            PublicVar.OutputText = textOut.getText();
         }
         homeTextField.setText("");
     }
