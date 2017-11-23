@@ -60,7 +60,7 @@ public class SintacsisFunc {
         /**
          * Поиск функции транспорации
          */
-        public static final String FUNC_TRANSPORATION = "([A-Za-z][A-Za-z0-9]{0,7})[\\x39]";
+        public static final String FUNC_TRANSPORATION = "([A-Za-z][A-Za-z0-9]{0,7})[\\x27]";
         /**
          * Синус от каждого элемента
          */
@@ -132,8 +132,14 @@ public class SintacsisFunc {
          */
         public static final String SEARCH_ELEMENTS_MATRIX = "[-]{0,1}[\\d]{0,}[\\056]{0,1}[\\d]{1,}";
 
-        
+        /**
+         * Изменение формата вывода
+         */
         public static final String FORMAT_MODE = "format";
+        /**
+         * Перестановка матриц
+         */
+        public static final String FUNC_SWAP_MATRIX = "^swap[(]([A-Za-z][A-Za-z0-9]{0,7})[\\x2C]([A-Za-z][A-Za-z0-9]{0,7})[)]";
         /**
          * HashMap представление констант
          */
@@ -165,6 +171,7 @@ public class SintacsisFunc {
             PATTERN_CONST_HASHMAP.put(22, VIEW_El_MATRIX);
             PATTERN_CONST_HASHMAP.put(23, VIEW_DET_MATRIX);
             PATTERN_CONST_HASHMAP.put(24, FORMAT_MODE);
+            PATTERN_CONST_HASHMAP.put(25, FUNC_SWAP_MATRIX);
         }
 
     }
@@ -278,6 +285,9 @@ public class SintacsisFunc {
             stringReturn = formatStringForReturn(sintacsis.getString(), ">> Format:" + mode);
             MtF.formatMode();
 
+        }else if (IndexOfExeptPattern == 25) {// Перестановка матриц
+            
+            stringReturn = formatStringForReturn(sintacsis.getString(), swapMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
         }
 
         
@@ -309,7 +319,7 @@ public class SintacsisFunc {
             }
         }
         catch (Exception e) {
-            System.out.println("Неизвестная ошибка");
+            System.out.println("Неизвестная ошибка \n");
         }
         return Matrix.toString(homeMatrixLabController.PublicVar.countOfDigits);
     }
@@ -339,52 +349,62 @@ public class SintacsisFunc {
             }
         }
         catch (Exception e) {
-            System.out.println("Неизвестная ошибка");
+            System.out.println("Неизвестная ошибка \n");
         }
         
         return Matrix.toString(homeMatrixLabController.PublicVar.countOfDigits);
     }
     
     public static String printTransporationMatrix(Matcher matcher) {
-        return MtF.TranspMatrix(homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(1))).toString(homeMatrixLabController.PublicVar.countOfDigits);
-    }
-    
-    public static String viewMultMatrix (Matcher matcher) {        
-        MtF.Matrix Matrix = MtF.MultMatrix(homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(1)),
-                homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(2)));
-        
-        if (Matrix.getIdError() == null && homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.containsKey("Ans")) {
-            homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.remove("Ans");
-            homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.put("Ans", Matrix);
-            return Matrix.toString(homeMatrixLabController.PublicVar.countOfDigits);
-        }else if (Matrix.getIdError() == null){
-            homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.put("Ans", Matrix);
-            return "Ans = " + Matrix.toString(homeMatrixLabController.PublicVar.countOfDigits);
-        }else{    
-            return Matrix.getIdError();
-        }
-        
-    }
-    
-    
-    /**
-     * Выводит выбранную матрицу
-     * @param matcher
-     * @return
-     */
-    public static String viewMatrix(Matcher matcher){//21
-        MtF.Matrix Matrix = null;
-        
+        String res = null;
         try {
             if (matcher.find()) {
-                Matrix = homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(1));
+                MtF.Matrix matr = MtF.TranspMatrix(homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(1)));
+                res = matr.toString(homeMatrixLabController.PublicVar.countOfDigits);
+                if (homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.containsKey("Ans")) {
+
+                    homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.remove("Ans");
+                    homeMatrixLabController.PublicVar.listOfHistory.remove("Ans");
+                    homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.put("Ans", matr);
+                    homeMatrixLabController.PublicVar.listOfHistory.add("Ans");
+
+                } else {
+                    homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.put("Ans", matr);
+                    homeMatrixLabController.PublicVar.listOfHistory.add("Ans");
+                }
             }
+        } catch (Exception e) {
+            res = "Неизвестная ошибка \n";
         }
-        catch (Exception e) {
-            System.out.println("Неизвестная ошибка");
+        return res;
+    }
+    
+    public static String viewMultMatrix (Matcher matcher) {
+        String res = null;
+        // --------------------------------------------------------------------------------------------------- ОПТИМИЗИРОВАТЬ (Более кратким условием)
+        try {
+            if (matcher.find()) {
+                MtF.Matrix matr = MtF.MultMatrix(homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(1)), homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(2)));
+                
+                res = matr.toString(homeMatrixLabController.PublicVar.countOfDigits);
+                
+                if (homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.containsKey("Ans")) {
+                    
+                    homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.remove("Ans");
+                    homeMatrixLabController.PublicVar.listOfHistory.remove("Ans");
+                    homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.put("Ans", matr);
+                    homeMatrixLabController.PublicVar.listOfHistory.add("Ans");
+
+                } else {
+                    homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.put("Ans", matr);
+                    homeMatrixLabController.PublicVar.listOfHistory.add("Ans");
+                }
+            }
+        } catch (Exception e) {
+            res = "Неизвестная ошибка \n";
         }
         
-        return Matrix.toString(homeMatrixLabController.PublicVar.countOfDigits);
+        return res;
     }
     
     /**
@@ -402,15 +422,35 @@ public class SintacsisFunc {
                 if (buff.getN() == buff.getM()) {
                     returnNum = "Ans = " + String.valueOf(MtF.DetGauss(buff));
                 } else {
-                    returnNum = ">> Матрица не квадратная";
+                    returnNum = "Матрица не квадратная \n";
                 }
             }
         }
         catch (Exception e) {
-            returnNum = (">> Неизвестная ошибка");
+            returnNum = ("Неизвестная ошибка \n");
         }          
         
         return returnNum;
+    }
+    
+    /**
+     * Выводит выбранную матрицу
+     * @param matcher
+     * @return
+     */
+    public static String viewMatrix(Matcher matcher){//21
+        MtF.Matrix Matrix = null;
+        
+        try {
+            if (matcher.find()) {
+                Matrix = homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(1));
+            }
+        }
+        catch (Exception e) {
+            System.out.println("Неизвестная ошибка \n");
+        }
+        
+        return Matrix.toString(homeMatrixLabController.PublicVar.countOfDigits);
     }
     
     public static Matcher createMatcher(String commandOnString, String patternOnString) {
@@ -426,5 +466,18 @@ public class SintacsisFunc {
         res = ">> " + commandOnString + "\n" +  result + "\n";
         
         return res;
+    }
+    
+    public static String swapMatrix(Matcher matcher) {
+        String res = null;
+        try {
+            if (matcher.find()) {
+                res = "swap " + matcher.group(1) + " - " + matcher.group(2);
+            }
+        } catch (Exception e) {
+            res = "Неизвестная ошибка \n";
+        }
+        return res;
+       
     }
 }

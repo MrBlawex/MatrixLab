@@ -86,7 +86,7 @@ public class MtF {
                     res[i] = getRowFromSintacsis(rowList.get(i));
                 }
             } else {
-                this.idError = "\n>> Неверная размерность";
+                this.idError = "Неверная размерность \n";
             }
 
             this.n = nSize;
@@ -236,12 +236,12 @@ public class MtF {
                 for (int i = 0; i < n; i++) {
                     for (int j = 0; j < m; j++) {
                         if (matr[i][j] == Math.round(matr[i][j])) {
-                            result += "\t" + String.valueOf((int) matr[i][j]);
+                            result += "\t " + String.valueOf((int) matr[i][j]);
                         } else {
                             if (!format) {
-                                result += "\t" + String.format(lth, matr[i][j]);
+                                result += "\t " + String.format(lth, matr[i][j]);
                             } else {
-                                result += "\t" + toFormat(matr[i][j]);
+                                result += "\t " + toFormat(matr[i][j]);
                             }
                         }
                     }
@@ -273,15 +273,6 @@ public class MtF {
         }
         return res;
     }
-    // GCD 
-    public static int getGCD(int a, int b) {
-        a = Math.abs(a);
-        b = Math.abs(b);
-        if (b == 0) return a;
-        int x = a % b;
-        return getGCD(b, x);
-    }
-    
     //Меняет режим вывод
     public static void formatMode() {
         Matrix.format = !Matrix.format;
@@ -308,6 +299,7 @@ public class MtF {
         Res.matrix = res;
         return Res;
     }
+    
     //Сумма матриц
     public static Matrix SumMatrix(Matrix A, Matrix B) {
         Matrix Res = new Matrix(A);
@@ -345,14 +337,14 @@ public class MtF {
         }
         return Res;
     }
-
+    
     //Умножение матриц
     public static Matrix MultMatrix(Matrix A, Matrix B) {
         Matrix Res = new Matrix("Ans", A.getM(), B.getN());
         float[][] res = new float[A.getM()][B.getN()];
         
         if (A.getM() != B.getN()) {
-            Res.isWrong("\n>> Не подходят размерности");
+            Res.isWrong("Не подходят размерности \n");
         } else {
             for (int i = 0; i < Res.getN(); i++) {
                 for (int j = 0; j < Res.getM(); j++) {
@@ -515,7 +507,7 @@ public class MtF {
         Matrix Res = new Matrix(M.getN(), M.getM());
         float det = DetGauss(M);
         if (det == 0) {
-            Res.isWrong("\n>> Обратной матрицы не существует! определитель = 0");
+            Res.isWrong("Обратной матрицы не существует! определитель = 0 \n");
         } else {
             Res = MultMatrixEl( 1 / DetGauss(M), TranspMatrix( UnionMatrix(M) ) );
         }
