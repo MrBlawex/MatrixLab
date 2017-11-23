@@ -348,8 +348,8 @@ public class MtF {
 
     //Умножение матриц
     public static Matrix MultMatrix(Matrix A, Matrix B) {
-        Matrix Res = new Matrix(A.getN(), B.getM());
-        float[][] res = new float[A.getN()][B.getM()];
+        Matrix Res = new Matrix("Ans", A.getM(), B.getN());
+        float[][] res = new float[A.getM()][B.getN()];
         
         if (A.getM() != B.getN()) {
             Res.isWrong("\n>> Не подходят размерности");
@@ -570,7 +570,7 @@ public class MtF {
                 fl = false;
 
             }
-        }
+        }   
 
         float[] res = new float[len];
         for (int i = 0; i < len; i++) {
