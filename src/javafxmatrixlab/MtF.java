@@ -135,7 +135,10 @@ public class MtF {
             this.n = M.getN();
             this.m = M.getM();
             this.name = M.name;
-            this.matrix = M.matrix;
+            this.matrix = new float[n][m];
+            for (int i = 0; i < n; i++) {
+                System.arraycopy(M.matrix[i], 0, this.matrix[i], 0, m);
+            }
         }
 
         public Matrix(String name, Matrix M) {
@@ -314,9 +317,34 @@ public class MtF {
         return Res;
     }
 
-    public static Matrix revS(Matrix A) {
+    //Разница матриц
+    public static Matrix DifferMatrix(Matrix A, Matrix B) {
         Matrix Res = new Matrix(A);
-        float[][] res = A.matrix;
+        float[][] b;
+       
+        b = revS(B).matrix;
+        
+        float[][] res = new float[A.getN()][A.getM()];
+
+        for (int i = 0; i < A.getN(); i++) {
+            for (int j = 0; j < A.getM(); j++) {
+                res[i][j] = A.matrix[i][j] + b[i][j];
+            }
+        }
+        Res.matrix = res;
+        return Res;
+    }
+    
+    public static Matrix revS(Matrix A) {
+        Matrix Res = new Matrix(A.getN(),A.getM());
+        float[][] res = new float[Res.getN()][Res.getM()];
+        
+        for (int i = 0; i < A.getN(); i++) {
+            for (int j = 0; j < A.getM(); j++) {
+                res[i][j] = A.matrix[i][j];
+            }
+        }
+        
         for (int i = 0; i < A.getN(); i++) {
             for (int j = 0; j < A.getM(); j++) {
                 res[i][j] *= -1;
