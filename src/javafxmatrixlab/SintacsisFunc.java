@@ -26,6 +26,21 @@ public class SintacsisFunc {
         }
 
     }
+    
+    public static Matcher createMatcher(String commandOnString, String patternOnString) {
+        Pattern pattern = Pattern.compile(patternOnString);
+        Matcher matcher = pattern.matcher(commandOnString);
+
+        return matcher;
+    }
+
+    public static String formatStringForReturn(String commandOnString, String result) {
+        String res = null;
+
+        res = ">> " + commandOnString + "\n" + result + "\n";
+
+        return res;
+    }
 
     public static class PatternConst {
 
@@ -50,7 +65,7 @@ public class SintacsisFunc {
          */
         public static final String CREATE_EYE_MATRIX = "^eye[(]([\\d]{1,})[)]";
         /**
-         * Создание инвертированной матрицы
+         * Создание инвертированной матрицы (обратной)
          */
         public static final String CREATE_INV_MATRIX = "^inv[(]([A-Za-z][A-Za-z0-9]{0,7})[)]";
         /**
@@ -193,43 +208,41 @@ public class SintacsisFunc {
         homeMatrixLabController hController = new homeMatrixLabController();
 
         if (IndexOfExeptPattern == -1) {
-
             stringReturn = formatStringForReturn(sintacsis.getString(), ErrorFunc.returnError(ErrorFunc.ErrorType.WRONG_FUNC));
 
         } else if (IndexOfExeptPattern == 0) {//Создание матрицы
-
             stringReturn = formatStringForReturn(sintacsis.getString(), CreateMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
 
-        } else if (IndexOfExeptPattern == 1) {
+        } else if (IndexOfExeptPattern == 1) {//Создание нулевой матрицы
 
-        } else if (IndexOfExeptPattern == 2) {
+        } else if (IndexOfExeptPattern == 2) {//Создание единичной матрицы
 
-        } else if (IndexOfExeptPattern == 3) {
+        } else if (IndexOfExeptPattern == 3) {//Создание диагональной матрицы
 
         } else if (IndexOfExeptPattern == 4) {
 
-        } else if (IndexOfExeptPattern == 5) {
-
-        } else if (IndexOfExeptPattern == 6) {
+        } else if (IndexOfExeptPattern == 5) {//обратная матрица
+            stringReturn = formatStringForReturn(sintacsis.getString(), printInvMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
+        } else if (IndexOfExeptPattern == 6) {//Клон матрицы
 
             stringReturn = formatStringForReturn(sintacsis.getString(), createCloneMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
 
-        } else if (IndexOfExeptPattern == 7) {
+        } else if (IndexOfExeptPattern == 7) {//Транспониррование матрицы
             stringReturn = formatStringForReturn(sintacsis.getString(), printTransporationMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
 
-        } else if (IndexOfExeptPattern == 8) {
+        } else if (IndexOfExeptPattern == 8) {//Синус каждого элемента
 
-        } else if (IndexOfExeptPattern == 9) {
+        } else if (IndexOfExeptPattern == 9) {//Косинус каждого элемента
 
-        } else if (IndexOfExeptPattern == 10) {
+        } else if (IndexOfExeptPattern == 10) {//Тангенс каждого элемента
 
-        } else if (IndexOfExeptPattern == 11) {
+        } else if (IndexOfExeptPattern == 11) {//Котангенс каждого элемента
 
-        } else if (IndexOfExeptPattern == 12) {
+        } else if (IndexOfExeptPattern == 12) {//
 
-        } else if (IndexOfExeptPattern == 13) {
+        } else if (IndexOfExeptPattern == 13) {//
 
-        } else if (IndexOfExeptPattern == 14) {
+        } else if (IndexOfExeptPattern == 14) {//
 
         } else if (IndexOfExeptPattern == 15) {//Cумма матриц
             stringReturn = formatStringForReturn(sintacsis.getString(), viewAddMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
@@ -240,18 +253,19 @@ public class SintacsisFunc {
         } else if (IndexOfExeptPattern == 17) {//Умножение матриц 
             stringReturn = formatStringForReturn(sintacsis.getString(), viewMultMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
 
-        } else if (IndexOfExeptPattern == 18) {
+        } else if (IndexOfExeptPattern == 18) {//Деление матриц
+            stringReturn = formatStringForReturn(sintacsis.getString(), viewDivMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
 
         } else if (IndexOfExeptPattern == 19) {//Возведение в степень матрицы
             stringReturn = formatStringForReturn(sintacsis.getString(), viewPowMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
 
-        } else if (IndexOfExeptPattern == 20) {
+        } else if (IndexOfExeptPattern == 20) {//Вывод размерности матрицы
 
         } else if (IndexOfExeptPattern == 21) {//Вывод матрицы
 
             stringReturn = formatStringForReturn(sintacsis.getString(), viewMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
 
-        } else if (IndexOfExeptPattern == 22) {
+        } else if (IndexOfExeptPattern == 22) {//Вывод элемента матрицы
 
         } else if (IndexOfExeptPattern == 23) {//Определитель
 
@@ -304,7 +318,31 @@ public class SintacsisFunc {
         }
         return Matrix.toString(homeMatrixLabController.PublicVar.countOfDigits);
     }
+    
+    public static String printInvMatrix(Matcher matcher) {//5
+        String res = null;
+        try {
+            if (matcher.find()) {
+                MtF.Matrix matr = MtF.InversMatrix(homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(1)));
+                res = matr.toString(homeMatrixLabController.PublicVar.countOfDigits);
+                if (homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.containsKey("Ans")) {
 
+                    homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.remove("Ans");
+                    homeMatrixLabController.PublicVar.listOfHistory.remove("Ans");
+                    homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.put("Ans", matr);
+                    homeMatrixLabController.PublicVar.listOfHistory.add("Ans");
+
+                } else {
+                    homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.put("Ans", matr);
+                    homeMatrixLabController.PublicVar.listOfHistory.add("Ans");
+                }
+            }
+        } catch (Exception e) {
+            res = "Неизвестная ошибка \n";
+        }
+        return res;
+    }
+    
     /**
      * Создает или заменяет матрицу на ту что указана после =
      *
@@ -360,32 +398,6 @@ public class SintacsisFunc {
         return res;
     }
 
-    public static String viewMultMatrix(Matcher matcher) {
-        String res = null;
-        try {
-            if (matcher.find()) {
-                MtF.Matrix matr = MtF.MultMatrix(homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(1)), homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(2)));
-
-                res = matr.toString(homeMatrixLabController.PublicVar.countOfDigits);
-
-                if (homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.containsKey("Ans")) {
-
-                    homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.remove("Ans");
-                    homeMatrixLabController.PublicVar.listOfHistory.remove("Ans");
-                    homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.put("Ans", matr);
-                    homeMatrixLabController.PublicVar.listOfHistory.add("Ans");
-
-                } else {
-                    homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.put("Ans", matr);
-                    homeMatrixLabController.PublicVar.listOfHistory.add("Ans");
-                }
-            }
-        } catch (Exception e) {
-            res = "Неизвестная ошибка \n";
-        }
-
-        return res;
-    }
     
     public static String viewAddMatrix(Matcher matcher) { //15
         String res = null;
@@ -415,7 +427,7 @@ public class SintacsisFunc {
         return res;
     }
     
-    public static String viewDifferMatrix(Matcher matcher) { //15
+    public static String viewDifferMatrix(Matcher matcher) { //16
         String res = null;
         try {
             if (matcher.find()) {
@@ -440,6 +452,60 @@ public class SintacsisFunc {
         } catch (Exception e) {
             res = "Неизвестная ошибка \n";
         }
+        return res;
+    }
+    
+    public static String viewMultMatrix(Matcher matcher) { //17
+        String res = null;
+        try {
+            if (matcher.find()) {
+                MtF.Matrix matr = MtF.MultMatrix(homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(1)), homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(2)));
+
+                res = matr.toString(homeMatrixLabController.PublicVar.countOfDigits);
+
+                if (homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.containsKey("Ans")) {
+
+                    homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.remove("Ans");
+                    homeMatrixLabController.PublicVar.listOfHistory.remove("Ans");
+                    homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.put("Ans", matr);
+                    homeMatrixLabController.PublicVar.listOfHistory.add("Ans");
+
+                } else {
+                    homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.put("Ans", matr);
+                    homeMatrixLabController.PublicVar.listOfHistory.add("Ans");
+                }
+            }
+        } catch (Exception e) {
+            res = "Неизвестная ошибка \n";
+        }
+
+        return res;
+    }
+    
+    public static String viewDivMatrix(Matcher matcher) { //18
+        String res = null;
+        try {
+            if (matcher.find()) {
+                MtF.Matrix matr = MtF.DivMatrix(homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(1)), homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(2)));
+
+                res = matr.toString(homeMatrixLabController.PublicVar.countOfDigits);
+
+                if (homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.containsKey("Ans")) {
+
+                    homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.remove("Ans");
+                    homeMatrixLabController.PublicVar.listOfHistory.remove("Ans");
+                    homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.put("Ans", matr);
+                    homeMatrixLabController.PublicVar.listOfHistory.add("Ans");
+
+                } else {
+                    homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.put("Ans", matr);
+                    homeMatrixLabController.PublicVar.listOfHistory.add("Ans");
+                }
+            }
+        } catch (Exception e) {
+            res = "Неизвестная ошибка \n";
+        }
+
         return res;
     }
     
@@ -470,6 +536,11 @@ public class SintacsisFunc {
         return res;
     }
 
+    public static String aaaa(Matcher matcher) { //20
+        String res = null;
+        return res;
+    }
+    
     /**
      * Выводит выбранную матрицу
      *
@@ -490,6 +561,11 @@ public class SintacsisFunc {
         return Matrix.toString(homeMatrixLabController.PublicVar.countOfDigits);
     }
 
+    public static String aaa(Matcher matcher) { //22
+        String res = null;
+        return res;
+    }
+    
     /**
      * Выводит определитель матрицы
      *
@@ -516,26 +592,11 @@ public class SintacsisFunc {
         return returnNum;
     }
 
-    public static Matcher createMatcher(String commandOnString, String patternOnString) {
-        Pattern pattern = Pattern.compile(patternOnString);
-        Matcher matcher = pattern.matcher(commandOnString);
-
-        return matcher;
-    }
-
-    public static String formatStringForReturn(String commandOnString, String result) {
-        String res = null;
-
-        res = ">> " + commandOnString + "\n" + result + "\n";
-
-        return res;
-    }
-
-    public static String swapMatrix(Matcher matcher) {
+    public static String swapMatrix(Matcher matcher) {//25
         String res = null;
         try {
             if (matcher.find()) {
-                res = "swap " + matcher.group(1) + " - " + matcher.group(2);
+                res = "swap " + matcher.group(1) + " <-> " + matcher.group(2);
             }
         } catch (Exception e) {
             res = "Неизвестная ошибка \n";

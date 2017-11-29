@@ -390,7 +390,30 @@ public class MtF {
         }
         return Res;
     }
-
+    //Деление матриц
+    public static Matrix DivMatrix(Matrix A, Matrix B) {
+        Matrix Res = new Matrix("Ans", A.getM(), B.getN());
+        float[][] res = new float[A.getM()][B.getN()];
+        Matrix Div = InversMatrix(B);
+        if (A.getM() != B.getN()) {
+            Res.isWrong("Не подходят размерности \n");
+        } else {
+            for (int i = 0; i < Res.getN(); i++) {
+                for (int j = 0; j < Res.getM(); j++) {
+                    res[i][j] = 0;
+                }
+            }
+            for (int y = 0; y < Res.getN(); y++) {
+                for (int x = 0; x < Res.getM(); x++) {
+                    for (int j = 0; j < A.getM(); j++) {
+                        res[y][x] += A.matrix[y][j] * Div.matrix[j][x];
+                    }
+                }
+            }
+            Res.matrix = res;
+        }
+        return Res;
+    }
     //Поэлементное умножение матрицы
     public static Matrix MultMatrixEl(float k, Matrix A) {
         Matrix Res = new Matrix(A.getN(), A.getM());
@@ -599,4 +622,3 @@ public class MtF {
         return res;
     }
 }
-

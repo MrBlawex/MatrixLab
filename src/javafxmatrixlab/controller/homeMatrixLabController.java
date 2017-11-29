@@ -70,12 +70,6 @@ public class homeMatrixLabController implements Initializable {
         
         //Для тестов
         historyContainer.setItems(PublicVar.listOfHistory);
-        MtF.Matrix A = new MtF.Matrix("A",2,2);
-        A.autoSetInt(10);
-        MtF.Matrix B = new MtF.Matrix("B",2,2);
-        B.autoSetInt(10);
-        PublicVar.OutputText += A.toString(2) + B.toString(2);
-        
         textOut.setText(PublicVar.OutputText);
     }    
     
