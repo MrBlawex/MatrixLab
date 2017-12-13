@@ -68,7 +68,6 @@ public class homeMatrixLabController implements Initializable {
         SintacsisFunc.PatternConst.initialize();
         allEvent();
         
-        //Для тестов
         historyContainer.setItems(PublicVar.listOfHistory);
         textOut.setText(PublicVar.OutputText);
     }    
@@ -113,6 +112,11 @@ public class homeMatrixLabController implements Initializable {
         }
     }
 
+    @FXML
+    public void settingsProgram() {
+        modalWindow.newAlert(AlertType.INFORMATION, null, "Это типа настройки");
+    }
+    
     /**
      * Создает окно добавления матрицы
      * @throws IOException
@@ -162,6 +166,7 @@ public class homeMatrixLabController implements Initializable {
     }
     
     public void closeProgram(ActionEvent actionEvent){
-        ((Node)actionEvent.getSource()).getScene().getWindow().hide();
+       System.exit(0);// ((Node)actionEvent.getSource()).getScene().getWindow().hide();
     }
+    
 }

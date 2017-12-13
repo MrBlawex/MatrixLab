@@ -21,13 +21,13 @@
         <menus>
           <Menu mnemonicParsing="false" text="Файл">
             <items>
-              <MenuItem mnemonicParsing="false" text="Закрыть программу" />
+              <MenuItem mnemonicParsing="false" onAction="#closeProgram" text="Закрыть программу" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Правка">
             <items>
               <MenuItem mnemonicParsing="false" onAction="#getOldArea" text="Вернуть старый текст" />
-                  <MenuItem mnemonicParsing="false" onAction="#getOldArea" text="Настройки" />
+                  <MenuItem mnemonicParsing="false" onAction="#settingsProgram" text="Настройки" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Помощь">

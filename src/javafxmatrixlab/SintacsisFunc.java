@@ -591,7 +591,8 @@ public class SintacsisFunc {
                 Matrix = homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(1));
             }
         } catch (Exception e) {
-            System.out.println("Неизвестная ошибка");
+            return "Неизвестная ошибка";
+            
         }
 
         return Matrix.toString(homeMatrixLabController.PublicVar.countOfDigits);
@@ -634,7 +635,7 @@ public class SintacsisFunc {
         try {
             if (matcher.find()) {
                 res = "swap " + matcher.group(1) + " <-> " + matcher.group(2);
-                // Здесь поменять местами ключи в хеш мепе и имена в обсервбл лист
+                //Здесь нужно сделать смену ключей в хещмепе
             }
         } catch (Exception e) {
             res = "Неизвестная ошибка \n";
