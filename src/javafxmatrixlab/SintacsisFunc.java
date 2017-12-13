@@ -26,7 +26,7 @@ public class SintacsisFunc {
         }
 
     }
-    
+
     public static Matcher createMatcher(String commandOnString, String patternOnString) {
         Pattern pattern = Pattern.compile(patternOnString);
         Matcher matcher = pattern.matcher(commandOnString);
@@ -156,6 +156,11 @@ public class SintacsisFunc {
          */
         public static final String FUNC_SWAP_MATRIX = "^swap[(]([A-Za-z][A-Za-z0-9]{0,7})[\\x2C]([A-Za-z][A-Za-z0-9]{0,7})[)]";
         /**
+         *
+         */
+        public static final String VIEW_COMMENT = "^[/][/]([A-Za-z][A-Za-z0-9]{0,256})";
+
+        /**
          * HashMap представление констант
          */
         public static HashMap<Integer, String> PATTERN_CONST_HASHMAP = new HashMap<Integer, String>();
@@ -187,6 +192,7 @@ public class SintacsisFunc {
             PATTERN_CONST_HASHMAP.put(23, VIEW_DET_MATRIX);
             PATTERN_CONST_HASHMAP.put(24, FORMAT_MODE);
             PATTERN_CONST_HASHMAP.put(25, FUNC_SWAP_MATRIX);
+            PATTERN_CONST_HASHMAP.put(26, VIEW_COMMENT);
         }
 
     }
@@ -207,83 +213,114 @@ public class SintacsisFunc {
 
         homeMatrixLabController hController = new homeMatrixLabController();
 
-        if (IndexOfExeptPattern == -1) {
-            stringReturn = formatStringForReturn(sintacsis.getString(), ErrorFunc.returnError(ErrorFunc.ErrorType.WRONG_FUNC));
+        switch (IndexOfExeptPattern) {
+            case -1:
+                stringReturn = formatStringForReturn(sintacsis.getString(), ErrorFunc.returnError(ErrorFunc.ErrorType.WRONG_FUNC));
+                break;
+            case 0:
+                //Создание матрицы
+                stringReturn = formatStringForReturn(sintacsis.getString(), CreateMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
+                break;
+            //Создание нулевой матрицы
+            case 1:
+                break;
+            //Создание единичной матрицы
+            case 2:
+                break;
+            //Создание диагональной матрицы
+            case 3:
+                break;
+            case 4:
+                break;
+            case 5:
+                //обратная матрица
+                stringReturn = formatStringForReturn(sintacsis.getString(), printInvMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
+                break;
+            case 6:
+                //Клон матрицы
+                stringReturn = formatStringForReturn(sintacsis.getString(), createCloneMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
+                break;
+            case 7:
+                //Транспониррование матрицы
+                stringReturn = formatStringForReturn(sintacsis.getString(), printTransporationMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
+                break;
+            //Синус каждого элемента
+            case 8:
+                break;
+            //Косинус каждого элемента
+            case 9:
+                break;
+            //Тангенс каждого элемента
+            case 10:
+                break;
+            //Котангенс каждого элемента
+            case 11:
+                break;
+            //
+            case 12:
+                break;
+            //
+            case 13:
+                break;
+            //
+            case 14:
+                break;
+            case 15:
+                //Cумма матриц
+                stringReturn = formatStringForReturn(sintacsis.getString(), viewAddMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
+                break;
+            case 16:
+                //Разница матриц
+                stringReturn = formatStringForReturn(sintacsis.getString(), viewDifferMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
+                break;
+            case 17:
+                //Умножение матриц
+                stringReturn = formatStringForReturn(sintacsis.getString(), viewMultMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
+                break;
+            case 18:
+                //Деление матриц
+                stringReturn = formatStringForReturn(sintacsis.getString(), viewDivMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
+                break;
+            case 19:
+                //Возведение в степень матрицы
+                stringReturn = formatStringForReturn(sintacsis.getString(), viewPowMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
+                break;
+            //Вывод размерности матрицы
+            case 20:
+                break;
+            case 21:
+                //Вывод матрицы
+                stringReturn = formatStringForReturn(sintacsis.getString(), viewMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
+                break;
+            //Вывод элемента матрицы
+            case 22:
+                break;
+            case 23:
+                //Определитель
+                stringReturn = formatStringForReturn(sintacsis.getString(), viewDetMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
+                break;
+            case 24:
+                //Формат вывода
+                String mode;
+                if (MtF.Matrix.format) {
+                    mode = "on";
+                } else {
+                    mode = "off";
+                }
+                stringReturn = formatStringForReturn(sintacsis.getString(), ">> Format:" + mode);
+                MtF.formatMode();
+                break;
+            case 25:
+                // Перестановка матриц
 
-        } else if (IndexOfExeptPattern == 0) {//Создание матрицы
-            stringReturn = formatStringForReturn(sintacsis.getString(), CreateMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
-
-        } else if (IndexOfExeptPattern == 1) {//Создание нулевой матрицы
-
-        } else if (IndexOfExeptPattern == 2) {//Создание единичной матрицы
-
-        } else if (IndexOfExeptPattern == 3) {//Создание диагональной матрицы
-
-        } else if (IndexOfExeptPattern == 4) {
-
-        } else if (IndexOfExeptPattern == 5) {//обратная матрица
-            stringReturn = formatStringForReturn(sintacsis.getString(), printInvMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
-        } else if (IndexOfExeptPattern == 6) {//Клон матрицы
-
-            stringReturn = formatStringForReturn(sintacsis.getString(), createCloneMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
-
-        } else if (IndexOfExeptPattern == 7) {//Транспониррование матрицы
-            stringReturn = formatStringForReturn(sintacsis.getString(), printTransporationMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
-
-        } else if (IndexOfExeptPattern == 8) {//Синус каждого элемента
-
-        } else if (IndexOfExeptPattern == 9) {//Косинус каждого элемента
-
-        } else if (IndexOfExeptPattern == 10) {//Тангенс каждого элемента
-
-        } else if (IndexOfExeptPattern == 11) {//Котангенс каждого элемента
-
-        } else if (IndexOfExeptPattern == 12) {//
-
-        } else if (IndexOfExeptPattern == 13) {//
-
-        } else if (IndexOfExeptPattern == 14) {//
-
-        } else if (IndexOfExeptPattern == 15) {//Cумма матриц
-            stringReturn = formatStringForReturn(sintacsis.getString(), viewAddMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
-        
-        } else if (IndexOfExeptPattern == 16) {//Разница матриц
-            stringReturn = formatStringForReturn(sintacsis.getString(), viewDifferMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
-
-        } else if (IndexOfExeptPattern == 17) {//Умножение матриц 
-            stringReturn = formatStringForReturn(sintacsis.getString(), viewMultMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
-
-        } else if (IndexOfExeptPattern == 18) {//Деление матриц
-            stringReturn = formatStringForReturn(sintacsis.getString(), viewDivMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
-
-        } else if (IndexOfExeptPattern == 19) {//Возведение в степень матрицы
-            stringReturn = formatStringForReturn(sintacsis.getString(), viewPowMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
-
-        } else if (IndexOfExeptPattern == 20) {//Вывод размерности матрицы
-
-        } else if (IndexOfExeptPattern == 21) {//Вывод матрицы
-
-            stringReturn = formatStringForReturn(sintacsis.getString(), viewMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
-
-        } else if (IndexOfExeptPattern == 22) {//Вывод элемента матрицы
-
-        } else if (IndexOfExeptPattern == 23) {//Определитель
-
-            stringReturn = formatStringForReturn(sintacsis.getString(), viewDetMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
-
-        } else if (IndexOfExeptPattern == 24) {//Формат вывода
-            String mode;
-            if (MtF.Matrix.format) {
-                mode = "on";
-            } else {
-                mode = "off";
-            }
-            stringReturn = formatStringForReturn(sintacsis.getString(), ">> Format:" + mode);
-            MtF.formatMode();
-
-        } else if (IndexOfExeptPattern == 25) {// Перестановка матриц
-
-            stringReturn = formatStringForReturn(sintacsis.getString(), swapMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
+                stringReturn = formatStringForReturn(sintacsis.getString(), swapMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
+                break;
+            case 26:
+                // Комментарий
+                stringReturn = sintacsis.getString() + "\n";
+                break;
+            default:
+                break;
         }
 
         return stringReturn;
@@ -318,7 +355,7 @@ public class SintacsisFunc {
         }
         return Matrix.toString(homeMatrixLabController.PublicVar.countOfDigits);
     }
-    
+
     public static String printInvMatrix(Matcher matcher) {//5
         String res = null;
         try {
@@ -342,7 +379,7 @@ public class SintacsisFunc {
         }
         return res;
     }
-    
+
     /**
      * Создает или заменяет матрицу на ту что указана после =
      *
@@ -398,7 +435,6 @@ public class SintacsisFunc {
         return res;
     }
 
-    
     public static String viewAddMatrix(Matcher matcher) { //15
         String res = null;
         try {
@@ -426,12 +462,12 @@ public class SintacsisFunc {
         }
         return res;
     }
-    
+
     public static String viewDifferMatrix(Matcher matcher) { //16
         String res = null;
         try {
             if (matcher.find()) {
-                MtF.Matrix matr = MtF.DifferMatrix(homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(1)), 
+                MtF.Matrix matr = MtF.DifferMatrix(homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(1)),
                         homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(2)));
 
                 res = matr.toString(homeMatrixLabController.PublicVar.countOfDigits);
@@ -454,7 +490,7 @@ public class SintacsisFunc {
         }
         return res;
     }
-    
+
     public static String viewMultMatrix(Matcher matcher) { //17
         String res = null;
         try {
@@ -481,7 +517,7 @@ public class SintacsisFunc {
 
         return res;
     }
-    
+
     public static String viewDivMatrix(Matcher matcher) { //18
         String res = null;
         try {
@@ -508,7 +544,7 @@ public class SintacsisFunc {
 
         return res;
     }
-    
+
     public static String viewPowMatrix(Matcher matcher) { //19
         String res = null;
         try {
@@ -528,7 +564,7 @@ public class SintacsisFunc {
                     homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.put("Ans", matr);
                     homeMatrixLabController.PublicVar.listOfHistory.add("Ans");
                 }
-                
+
             }
         } catch (Exception e) {
             res = "Неизвестная ошибка \n";
@@ -540,7 +576,7 @@ public class SintacsisFunc {
         String res = null;
         return res;
     }
-    
+
     /**
      * Выводит выбранную матрицу
      *
@@ -565,7 +601,7 @@ public class SintacsisFunc {
         String res = null;
         return res;
     }
-    
+
     /**
      * Выводит определитель матрицы
      *
@@ -592,11 +628,13 @@ public class SintacsisFunc {
         return returnNum;
     }
 
+    //Смена матриц местами
     public static String swapMatrix(Matcher matcher) {//25
         String res = null;
         try {
             if (matcher.find()) {
                 res = "swap " + matcher.group(1) + " <-> " + matcher.group(2);
+                // Здесь поменять местами ключи в хеш мепе и имена в обсервбл лист
             }
         } catch (Exception e) {
             res = "Неизвестная ошибка \n";
