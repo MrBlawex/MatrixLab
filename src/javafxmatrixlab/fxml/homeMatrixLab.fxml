@@ -93,6 +93,11 @@
                   <Image url="@icon/trash.png" />
                </image>
             </ImageView>
+             <ImageView fx:id="ViewFormat" fitHeight="24.0" fitWidth="24.0" layoutX="578.0" layoutY="14.0" onMouseClicked="#FormatArea" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="64.0">
+               <image>
+                  <Image url="@icon/trash.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
    </children>

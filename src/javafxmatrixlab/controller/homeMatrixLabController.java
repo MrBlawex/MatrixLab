@@ -18,6 +18,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -48,19 +50,22 @@ public class homeMatrixLabController implements Initializable {
     @FXML
     private ListView<String> historyContainer;
     
+    @FXML
+    private ImageView ViewFormat;
+    
     //Создание экземпляров класса
     JavaFXMatrixLab javaFXMatrixLab = new JavaFXMatrixLab();
     SintacsisFunc sintacsisFunc = new SintacsisFunc();
     ModalWindow modalWindow = new ModalWindow();
     ErrorFunc errorFunc = new ErrorFunc();
      
-    
     public static class PublicVar{
         public static ObservableList<String> listOfHistory = FXCollections.observableArrayList(); //Массив текста из истории
         public static HashMap<String, MtF.Matrix> DATA_BASE_MATRIX = new HashMap<String, MtF.Matrix>();
         public static String OutputText = ""; //Текст из поля вывода
         public static String oldOutputText = "";//Сохраняет старый текст для возможности его восстановления
-        public static Integer countOfDigits = 2;
+        public static Integer countOfDigits = 4;
+        public static Float epsilon = 0.000001f;
     }
      
     @Override
@@ -96,6 +101,10 @@ public class homeMatrixLabController implements Initializable {
         else {
             modalWindow.newAlert(AlertType.INFORMATION, null, "Окно не нуждается в очистке, так как оно не имеет текста");
         }
+    }
+    @FXML
+    public void FormatArea() {
+        MtF.Matrix.format = !MtF.Matrix.format;
     }
     /**
      * Возвращает старое окно вывода
@@ -166,7 +175,7 @@ public class homeMatrixLabController implements Initializable {
     }
     
     public void closeProgram(ActionEvent actionEvent){
-       System.exit(0);// ((Node)actionEvent.getSource()).getScene().getWindow().hide();
+       System.exit(0);
     }
     
 }

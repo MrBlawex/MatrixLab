@@ -1,5 +1,4 @@
 package javafxmatrixlab;
-
 /*
 ------------------------------------
 Кратная документация к коду
@@ -23,10 +22,11 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javafxmatrixlab.controller.homeMatrixLabController;
 
 public class MtF {
 
-    public static class Matrix {
+    public static strictfp class Matrix {
 
         private int n, m;
         private String name;
@@ -147,6 +147,7 @@ public class MtF {
             this.name = name;
             this.matrix = M.matrix;
         }
+
         //Создание матрицы после создания экземпляра
         public void setMatrix(int n, int m) {
             float[][] res = new float[n][m];
@@ -156,6 +157,7 @@ public class MtF {
             this.name = "Ans";
         }
 
+        // Сеттеры и геттеры
         public void setMatrix(int n) {
             float[][] res = new float[n][n];
             this.matrix = res;
@@ -164,7 +166,6 @@ public class MtF {
             this.name = "Ans";
         }
 
-        // Сеттеры и геттеры
         public void setName(String name) {
             this.name = name;
         }
@@ -204,7 +205,6 @@ public class MtF {
             }
             this.matrix = res;
         }
-
         //заполнение матрицы и целыми и вещественными числами
         public void autoSetIntFloat(float range, int digit) {
             Random random = new Random();
@@ -229,7 +229,6 @@ public class MtF {
             }
             this.matrix = res;
         }
-
         //перевод матрицы в строку
         public String toString(int length) {
             String result = "\t" + name + ":\n";
@@ -255,23 +254,23 @@ public class MtF {
             }
             return result;
         }
+
         // возвращает размер матрицы в строке
         public String getSize() {
             String result = "N." + this.n + " M." + this.m;
             return result;
         }
     }
-
     //---------- КОНЕЦ КЛАССА --------------------------------------------------
     //Возвращает число обычной дробью
     public static String toFormat(float val) {
         String res = "";
-        final float ratio = 0.01f;
+        final float ratio = homeMatrixLabController.PublicVar.epsilon;
         for (int i = 1; i > 0; i++) {
             double tem = val / (1f / i);
             if (Math.abs(tem - Math.round(tem)) < ratio) {
-               res += String.valueOf(Math.round(tem)) + "/" + i;
-               break;
+                res += String.valueOf(Math.round(tem)) + "/" + i;
+                break;
             }
         }
         return res;
@@ -280,6 +279,7 @@ public class MtF {
     public static void formatMode() {
         Matrix.format = !Matrix.format;
     }
+
     //Получить столбец матрицы
     public static Matrix getColumMatrix(Matrix A, int n) {
         n--;
@@ -294,7 +294,7 @@ public class MtF {
     //Получить строку матрицы
     public static Matrix getRowMatrix(Matrix A, int n) {
         n--;
-        Matrix Res = new Matrix(1,A.getM());
+        Matrix Res = new Matrix(1, A.getM());
         float[][] res = new float[1][A.getM()];
         for (int i = 0; i < A.getM(); i++) {
             res[0][i] = A.matrix[n][i];
@@ -302,7 +302,7 @@ public class MtF {
         Res.matrix = res;
         return Res;
     }
-    
+
     //Сумма матриц
     public static Matrix SumMatrix(Matrix A, Matrix B) {
         Matrix Res = new Matrix(A);
@@ -316,14 +316,13 @@ public class MtF {
         Res.matrix = res;
         return Res;
     }
-
     //Разница матриц
     public static Matrix DifferMatrix(Matrix A, Matrix B) {
         Matrix Res = new Matrix(A);
         float[][] b;
-       
+
         b = revS(B).matrix;
-        
+
         float[][] res = new float[A.getN()][A.getM()];
 
         for (int i = 0; i < A.getN(); i++) {
@@ -334,17 +333,17 @@ public class MtF {
         Res.matrix = res;
         return Res;
     }
-    
+    // Матрица с противоположным знаком
     public static Matrix revS(Matrix A) {
-        Matrix Res = new Matrix(A.getN(),A.getM());
+        Matrix Res = new Matrix(A.getN(), A.getM());
         float[][] res = new float[Res.getN()][Res.getM()];
-        
+
         for (int i = 0; i < A.getN(); i++) {
             for (int j = 0; j < A.getM(); j++) {
                 res[i][j] = A.matrix[i][j];
             }
         }
-        
+
         for (int i = 0; i < A.getN(); i++) {
             for (int j = 0; j < A.getM(); j++) {
                 res[i][j] *= -1;
@@ -353,7 +352,6 @@ public class MtF {
         Res.matrix = res;
         return Res;
     }
-
     //Поэлементная сумма матрицы
     public static Matrix SumMatrixEl(float k, Matrix A) {
         Matrix Res = new Matrix(A);
@@ -365,12 +363,11 @@ public class MtF {
         }
         return Res;
     }
-    
     //Умножение матриц
     public static Matrix MultMatrix(Matrix A, Matrix B) {
         Matrix Res = new Matrix("Ans", A.getM(), B.getN());
         float[][] res = new float[A.getM()][B.getN()];
-        
+
         if (A.getM() != B.getN()) {
             Res.isWrong("Не подходят размерности \n");
         } else {
@@ -386,7 +383,7 @@ public class MtF {
                     }
                 }
             }
-            Res.matrix = res; 
+            Res.matrix = res;
         }
         return Res;
     }
@@ -428,7 +425,6 @@ public class MtF {
         Res.matrix = res;
         return Res;
     }
-
     //Возведение матрицы в степень 
     public static Matrix PowMatrix(Matrix M, int n) {
         Matrix Res = M;
@@ -437,7 +433,16 @@ public class MtF {
         }
         return Res;
     }
-
+    //Возведение матрицы в степень поелементно 
+    public static Matrix PowElMatrix(Matrix M, int n) {
+        Matrix Res = M;
+        for (int i = 0; i < M.getN(); i++) {
+            for (int j = 0; j < M.getM(); j++) {
+                Res.matrix[i][j] = (float) Math.pow(M.matrix[i][j], n);
+            }
+        }
+        return Res;
+    }
     //Определитель матрицы методом гаусса
     public static float DetGauss(Matrix M) {
         final float E = 0.000001f;
@@ -486,7 +491,6 @@ public class MtF {
         det = Math.round(det * 100) * 0.01f;
         return det;
     }
-
     //МинорМатрицы (НЕ ДЕТЕРМИНАНТ)
     public static Matrix UnderMatrix(Matrix Mt, int row, int col) {
         Matrix minor = new Matrix(Mt.getN() - 1, Mt.getM() - 1);
@@ -506,7 +510,6 @@ public class MtF {
         minor.matrix = res;
         return minor;
     }
-
     //Минор матрицы
     public static float MinorMatrix(Matrix Mt, int row, int col) {
         float DetMinor = 0;
@@ -519,20 +522,19 @@ public class MtF {
 
         return DetMinor;
     }
-
     //Алгебраическое дополнение
     public static float AlgComlementMatrix(Matrix Mt, int row, int col) {
         float AlgCompl;
         int unit = 1;
         row++;
         col++;
-        if ( (row + col) % 2 != 0) {
+        if ((row + col) % 2 != 0) {
             unit *= -1;
         }
         AlgCompl = unit * MinorMatrix(Mt, --row, --col);
         return AlgCompl;
     }
-    
+    //Союзная матрица
     public static Matrix UnionMatrix(Matrix Mt) {
         Matrix Res = new Matrix(Mt);
         float[][] res = new float[Mt.getN()][Mt.getM()];
@@ -544,7 +546,6 @@ public class MtF {
         Res.matrix = res;
         return Res;
     }
-
     //Ранг матрицы - не готово ------------------------------------------------- 
     public static float RangeMatrix(Matrix M) {
         float range = 0;
@@ -552,7 +553,6 @@ public class MtF {
 
         return range;
     }
-
     //Обратная матрица
     public static Matrix InversMatrix(Matrix M) {
         Matrix Res = new Matrix(M.getN(), M.getM());
@@ -560,7 +560,7 @@ public class MtF {
         if (det == 0) {
             Res.isWrong("Обратной матрицы не существует! определитель = 0 \n");
         } else {
-            Res = MultMatrixEl( 1 / DetGauss(M), TranspMatrix( UnionMatrix(M) ) );
+            Res = MultMatrixEl(1 / DetGauss(M), TranspMatrix(UnionMatrix(M)));
         }
         return Res;
     }
@@ -577,21 +577,67 @@ public class MtF {
         Res.matrix = res;
         return Res;
     }
-
     //Решение СЛАУ методом Крамера - не готово ---------------------------------
     public static Matrix equationKramar(Matrix A, Matrix B) {
         Matrix Res = new Matrix(1, A.getM());
         float det = DetGauss(A);
-        
+
         float[] Sol = new float[A.getM()];
 
         return Res;
     }
 
+    //Синус элементов
+    public static Matrix sinMatrix(Matrix A) {
+        Matrix Res = new Matrix(A.getN(), A.getM());
+        float[][] res = new float[A.getN()][A.getM()];
+        for (int i = 0; i < A.getN(); i++) {
+            for (int j = 0; j < A.getM(); j++) {
+                res[i][j] = (float) Math.sin(A.matrix[i][j]);
+            }
+        }
+        Res.matrix = res;
+        return Res;
+    }
+    //Косинус элементов
+    public static Matrix cosMatrix(Matrix A) {
+        Matrix Res = new Matrix(A.getN(), A.getM());
+        float[][] res = new float[A.getN()][A.getM()];
+        for (int i = 0; i < A.getN(); i++) {
+            for (int j = 0; j < A.getM(); j++) {
+                res[i][j] = (float) Math.cos(A.matrix[i][j]);
+            }
+        }
+        Res.matrix = res;
+        return Res;
+    }
+    //Тангенс элементов
+    public static Matrix tgMatrix(Matrix A) {
+        Matrix Res = new Matrix(A.getN(), A.getM());
+        float[][] res = new float[A.getN()][A.getM()];
+        for (int i = 0; i < A.getN(); i++) {
+            for (int j = 0; j < A.getM(); j++) {
+                res[i][j] = (float) (Math.sin(A.matrix[i][j]) / Math.cos(A.matrix[i][j]));
+            }
+        }
+        Res.matrix = res;
+        return Res;
+    }
+    //Котангенс элементов
+    public static Matrix ctgMatrix(Matrix A) {
+        Matrix Res = new Matrix(A.getN(), A.getM());
+        float[][] res = new float[A.getN()][A.getM()];
+        for (int i = 0; i < A.getN(); i++) {
+            for (int j = 0; j < A.getM(); j++) {
+                res[i][j] = (float) (Math.cos(A.matrix[i][j]) / Math.sin(A.matrix[i][j]));
+            }
+        }
+        Res.matrix = res;
+        return Res;
+    }
     //Работа с синтаксисом
-    //Возвращает массив(флоат) строки матрицы который потом нужно присваивать матрице  
+     //Возвращает массив(флоат) строки матрицы который потом нужно присваивать матрице  
     public static float[] getRowFromSintacsis(String line) {
-        //Нужно реализовать считывание не только константных чисел а и переменных
         ArrayList<Float> listOfNumber = new ArrayList<>();
         String patternOnString = "[-]{0,1}[\\d]{0,}[\\056]{0,1}[\\d]{1,}";
         int len = 0;
@@ -613,7 +659,7 @@ public class MtF {
                 fl = false;
 
             }
-        }   
+        }
 
         float[] res = new float[len];
         for (int i = 0; i < len; i++) {

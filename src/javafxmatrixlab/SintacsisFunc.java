@@ -35,11 +35,7 @@ public class SintacsisFunc {
     }
 
     public static String formatStringForReturn(String commandOnString, String result) {
-        String res = null;
-
-        res = ">> " + commandOnString + "\n" + result + "\n";
-
-        return res;
+        return ">> " + commandOnString + "\n" + result + "\n";
     }
 
     public static class PatternConst {
@@ -103,7 +99,7 @@ public class SintacsisFunc {
         /**
          * Поэлементное возведение в степень
          */
-        public static final String FUNC_EL_SQR_MATRIX = "([A-Za-z][A-Za-z0-9]{0,7})[\\x2E][\\x5E]([A-Za-z][A-Za-z0-9]{0,7})";
+        public static final String FUNC_EL_POW_MATRIX = "([A-Za-z][A-Za-z0-9]{0,7})[\\x2E][\\x5E]([A-Za-z][A-Za-z0-9]{0,7})";
         /**
          * Поэлементное добавление
          */
@@ -135,7 +131,7 @@ public class SintacsisFunc {
         /**
          * Вывести элемент матрицы или ее столбец или ее рядок
          */
-        public static final String VIEW_El_MATRIX = "^([A-Za-z][A-Za-z0-9]{0,7})[(][[\\d]{1,}|[\\x3A]][,][[\\d]{1,}|[\\x3A]][)]";
+        public static final String VIEW_EL_MATRIX = "^([A-Za-z][A-Za-z0-9]{0,7})[(][[\\d]{1,}|[\\x3A]][,][[\\d]{1,}|[\\x3A]][)]";
         /**
          * Вывести определитель матрицы
          */
@@ -180,7 +176,7 @@ public class SintacsisFunc {
             PATTERN_CONST_HASHMAP.put(11, FUNC_CTG_MATRIX);
             PATTERN_CONST_HASHMAP.put(12, FUNC_EL_PROD_MATRIX);
             PATTERN_CONST_HASHMAP.put(13, FUNC_EL_DIV_MATRIX);
-            PATTERN_CONST_HASHMAP.put(14, FUNC_EL_SQR_MATRIX);
+            PATTERN_CONST_HASHMAP.put(14, FUNC_EL_POW_MATRIX);
             PATTERN_CONST_HASHMAP.put(15, FUNC_ADD_MATRIX);
             PATTERN_CONST_HASHMAP.put(16, FUNC_DIFFER_MATRIX);
             PATTERN_CONST_HASHMAP.put(17, FUNC_MULT_MATRIX);
@@ -188,7 +184,7 @@ public class SintacsisFunc {
             PATTERN_CONST_HASHMAP.put(19, FUNC_POW_MATRIX);
             PATTERN_CONST_HASHMAP.put(20, VIEW_SIZE_MATRIX);
             PATTERN_CONST_HASHMAP.put(21, VIEW_MATRIX);
-            PATTERN_CONST_HASHMAP.put(22, VIEW_El_MATRIX);
+            PATTERN_CONST_HASHMAP.put(22, VIEW_EL_MATRIX);
             PATTERN_CONST_HASHMAP.put(23, VIEW_DET_MATRIX);
             PATTERN_CONST_HASHMAP.put(24, FORMAT_MODE);
             PATTERN_CONST_HASHMAP.put(25, FUNC_SWAP_MATRIX);
@@ -221,14 +217,14 @@ public class SintacsisFunc {
                 //Создание матрицы
                 stringReturn = formatStringForReturn(sintacsis.getString(), CreateMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
                 break;
-            //Создание нулевой матрицы
             case 1:
+                //Создание нулевой матрицы
                 break;
-            //Создание единичной матрицы
             case 2:
+                //Создание единичной матрицы
                 break;
-            //Создание диагональной матрицы
             case 3:
+                //Создание диагональной матрицы
                 break;
             case 4:
                 break;
@@ -244,26 +240,31 @@ public class SintacsisFunc {
                 //Транспониррование матрицы
                 stringReturn = formatStringForReturn(sintacsis.getString(), printTransporationMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
                 break;
-            //Синус каждого элемента
             case 8:
+                //Синус каждого элемента
+                stringReturn = formatStringForReturn(sintacsis.getString(), sinMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
                 break;
-            //Косинус каждого элемента
             case 9:
+                //Косинус каждого элемента
+                stringReturn = formatStringForReturn(sintacsis.getString(), cosMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
                 break;
-            //Тангенс каждого элемента
             case 10:
+                //Тангенс каждого элемента
+                stringReturn = formatStringForReturn(sintacsis.getString(), tgMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
                 break;
-            //Котангенс каждого элемента
             case 11:
+                //Котангенс каждого элемента
+                stringReturn = formatStringForReturn(sintacsis.getString(), ctgMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
                 break;
-            //
             case 12:
+                //Поелементное умножение матриц
                 break;
-            //
             case 13:
+                //Поелементное деление матриц
                 break;
-            //
             case 14:
+                //Поелементное возведение в степень
+                stringReturn = formatStringForReturn(sintacsis.getString(), viewPowElMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
                 break;
             case 15:
                 //Cумма матриц
@@ -285,15 +286,15 @@ public class SintacsisFunc {
                 //Возведение в степень матрицы
                 stringReturn = formatStringForReturn(sintacsis.getString(), viewPowMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
                 break;
-            //Вывод размерности матрицы
             case 20:
+                //Вывод размерности матрицы
                 break;
             case 21:
                 //Вывод матрицы
                 stringReturn = formatStringForReturn(sintacsis.getString(), viewMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
                 break;
-            //Вывод элемента матрицы
             case 22:
+                //Вывод элемента матрицы
                 break;
             case 23:
                 //Определитель
@@ -312,7 +313,6 @@ public class SintacsisFunc {
                 break;
             case 25:
                 // Перестановка матриц
-
                 stringReturn = formatStringForReturn(sintacsis.getString(), swapMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
                 break;
             case 26:
@@ -410,7 +410,78 @@ public class SintacsisFunc {
 
         return Matrix.toString(homeMatrixLabController.PublicVar.countOfDigits);
     }
+    public static String sinMatrix(Matcher matcher) {//8
+       String res = null;
+     //  try {
+           if (matcher.find()) {
+               res = MtF.sinMatrix(homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(1))).toString(homeMatrixLabController.PublicVar.countOfDigits);
+           }
+       //} catch (Exception e) {
+         // res = "Неизвестная ошибка\n";
+       //}
+       return res;
+    }
+    public static String cosMatrix(Matcher matcher) {//9
+       String res = null;
+       try {
+           if (matcher.find()) {
+               res = MtF.cosMatrix(homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(1))).toString(homeMatrixLabController.PublicVar.countOfDigits);
+           }
+       } catch (Exception e) {
+          res = "Неизвестная ошибка \n";
+       }
+       return res;
+    }
+    public static String tgMatrix(Matcher matcher) {//10
+       String res = null;
+       try {
+           if (matcher.find()) {
+               res = MtF.tgMatrix(homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(1))).toString(homeMatrixLabController.PublicVar.countOfDigits);
+           }
+       } catch (Exception e) {
+          res = "Неизвестная ошибка \n";
+       }
+       return res;
+    }
+    public static String ctgMatrix(Matcher matcher) {//11
+       String res = null;
+       try {
+           if (matcher.find()) {
+               res = MtF.ctgMatrix(homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(1))).toString(homeMatrixLabController.PublicVar.countOfDigits);
+           }
+       } catch (Exception e) {
+          res = "Неизвестная ошибка \n";
+       }
+       return res;
+    }
+    
+    public static String viewPowElMatrix(Matcher matcher) { //19
+        String res = null;
+        try {
+            if (matcher.find()) {
+                MtF.Matrix matr = MtF.PowElMatrix(homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(1)), Integer.valueOf(matcher.group(2)));
 
+                res = matr.toString(homeMatrixLabController.PublicVar.countOfDigits);
+
+                if (homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.containsKey("Ans")) {
+
+                    homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.remove("Ans");
+                    homeMatrixLabController.PublicVar.listOfHistory.remove("Ans");
+                    homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.put("Ans", matr);
+                    homeMatrixLabController.PublicVar.listOfHistory.add("Ans");
+
+                } else {
+                    homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.put("Ans", matr);
+                    homeMatrixLabController.PublicVar.listOfHistory.add("Ans");
+                }
+
+            }
+        } catch (Exception e) {
+            res = "Неизвестная ошибка \n";
+        }
+        return res;
+    }
+    
     public static String printTransporationMatrix(Matcher matcher) {
         String res = null;
         try {
@@ -566,7 +637,7 @@ public class SintacsisFunc {
                 }
 
             }
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             res = "Неизвестная ошибка \n";
         }
         return res;
@@ -592,7 +663,7 @@ public class SintacsisFunc {
             }
         } catch (Exception e) {
             return "Неизвестная ошибка";
-            
+
         }
 
         return Matrix.toString(homeMatrixLabController.PublicVar.countOfDigits);
@@ -635,7 +706,7 @@ public class SintacsisFunc {
         try {
             if (matcher.find()) {
                 res = "swap " + matcher.group(1) + " <-> " + matcher.group(2);
-                //Здесь нужно сделать смену ключей в хещмепе
+                //Здесь нужно сделать смену ключей в хешмепе
             }
         } catch (Exception e) {
             res = "Неизвестная ошибка \n";
