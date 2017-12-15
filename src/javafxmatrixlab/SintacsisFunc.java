@@ -415,51 +415,67 @@ public class SintacsisFunc {
 
         return Matrix.toString(homeMatrixLabController.PublicVar.countOfDigits);
     }
+
     public static String sinMatrix(Matcher matcher) {//8
-       String res = null;
-     //  try {
-           if (matcher.find()) {
-               res = MtF.sinMatrix(homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(1))).toString(homeMatrixLabController.PublicVar.countOfDigits);
-           }
-       //} catch (Exception e) {
-         // res = "Неизвестная ошибка\n";
-       //}
-       return res;
+        String res = null;
+        try {
+            if (matcher.find()) {
+                MtF.Matrix matr = MtF.sinMatrix(homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(1)));
+                res = matr.toString(homeMatrixLabController.PublicVar.countOfDigits);
+
+                ToAnswer(matr);
+            }
+        } catch (Exception e) {
+            res = "Неизвестная ошибка\n";
+        }
+        return res;
     }
+
     public static String cosMatrix(Matcher matcher) {//9
-       String res = null;
-       try {
-           if (matcher.find()) {
-               res = MtF.cosMatrix(homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(1))).toString(homeMatrixLabController.PublicVar.countOfDigits);
-           }
-       } catch (Exception e) {
-          res = "Неизвестная ошибка \n";
-       }
-       return res;
+        String res = null;
+        try {
+            if (matcher.find()) {
+                MtF.Matrix matr = MtF.cosMatrix(homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(1)));
+                res = matr.toString(homeMatrixLabController.PublicVar.countOfDigits);
+
+                ToAnswer(matr);
+            }
+        } catch (Exception e) {
+            res = "Неизвестная ошибка\n";
+        }
+        return res;
     }
+
     public static String tgMatrix(Matcher matcher) {//10
-       String res = null;
-       try {
-           if (matcher.find()) {
-               res = MtF.tgMatrix(homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(1))).toString(homeMatrixLabController.PublicVar.countOfDigits);
-           }
-       } catch (Exception e) {
-          res = "Неизвестная ошибка \n";
-       }
-       return res;
+        String res = null;
+        try {
+            if (matcher.find()) {
+                MtF.Matrix matr = MtF.tgMatrix(homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(1)));
+                res = matr.toString(homeMatrixLabController.PublicVar.countOfDigits);
+
+                ToAnswer(matr);
+            }
+        } catch (Exception e) {
+            res = "Неизвестная ошибка\n";
+        }
+        return res;
     }
+
     public static String ctgMatrix(Matcher matcher) {//11
-       String res = null;
-       try {
-           if (matcher.find()) {
-               res = MtF.ctgMatrix(homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(1))).toString(homeMatrixLabController.PublicVar.countOfDigits);
-           }
-       } catch (Exception e) {
-          res = "Неизвестная ошибка \n";
-       }
-       return res;
+        String res = null;
+        try {
+            if (matcher.find()) {
+                MtF.Matrix matr = MtF.ctgMatrix(homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(1)));
+                res = matr.toString(homeMatrixLabController.PublicVar.countOfDigits);
+
+                ToAnswer(matr);
+            }
+        } catch (Exception e) {
+            res = "Неизвестная ошибка\n";
+        }
+        return res;
     }
-    
+
     public static String viewPowElMatrix(Matcher matcher) { //19
         String res = null;
         try {
@@ -468,42 +484,21 @@ public class SintacsisFunc {
 
                 res = matr.toString(homeMatrixLabController.PublicVar.countOfDigits);
 
-                if (homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.containsKey("Ans")) {
-
-                    homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.remove("Ans");
-                    homeMatrixLabController.PublicVar.listOfHistory.remove("Ans");
-                    homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.put("Ans", matr);
-                    homeMatrixLabController.PublicVar.listOfHistory.add("Ans");
-
-                } else {
-                    homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.put("Ans", matr);
-                    homeMatrixLabController.PublicVar.listOfHistory.add("Ans");
-                }
-
+                ToAnswer(matr);
             }
         } catch (Exception e) {
             res = "Неизвестная ошибка \n";
         }
         return res;
     }
-    
+
     public static String printTransporationMatrix(Matcher matcher) {
         String res = null;
         try {
             if (matcher.find()) {
                 MtF.Matrix matr = MtF.TranspMatrix(homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(1)));
                 res = matr.toString(homeMatrixLabController.PublicVar.countOfDigits);
-                if (homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.containsKey("Ans")) {
-
-                    homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.remove("Ans");
-                    homeMatrixLabController.PublicVar.listOfHistory.remove("Ans");
-                    homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.put("Ans", matr);
-                    homeMatrixLabController.PublicVar.listOfHistory.add("Ans");
-
-                } else {
-                    homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.put("Ans", matr);
-                    homeMatrixLabController.PublicVar.listOfHistory.add("Ans");
-                }
+                ToAnswer(matr);
             }
         } catch (Exception e) {
             res = "Неизвестная ошибка \n";
@@ -520,18 +515,7 @@ public class SintacsisFunc {
 
                 res = matr.toString(homeMatrixLabController.PublicVar.countOfDigits);
 
-                if (homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.containsKey("Ans")) {
-
-                    homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.remove("Ans");
-                    homeMatrixLabController.PublicVar.listOfHistory.remove("Ans");
-                    homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.put("Ans", matr);
-                    homeMatrixLabController.PublicVar.listOfHistory.add("Ans");
-
-                } else {
-                    homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.put("Ans", matr);
-                    homeMatrixLabController.PublicVar.listOfHistory.add("Ans");
-                }
-
+                ToAnswer(matr);
             }
         } catch (Exception e) {
             res = "Неизвестная ошибка \n";
@@ -545,21 +529,8 @@ public class SintacsisFunc {
             if (matcher.find()) {
                 MtF.Matrix matr = MtF.DifferMatrix(homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(1)),
                         homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(2)));
-
                 res = matr.toString(homeMatrixLabController.PublicVar.countOfDigits);
-
-                if (homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.containsKey("Ans")) {
-
-                    homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.remove("Ans");
-                    homeMatrixLabController.PublicVar.listOfHistory.remove("Ans");
-                    homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.put("Ans", matr);
-                    homeMatrixLabController.PublicVar.listOfHistory.add("Ans");
-
-                } else {
-                    homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.put("Ans", matr);
-                    homeMatrixLabController.PublicVar.listOfHistory.add("Ans");
-                }
-
+                ToAnswer(matr);
             }
         } catch (Exception e) {
             res = "Неизвестная ошибка \n";
@@ -575,22 +546,11 @@ public class SintacsisFunc {
 
                 res = matr.toString(homeMatrixLabController.PublicVar.countOfDigits);
 
-                if (homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.containsKey("Ans")) {
-
-                    homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.remove("Ans");
-                    homeMatrixLabController.PublicVar.listOfHistory.remove("Ans");
-                    homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.put("Ans", matr);
-                    homeMatrixLabController.PublicVar.listOfHistory.add("Ans");
-
-                } else {
-                    homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.put("Ans", matr);
-                    homeMatrixLabController.PublicVar.listOfHistory.add("Ans");
-                }
+                ToAnswer(matr);
             }
         } catch (Exception e) {
             res = "Неизвестная ошибка \n";
         }
-
         return res;
     }
 
@@ -602,17 +562,7 @@ public class SintacsisFunc {
 
                 res = matr.toString(homeMatrixLabController.PublicVar.countOfDigits);
 
-                if (homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.containsKey("Ans")) {
-
-                    homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.remove("Ans");
-                    homeMatrixLabController.PublicVar.listOfHistory.remove("Ans");
-                    homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.put("Ans", matr);
-                    homeMatrixLabController.PublicVar.listOfHistory.add("Ans");
-
-                } else {
-                    homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.put("Ans", matr);
-                    homeMatrixLabController.PublicVar.listOfHistory.add("Ans");
-                }
+                ToAnswer(matr);
             }
         } catch (Exception e) {
             res = "Неизвестная ошибка \n";
@@ -626,21 +576,8 @@ public class SintacsisFunc {
         try {
             if (matcher.find()) {
                 MtF.Matrix matr = MtF.PowMatrix(homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(1)), Integer.valueOf(matcher.group(2)));
-
                 res = matr.toString(homeMatrixLabController.PublicVar.countOfDigits);
-
-                if (homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.containsKey("Ans")) {
-
-                    homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.remove("Ans");
-                    homeMatrixLabController.PublicVar.listOfHistory.remove("Ans");
-                    homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.put("Ans", matr);
-                    homeMatrixLabController.PublicVar.listOfHistory.add("Ans");
-
-                } else {
-                    homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.put("Ans", matr);
-                    homeMatrixLabController.PublicVar.listOfHistory.add("Ans");
-                }
-
+                ToAnswer(matr);
             }
         } catch (NumberFormatException e) {
             res = "Неизвестная ошибка \n";
@@ -670,7 +607,6 @@ public class SintacsisFunc {
             return "Неизвестная ошибка";
 
         }
-
         return Matrix.toString(homeMatrixLabController.PublicVar.countOfDigits);
     }
 
@@ -718,30 +654,30 @@ public class SintacsisFunc {
         }
         return res;
     }
-    
+
     public static String funcSolveKramar(Matcher matcher) {//27
         String res = null;
         try {
             if (matcher.find()) {
                 MtF.Matrix matr = MtF.equationKramar(homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(1)), homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(2)));
-
                 res = matr.toString(homeMatrixLabController.PublicVar.countOfDigits);
-
-                if (homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.containsKey("Ans")) {
-
-                    homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.remove("Ans");
-                    homeMatrixLabController.PublicVar.listOfHistory.remove("Ans");
-                    homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.put("Ans", matr);
-                    homeMatrixLabController.PublicVar.listOfHistory.add("Ans");
-
-                } else {
-                    homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.put("Ans", matr);
-                    homeMatrixLabController.PublicVar.listOfHistory.add("Ans");
-                }
+                ToAnswer(matr);
             }
         } catch (Exception e) {
             res = "Неизвестная ошибка \n";
         }
         return res;
+    }
+
+    public static void ToAnswer(MtF.Matrix matr) {
+        if (homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.containsKey("Ans")) {
+            homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.remove("Ans");
+            homeMatrixLabController.PublicVar.listOfHistory.remove("Ans");
+            homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.put("Ans", matr);
+            homeMatrixLabController.PublicVar.listOfHistory.add("Ans");
+        } else {
+            homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.put("Ans", matr);
+            homeMatrixLabController.PublicVar.listOfHistory.add("Ans");
+        }
     }
 }

@@ -59,7 +59,7 @@ public class homeMatrixLabController implements Initializable {
     ModalWindow modalWindow = new ModalWindow();
     ErrorFunc errorFunc = new ErrorFunc();
      
-    public static class PublicVar{
+    public static class PublicVar {
         public static ObservableList<String> listOfHistory = FXCollections.observableArrayList(); //Массив текста из истории
         public static HashMap<String, MtF.Matrix> DATA_BASE_MATRIX = new HashMap<String, MtF.Matrix>();
         public static String OutputText = ""; //Текст из поля вывода
@@ -124,6 +124,7 @@ public class homeMatrixLabController implements Initializable {
     @FXML
     public void settingsProgram() {
         modalWindow.newAlert(AlertType.INFORMATION, null, "Это типа настройки");
+        
     }
     
     /**
