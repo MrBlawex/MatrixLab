@@ -156,6 +156,7 @@ public class SintacsisFunc {
          */
         public static final String VIEW_COMMENT = "^[/][/]([A-Za-z][A-Za-z0-9]{0,256})";
 
+        public static final String FUNC_SOLVE_KRAMAR = "^solve[(]([A-Za-z][A-Za-z0-9]{0,7})[,]([A-Za-z][A-Za-z0-9]{0,7})[)]";
         /**
          * HashMap представление констант
          */
@@ -189,8 +190,8 @@ public class SintacsisFunc {
             PATTERN_CONST_HASHMAP.put(24, FORMAT_MODE);
             PATTERN_CONST_HASHMAP.put(25, FUNC_SWAP_MATRIX);
             PATTERN_CONST_HASHMAP.put(26, VIEW_COMMENT);
+            PATTERN_CONST_HASHMAP.put(27, FUNC_SOLVE_KRAMAR);
         }
-
     }
 
     public static String readCommand(Sintacsis sintacsis) {
@@ -318,6 +319,10 @@ public class SintacsisFunc {
             case 26:
                 // Комментарий
                 stringReturn = sintacsis.getString() + "\n";
+                break;
+            case 27:
+                //Слау методом крамара
+                stringReturn = formatStringForReturn(sintacsis.getString(), funcSolveKramar(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
                 break;
             default:
                 break;
@@ -712,6 +717,31 @@ public class SintacsisFunc {
             res = "Неизвестная ошибка \n";
         }
         return res;
+    }
+    
+    public static String funcSolveKramar(Matcher matcher) {//27
+        String res = null;
+        try {
+            if (matcher.find()) {
+                MtF.Matrix matr = MtF.equationKramar(homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(1)), homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(2)));
 
+                res = matr.toString(homeMatrixLabController.PublicVar.countOfDigits);
+
+                if (homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.containsKey("Ans")) {
+
+                    homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.remove("Ans");
+                    homeMatrixLabController.PublicVar.listOfHistory.remove("Ans");
+                    homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.put("Ans", matr);
+                    homeMatrixLabController.PublicVar.listOfHistory.add("Ans");
+
+                } else {
+                    homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.put("Ans", matr);
+                    homeMatrixLabController.PublicVar.listOfHistory.add("Ans");
+                }
+            }
+        } catch (Exception e) {
+            res = "Неизвестная ошибка \n";
+        }
+        return res;
     }
 }

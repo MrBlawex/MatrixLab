@@ -279,7 +279,11 @@ public class MtF {
     public static void formatMode() {
         Matrix.format = !Matrix.format;
     }
-
+    //Единичная матрица
+  //  public static Matrix onesMatrix(int n, int m) {
+    //    return new Matrix m;
+    //}
+    
     //Получить столбец матрицы
     public static Matrix getColumMatrix(Matrix A, int n) {
         n--;
@@ -579,10 +583,11 @@ public class MtF {
     }
     //Решение СЛАУ методом Крамера - не готово ---------------------------------
     public static Matrix equationKramar(Matrix A, Matrix B) {
-        Matrix Res = new Matrix(1, A.getM());
-        float det = DetGauss(A);
+        Matrix Res = new Matrix(A.getN(), 1);
+        Res.autoSetInt(10);
+       // float det = DetGauss(A);
 
-        float[] Sol = new float[A.getM()];
+       // float[] Sol = new float[A.getM()];
 
         return Res;
     }
