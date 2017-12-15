@@ -64,8 +64,8 @@ public class homeMatrixLabController implements Initializable {
         public static HashMap<String, MtF.Matrix> DATA_BASE_MATRIX = new HashMap<String, MtF.Matrix>();
         public static String OutputText = ""; //Текст из поля вывода
         public static String oldOutputText = "";//Сохраняет старый текст для возможности его восстановления
-        public static Integer countOfDigits = 4;
-        public static Float epsilon = 0.000001f;
+        public static Integer countOfDigits = 4;//Кол-во знаков после запятой
+        public static Float epsilon = 0.000001f;//Точность вычеслений дробей
     }
      
     @Override
