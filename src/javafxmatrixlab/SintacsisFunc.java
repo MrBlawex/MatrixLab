@@ -157,6 +157,8 @@ public class SintacsisFunc {
         public static final String VIEW_COMMENT = "^[/][/]([A-Za-z][A-Za-z0-9]{0,256})";
 
         public static final String FUNC_SOLVE_KRAMAR = "^solve[(]([A-Za-z][A-Za-z0-9]{0,7})[,]([A-Za-z][A-Za-z0-9]{0,7})[)]";
+        
+        public static final String CREATE_RANDOM_MATRIX = "^randmatr[(]([a-z]{0,8})[)]";
         /**
          * HashMap представление констант
          */
@@ -191,6 +193,7 @@ public class SintacsisFunc {
             PATTERN_CONST_HASHMAP.put(25, FUNC_SWAP_MATRIX);
             PATTERN_CONST_HASHMAP.put(26, VIEW_COMMENT);
             PATTERN_CONST_HASHMAP.put(27, FUNC_SOLVE_KRAMAR);
+            PATTERN_CONST_HASHMAP.put(28, CREATE_RANDOM_MATRIX);
         }
     }
 
@@ -220,9 +223,11 @@ public class SintacsisFunc {
                 break;
             case 1:
                 //Создание нулевой матрицы
+                
                 break;
             case 2:
                 //Создание единичной матрицы
+                stringReturn = formatStringForReturn(sintacsis.getString(), CreateOnesMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
                 break;
             case 3:
                 //Создание диагональной матрицы
@@ -303,6 +308,7 @@ public class SintacsisFunc {
                 break;
             case 24:
                 //Формат вывода
+                MtF.formatMode();
                 String mode;
                 if (MtF.Matrix.format) {
                     mode = "on";
@@ -310,7 +316,6 @@ public class SintacsisFunc {
                     mode = "off";
                 }
                 stringReturn = formatStringForReturn(sintacsis.getString(), ">> Format:" + mode);
-                MtF.formatMode();
                 break;
             case 25:
                 // Перестановка матриц
@@ -323,6 +328,10 @@ public class SintacsisFunc {
             case 27:
                 //Слау методом крамара
                 stringReturn = formatStringForReturn(sintacsis.getString(), funcSolveKramar(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
+                break;
+            case 28:
+                //Рандомизированая матрица с параметрами
+                stringReturn = formatStringForReturn(sintacsis.getString(), CreateRandomMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
                 break;
             default:
                 break;
@@ -360,24 +369,28 @@ public class SintacsisFunc {
         }
         return Matrix.toString(homeMatrixLabController.PublicVar.countOfDigits);
     }
-
+    
+    public static String CreateOnesMatrix(Matcher matcher) {//
+        String res = null;
+        try {
+            if (matcher.find()) {
+                MtF.Matrix matr = MtF.onesMatrix(3, 3);
+                res = matr.toString(homeMatrixLabController.PublicVar.countOfDigits);
+                ToAnswer(matr);
+            }
+        } catch (Exception e) {
+            res = "Неизвестная ошибка \n";
+        }
+        return res;
+    }
+    
     public static String printInvMatrix(Matcher matcher) {//5
         String res = null;
         try {
             if (matcher.find()) {
                 MtF.Matrix matr = MtF.InversMatrix(homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(1)));
                 res = matr.toString(homeMatrixLabController.PublicVar.countOfDigits);
-                if (homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.containsKey("Ans")) {
-
-                    homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.remove("Ans");
-                    homeMatrixLabController.PublicVar.listOfHistory.remove("Ans");
-                    homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.put("Ans", matr);
-                    homeMatrixLabController.PublicVar.listOfHistory.add("Ans");
-
-                } else {
-                    homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.put("Ans", matr);
-                    homeMatrixLabController.PublicVar.listOfHistory.add("Ans");
-                }
+                ToAnswer(matr);
             }
         } catch (Exception e) {
             res = "Неизвестная ошибка \n";
@@ -629,7 +642,8 @@ public class SintacsisFunc {
             if (matcher.find()) {
                 MtF.Matrix buff = homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(1));
                 if (buff.getN() == buff.getM()) {
-                    returnNum = "Ans = " + String.valueOf(MtF.DetGauss(buff));
+                    returnNum = MtF.DetGauss(buff).toString(homeMatrixLabController.PublicVar.countOfDigits);
+                    ToAnswer(buff);
                 } else {
                     returnNum = "Матрица не квадратная \n";
                 }
@@ -664,6 +678,21 @@ public class SintacsisFunc {
                 ToAnswer(matr);
             }
         } catch (Exception e) {
+            res = "Неизвестная ошибка \n";
+        }
+        return res;
+    }
+    
+    public static String CreateRandomMatrix(Matcher matcher) {//27
+        String res = null;
+        try {
+            if (matcher.find()) {
+                MtF.Matrix matr;
+                matr = MtF.randomMatrix(Integer.parseInt(matcher.group(1)), Integer.parseInt(matcher.group(2)), Float.parseFloat(matcher.group(3)), matcher.group(4));
+                res = matr.toString(homeMatrixLabController.PublicVar.countOfDigits);
+                ToAnswer(matr);
+            }
+        } catch (NumberFormatException e) {
             res = "Неизвестная ошибка \n";
         }
         return res;

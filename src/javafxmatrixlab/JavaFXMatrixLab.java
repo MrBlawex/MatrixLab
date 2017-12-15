@@ -35,6 +35,7 @@ public class JavaFXMatrixLab extends Application {
 /*
     Замеченые Баги:
         - Кривой вывод при большом количестве знаков
+        - Баг при сохранении "ошибочной" матрицы в Ans
         
 
 */

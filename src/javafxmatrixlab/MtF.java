@@ -30,10 +30,10 @@ public class MtF {
 
         private int n, m;
         private String name;
-        //Работа с ошибками
+        
         private String idError = null;
         public static boolean format = false;
-
+        
         public void isWrong(String id) {
             this.idError = id;
         }
@@ -182,7 +182,7 @@ public class MtF {
             return this.name;
         }
 
-        float[][] matrix = new float[n][m];
+        public float[][] matrix = new float[n][m];
 
         //заполнение матрицы целыми числами
         public void autoSetInt(int range) {
@@ -275,16 +275,50 @@ public class MtF {
         }
         return res;
     }
-    //Меняет режим вывод
+    //Меняет режим вывода
     public static void formatMode() {
         Matrix.format = !Matrix.format;
     }
     //Единичная матрица
-  //  public static Matrix onesMatrix(int n, int m) {
-    //    return new Matrix m;
-    //}
+    public static Matrix onesMatrix(int n, int m) {
+        Matrix Res = new Matrix(n,m);
+        
+        return Res;
+    }
+    //Нулевая матрица
+    public static Matrix zerosMatrix(int n, int m) {
+        Matrix Res = new Matrix(n, m);
+        
+        return Res;
+    }
+    //Диагональная матрица
+    public static Matrix diagMatrix(int n, int m) {
+        Matrix Res = new Matrix(n, m);
+        
+        return Res;
+    }
+    //Рандомно заполненая матрица целыми числами или дробными или и теми и теми
+    public static Matrix randomMatrix(int n, int m, float range, String mode) {
+        Matrix Res = new Matrix(n, m);
+            
+        switch(mode) {
+            case "int":
+                Res.autoSetInt((int)range);
+                break;
+            case "float":
+                Res.autoSetFloat(range);
+                break;
+            case "mid":
+                Res.autoSetIntFloat(range, 2);
+                break;
+            default:
+                Res.isWrong("Ошибка в имени режима заполнения!");
+        }
+        
+        return Res;
+    }
     
-    //Получить столбец матрицы
+   //Получить столбец матрицы
     public static Matrix getColumMatrix(Matrix A, int n) {
         n--;
         Matrix Res = new Matrix(A.getN(), 1);
@@ -448,8 +482,10 @@ public class MtF {
         return Res;
     }
     //Определитель матрицы методом гаусса
-    public static float DetGauss(Matrix M) {
+    public static Matrix DetGauss(Matrix M) {
         final float E = 0.000001f;
+        Matrix Res = new Matrix(1,1);
+        Res.autoSetInt(10); //---Просто бредовый костыль, без которого ничего не работает (причина неизвестна)
         float det = 1, s;
         int n = M.getM(), k;
         float[][] Mt = new float[n][n];
@@ -493,7 +529,8 @@ public class MtF {
             }
         }
         det = Math.round(det * 100) * 0.01f;
-        return det;
+        Res.matrix[0][0] = det;
+        return Res;
     }
     //МинорМатрицы (НЕ ДЕТЕРМИНАНТ)
     public static Matrix UnderMatrix(Matrix Mt, int row, int col) {
@@ -521,7 +558,7 @@ public class MtF {
             DetMinor = Mt.matrix[0][0] * Mt.matrix[1][1] - Mt.matrix[0][1] * Mt.matrix[1][0];
         }
         if (Mt.getN() > 2) {
-            DetMinor += DetGauss(UnderMatrix(Mt, row, col));
+            DetMinor += DetGauss(UnderMatrix(Mt, row, col)).matrix[0][0];
         }
 
         return DetMinor;
@@ -560,11 +597,11 @@ public class MtF {
     //Обратная матрица
     public static Matrix InversMatrix(Matrix M) {
         Matrix Res = new Matrix(M.getN(), M.getM());
-        float det = DetGauss(M);
+        float det = DetGauss(M).matrix[0][0];
         if (det == 0) {
             Res.isWrong("Обратной матрицы не существует! определитель = 0 \n");
         } else {
-            Res = MultMatrixEl(1 / DetGauss(M), TranspMatrix(UnionMatrix(M)));
+            Res = MultMatrixEl(1 / DetGauss(M).matrix[0][0], TranspMatrix(UnionMatrix(M)));
         }
         return Res;
     }
