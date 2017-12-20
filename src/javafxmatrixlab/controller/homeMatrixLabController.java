@@ -1,6 +1,7 @@
 package javafxmatrixlab.controller;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.util.HashMap;
@@ -18,6 +19,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -111,10 +113,19 @@ public class homeMatrixLabController implements Initializable {
     public void FormatArea() {
         MtF.formatMode();
         String mode;
+        
+        InputStream input1 = JavaFXMatrixLab.class.getResourceAsStream("fxml/icon/double.png");
+        InputStream input2 = JavaFXMatrixLab.class.getResourceAsStream("fxml/icon/fraction.png");
+        
+        Image f = new Image(input2);
+        Image d = new Image(input1);
+        
         if (MtF.Matrix.format) {
             mode = "on"; 
+            ViewFormat.setImage(f);
         } else {
             mode = "off";
+            ViewFormat.setImage(d);
         }
         PublicVar.OutputText += ">> Format:" + mode + "\n";
         textOut.setText(PublicVar.OutputText);
