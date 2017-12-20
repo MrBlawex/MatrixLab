@@ -55,7 +55,7 @@ public class homeMatrixLabController implements Initializable {
 
     @FXML
     private ImageView ViewFormat;
-
+    
     //Создание экземпляров класса
     JavaFXMatrixLab javaFXMatrixLab = new JavaFXMatrixLab();
     SintacsisFunc sintacsisFunc = new SintacsisFunc();
@@ -63,7 +63,6 @@ public class homeMatrixLabController implements Initializable {
     ErrorFunc errorFunc = new ErrorFunc();
 
     public static class PublicVar {
-
         public static ObservableList<String> listOfHistory = FXCollections.observableArrayList(); //Массив текста из истории
         public static HashMap<String, MtF.Matrix> DATA_BASE_MATRIX = new HashMap<String, MtF.Matrix>();
         public static String OutputText = ""; //Текст из поля вывода
@@ -77,16 +76,10 @@ public class homeMatrixLabController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         SintacsisFunc.PatternConst.initialize();
         allEvent();
-
-        MtF.Matrix a = new MtF.Matrix(2,2);
-        a.autoSetInt(10);
-        
-        textOut.setText(MtF.DetGauss(a).toString(2));
-        
         historyContainer.setItems(PublicVar.listOfHistory);
         textOut.setText(PublicVar.OutputText);
     }
-
+    
     @FXML
     public void readCommand() {
         SintacsisFunc.Sintacsis sintacsis = null;
@@ -176,7 +169,7 @@ public class homeMatrixLabController implements Initializable {
         
         modalWindow.newAlert(AlertType.INFORMATION, null, "Файл успешно сохранен");
     }
-
+    
     /**
      * Добавляет окно настроек
      */
@@ -184,7 +177,6 @@ public class homeMatrixLabController implements Initializable {
     public void settingsProgram() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/javafxmatrixlab/fxml/settingsWindows.fxml"));
         modalWindow.newWindow(root, javaFXMatrixLab.nameProgram + " - " + "Настройки", false);
-
     }
 
     /**
@@ -235,6 +227,16 @@ public class homeMatrixLabController implements Initializable {
                 }
             }
         });
+    }
+    
+    public void aboutAutors() {
+        PublicVar.OutputText += "\n"
+                + "Авторы: \n\t" 
+                + "Студенты ХНЭУ\n\t"
+                + "Богдан Бида\n\t"
+                + "Эдуард Белоусов\n"
+                + "2017";
+                
     }
 
     public void closeProgram(ActionEvent actionEvent) {
