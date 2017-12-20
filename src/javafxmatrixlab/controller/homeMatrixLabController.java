@@ -31,6 +31,7 @@ import javafxmatrixlab.JavaFXMatrixLab;
 import javafxmatrixlab.ModalWindow;
 import javafxmatrixlab.MtF;
 import javafxmatrixlab.SintacsisFunc;
+import org.omg.CORBA_2_3.portable.InputStream;
 
 public class homeMatrixLabController implements Initializable {
 
@@ -75,12 +76,6 @@ public class homeMatrixLabController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         SintacsisFunc.PatternConst.initialize();
         allEvent();
-
-        MtF.Matrix a = new MtF.Matrix(2,2);
-        a.autoSetInt(10);
-        
-        textOut.setText(MtF.DetGauss(a).toString(2));
-        
         historyContainer.setItems(PublicVar.listOfHistory);
         textOut.setText(PublicVar.OutputText);
     }
@@ -115,7 +110,7 @@ public class homeMatrixLabController implements Initializable {
         MtF.formatMode();
         String mode;
         if (MtF.Matrix.format) {
-            mode = "on"; 
+            mode = "on";
         } else {
             mode = "off";
         }
