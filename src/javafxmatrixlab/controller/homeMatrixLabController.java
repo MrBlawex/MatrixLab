@@ -136,7 +136,7 @@ public class homeMatrixLabController implements Initializable {
      */
     @FXML
     public void saveTextAreaToTxt() throws IOException {
-        try (PrintWriter write = new PrintWriter("src\\javafxmatrixlab\\" + "textarea" + ".txt")) {
+        try (PrintWriter write = new PrintWriter("textarea.txt")) {//("src\\javafxmatrixlab\\" + "textarea" + ".txt")) {
             write.println(PublicVar.OutputText);
         }
         modalWindow.newAlert(AlertType.INFORMATION, null, "Файл успешно сохранен");

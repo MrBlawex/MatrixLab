@@ -51,7 +51,7 @@ public class SintacsisFunc {
         /**
          * Создание единичной матрицы
          */
-        public static final String CREATE_ONES_MATRIX = "^ones[(]([\\d]{1,}[,][\\d]{1,})[)]";
+        public static final String CREATE_ONES_MATRIX = "^ones[(]([\\d]{0,})[)]";
         /**
          * Создание матрицы с нулями кроме диагонали
          */
@@ -157,8 +157,10 @@ public class SintacsisFunc {
         public static final String VIEW_COMMENT = "^[/][/]([A-Za-z][A-Za-z0-9]{0,256})";
 
         public static final String FUNC_SOLVE_KRAMAR = "^solve[(]([A-Za-z][A-Za-z0-9]{0,7})[,]([A-Za-z][A-Za-z0-9]{0,7})[)]";
-        
-        public static final String CREATE_RANDOM_MATRIX = "^randmatr[(]([a-z]{0,8})[)]";
+        /**
+         * Рандомная матрица
+         */
+        public static final String CREATE_RANDOM_MATRIX = "^randmatr[(]([0-9]{1,3})[,]([0-9]{1,3})[,]([0-9]{1,8})[,]([a-z]{0,5})[)]";
         /**
          * HashMap представление констант
          */
@@ -223,7 +225,6 @@ public class SintacsisFunc {
                 break;
             case 1:
                 //Создание нулевой матрицы
-                
                 break;
             case 2:
                 //Создание единичной матрицы
@@ -236,7 +237,7 @@ public class SintacsisFunc {
                 break;
             case 5:
                 //обратная матрица
-                stringReturn = formatStringForReturn(sintacsis.getString(), printInvMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
+                stringReturn = formatStringForReturn(sintacsis.getString(), InvMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
                 break;
             case 6:
                 //Клон матрицы
@@ -264,9 +265,11 @@ public class SintacsisFunc {
                 break;
             case 12:
                 //Поелементное умножение матриц
+                stringReturn = formatStringForReturn(sintacsis.getString(), multElMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
                 break;
             case 13:
                 //Поелементное деление матриц
+                stringReturn = formatStringForReturn(sintacsis.getString(), divElMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
                 break;
             case 14:
                 //Поелементное возведение в степень
@@ -294,13 +297,14 @@ public class SintacsisFunc {
                 break;
             case 20:
                 //Вывод размерности матрицы
+                stringReturn = formatStringForReturn(sintacsis.getString(), viewSizeMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
                 break;
             case 21:
                 //Вывод матрицы
                 stringReturn = formatStringForReturn(sintacsis.getString(), viewMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
                 break;
             case 22:
-                //Вывод элемента матрицы
+//Не готово     //Вывод элемента матрицы
                 break;
             case 23:
                 //Определитель
@@ -326,7 +330,7 @@ public class SintacsisFunc {
                 stringReturn = sintacsis.getString() + "\n";
                 break;
             case 27:
-                //Слау методом крамара
+//Не готово     //Слау методом крамара
                 stringReturn = formatStringForReturn(sintacsis.getString(), funcSolveKramar(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
                 break;
             case 28:
@@ -369,22 +373,22 @@ public class SintacsisFunc {
         }
         return Matrix.toString(homeMatrixLabController.PublicVar.countOfDigits);
     }
-    
+
     public static String CreateOnesMatrix(Matcher matcher) {//
         String res = null;
         try {
             if (matcher.find()) {
-                MtF.Matrix matr = MtF.onesMatrix(3, 3);
+                MtF.Matrix matr = MtF.onesMatrix(Integer.parseInt(matcher.group(1)));
                 res = matr.toString(homeMatrixLabController.PublicVar.countOfDigits);
                 ToAnswer(matr);
             }
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             res = "Неизвестная ошибка \n";
         }
         return res;
     }
-    
-    public static String printInvMatrix(Matcher matcher) {//5
+
+    public static String InvMatrix(Matcher matcher) {//5
         String res = null;
         try {
             if (matcher.find()) {
@@ -489,14 +493,44 @@ public class SintacsisFunc {
         return res;
     }
 
+    public static String multElMatrix(Matcher matcher) {//12
+        String res = null;
+        try {
+            if (matcher.find()) {
+                MtF.Matrix matr = MtF.MultElMatrix(homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(1)),
+                        homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(2)));
+                res = matr.toString(homeMatrixLabController.PublicVar.countOfDigits);
+
+                ToAnswer(matr);
+            }
+        } catch (Exception e) {
+            res = "Неизвестная ошибка\n";
+        }
+        return res;
+    }
+    
+    public static String divElMatrix(Matcher matcher) {//13
+        String res = null;
+        try {
+            if (matcher.find()) {
+                MtF.Matrix matr = MtF.DivElMatrix(homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(1)),
+                        homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(2)));
+                res = matr.toString(homeMatrixLabController.PublicVar.countOfDigits);
+
+                ToAnswer(matr);
+            }
+        } catch (Exception e) {
+            res = "Неизвестная ошибка\n";
+        }
+        return res;
+    }
+
     public static String viewPowElMatrix(Matcher matcher) { //19
         String res = null;
         try {
             if (matcher.find()) {
-                MtF.Matrix matr = MtF.PowElMatrix(homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(1)), Integer.valueOf(matcher.group(2)));
-
+                MtF.Matrix matr = MtF.PowElMatrix(homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(1)), homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(2)));
                 res = matr.toString(homeMatrixLabController.PublicVar.countOfDigits);
-
                 ToAnswer(matr);
             }
         } catch (Exception e) {
@@ -504,6 +538,7 @@ public class SintacsisFunc {
         }
         return res;
     }
+
 
     public static String printTransporationMatrix(Matcher matcher) {
         String res = null;
@@ -525,9 +560,7 @@ public class SintacsisFunc {
             if (matcher.find()) {
                 MtF.Matrix matr = MtF.SumMatrix(homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(1)),
                         homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(2)));
-
                 res = matr.toString(homeMatrixLabController.PublicVar.countOfDigits);
-
                 ToAnswer(matr);
             }
         } catch (Exception e) {
@@ -597,12 +630,19 @@ public class SintacsisFunc {
         }
         return res;
     }
-
-    public static String aaaa(Matcher matcher) { //20
+    
+    public static String viewSizeMatrix(Matcher matcher) {//20
         String res = null;
+        try {
+            if (matcher.find()) {
+                MtF.Matrix matr = homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(1));
+                res = matr.getName() + " size: " + String.valueOf(matr.getN()) + "x" + String.valueOf(matr.getM());
+            }
+        } catch (Exception e) {
+            res = "Неизвестная ошибка";
+        }
         return res;
     }
-
     /**
      * Выводит выбранную матрицу
      *
@@ -635,15 +675,13 @@ public class SintacsisFunc {
      * @return
      */
     public static String viewDetMatrix(Matcher matcher) {//23
-
         String returnNum = "";
-
         try {
             if (matcher.find()) {
                 MtF.Matrix buff = homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(1));
                 if (buff.getN() == buff.getM()) {
                     returnNum = MtF.DetGauss(buff).toString(homeMatrixLabController.PublicVar.countOfDigits);
-                    ToAnswer(buff);
+                    ToAnswer(MtF.DetGauss(buff));
                 } else {
                     returnNum = "Матрица не квадратная \n";
                 }
@@ -682,7 +720,7 @@ public class SintacsisFunc {
         }
         return res;
     }
-    
+
     public static String CreateRandomMatrix(Matcher matcher) {//27
         String res = null;
         try {
