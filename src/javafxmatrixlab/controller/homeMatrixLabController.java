@@ -1,5 +1,7 @@
 package javafxmatrixlab.controller;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -24,6 +26,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
 import javafxmatrixlab.ErrorFunc;
 import javafxmatrixlab.JavaFXMatrixLab;
 import javafxmatrixlab.ModalWindow;
@@ -152,9 +155,25 @@ public class homeMatrixLabController implements Initializable {
      */
     @FXML
     public void saveTextAreaToTxt() throws IOException {
-        try (PrintWriter write = new PrintWriter("src\\javafxmatrixlab\\" + "textarea" + ".txt")) {
-            write.println(PublicVar.OutputText);
+        FileChooser fc = new FileChooser();
+        fc.setTitle(JavaFXMatrixLab.nameProgram + " - " + "Сохранить в");
+
+        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("TXT(*.txt)", ".txt");
+        fc.getExtensionFilters().add(filter);
+
+        File file = fc.showSaveDialog(null);
+        
+        if(file != null){
+            try {
+                PrintWriter write = new PrintWriter(file.getAbsolutePath());
+//                write.println(PublicVar.OutputText);
+                write.write(PublicVar.OutputText);
+                write.close();
+            }
+            catch (FileNotFoundException fileNotFoundException) {
+            }
         }
+        
         modalWindow.newAlert(AlertType.INFORMATION, null, "Файл успешно сохранен");
     }
 
