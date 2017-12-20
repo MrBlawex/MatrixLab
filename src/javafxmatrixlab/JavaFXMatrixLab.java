@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 public class JavaFXMatrixLab extends Application {
     
-    public String nameProgram = "MatrixLab";
+    public static String nameProgram = "MatrixLab";
     
     @Override
     public void start(Stage stage) throws Exception {
