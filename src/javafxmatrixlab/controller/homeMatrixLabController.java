@@ -214,10 +214,10 @@ public class homeMatrixLabController implements Initializable {
         PublicVar.OutputText += "\n"
                 + "Авторы: \n\t" 
                 + "Студенты ХНЭУ\n\t"
-                + "Богдан Бида\n\t"
-                + "Эдуард Белоусов\n"
-                + "2017";
-                
+                + "- Богдан Бида\n\t"
+                + "- Эдуард Белоусов\n"
+                + "20.12.2017\n";
+        textOut.setText(PublicVar.OutputText);       
     }
 
     public void closeProgram(ActionEvent actionEvent) {
