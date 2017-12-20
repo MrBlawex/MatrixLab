@@ -1,8 +1,6 @@
 package javafxmatrixlab.controller;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.util.HashMap;
@@ -14,14 +12,12 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -69,6 +65,7 @@ public class homeMatrixLabController implements Initializable {
         public static String oldOutputText = "";//Сохраняет старый текст для возможности его восстановления
         public static Integer countOfDigits = 3;//Кол-во знаков после запятой
         public static Float epsilon = 0.001f;//Точность вычеслений дробей
+        public static Integer epsInt = 3;
     }
 
     @Override
@@ -155,9 +152,8 @@ public class homeMatrixLabController implements Initializable {
      */
     @FXML
     public void settingsProgram() throws IOException {
-        modalWindow.newAlert(AlertType.INFORMATION, null, "Это типа настройки");
         Parent root = FXMLLoader.load(getClass().getResource("/javafxmatrixlab/fxml/settingsWindows.fxml"));
-        modalWindow.newWindow(root, javaFXMatrixLab.nameProgram + "Настройки", false);
+        modalWindow.newWindow(root, javaFXMatrixLab.nameProgram + " - " + "Настройки", false);
 
     }
 
