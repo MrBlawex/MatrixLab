@@ -1,8 +1,12 @@
 package javafxmatrixlab;
 
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javafx.fxml.FXML;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafxmatrixlab.controller.homeMatrixLabController;
 
 public class SintacsisFunc {
@@ -314,6 +318,7 @@ public class SintacsisFunc {
                 //Формат вывода
                 MtF.formatMode();
                 String mode;
+
                 if (MtF.Matrix.format) {
                     mode = "on";
                 } else {
@@ -508,7 +513,7 @@ public class SintacsisFunc {
         }
         return res;
     }
-    
+
     public static String divElMatrix(Matcher matcher) {//13
         String res = null;
         try {
@@ -538,7 +543,6 @@ public class SintacsisFunc {
         }
         return res;
     }
-
 
     public static String printTransporationMatrix(Matcher matcher) {
         String res = null;
@@ -630,7 +634,7 @@ public class SintacsisFunc {
         }
         return res;
     }
-    
+
     public static String viewSizeMatrix(Matcher matcher) {//20
         String res = null;
         try {
@@ -643,6 +647,7 @@ public class SintacsisFunc {
         }
         return res;
     }
+
     /**
      * Выводит выбранную матрицу
      *

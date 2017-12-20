@@ -1,6 +1,7 @@
 package javafxmatrixlab.controller;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.util.HashMap;
@@ -18,6 +19,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -27,7 +29,6 @@ import javafxmatrixlab.JavaFXMatrixLab;
 import javafxmatrixlab.ModalWindow;
 import javafxmatrixlab.MtF;
 import javafxmatrixlab.SintacsisFunc;
-import org.omg.CORBA_2_3.portable.InputStream;
 
 public class homeMatrixLabController implements Initializable {
 
@@ -51,7 +52,7 @@ public class homeMatrixLabController implements Initializable {
 
     @FXML
     private ImageView ViewFormat;
-
+    
     //Создание экземпляров класса
     JavaFXMatrixLab javaFXMatrixLab = new JavaFXMatrixLab();
     SintacsisFunc sintacsisFunc = new SintacsisFunc();
@@ -59,7 +60,6 @@ public class homeMatrixLabController implements Initializable {
     ErrorFunc errorFunc = new ErrorFunc();
 
     public static class PublicVar {
-
         public static ObservableList<String> listOfHistory = FXCollections.observableArrayList(); //Массив текста из истории
         public static HashMap<String, MtF.Matrix> DATA_BASE_MATRIX = new HashMap<String, MtF.Matrix>();
         public static String OutputText = ""; //Текст из поля вывода
@@ -76,7 +76,7 @@ public class homeMatrixLabController implements Initializable {
         historyContainer.setItems(PublicVar.listOfHistory);
         textOut.setText(PublicVar.OutputText);
     }
-
+    
     @FXML
     public void readCommand() {
         SintacsisFunc.Sintacsis sintacsis = null;
@@ -106,10 +106,19 @@ public class homeMatrixLabController implements Initializable {
     public void FormatArea() {
         MtF.formatMode();
         String mode;
+        
+        InputStream input1 = JavaFXMatrixLab.class.getResourceAsStream("fxml/icon/double.png");
+        InputStream input2 = JavaFXMatrixLab.class.getResourceAsStream("fxml/icon/fraction.png");
+        
+        Image f = new Image(input2);
+        Image d = new Image(input1);
+        
         if (MtF.Matrix.format) {
-            mode = "on";
+            mode = "on"; 
+            ViewFormat.setImage(f);
         } else {
             mode = "off";
+            ViewFormat.setImage(d);
         }
         PublicVar.OutputText += ">> Format:" + mode + "\n";
         textOut.setText(PublicVar.OutputText);
@@ -141,7 +150,7 @@ public class homeMatrixLabController implements Initializable {
         }
         modalWindow.newAlert(AlertType.INFORMATION, null, "Файл успешно сохранен");
     }
-
+    
     /**
      * Добавляет окно настроек
      */
@@ -149,7 +158,6 @@ public class homeMatrixLabController implements Initializable {
     public void settingsProgram() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/javafxmatrixlab/fxml/settingsWindows.fxml"));
         modalWindow.newWindow(root, javaFXMatrixLab.nameProgram + " - " + "Настройки", false);
-
     }
 
     /**
@@ -200,6 +208,16 @@ public class homeMatrixLabController implements Initializable {
                 }
             }
         });
+    }
+    
+    public void aboutAutors() {
+        PublicVar.OutputText += "\n"
+                + "Авторы: \n\t" 
+                + "Студенты ХНЭУ\n\t"
+                + "Богдан Бида\n\t"
+                + "Эдуард Белоусов\n"
+                + "2017";
+                
     }
 
     public void closeProgram(ActionEvent actionEvent) {

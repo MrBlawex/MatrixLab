@@ -35,7 +35,7 @@
                 <Menu mnemonicParsing="false" text="Помощь">
                     <items>
                         <MenuItem mnemonicParsing="false" text="Справочник" />
-                        <MenuItem mnemonicParsing="false" text="О программе" />
+                        <MenuItem mnemonicParsing="false" onAction="#aboutAutors" text="О программе" />
                     </items>
                 </Menu>
             </menus>
@@ -99,7 +99,7 @@
                 </ImageView>
                 <ImageView fx:id="ViewFormat" fitHeight="24.0" fitWidth="24.0" layoutX="578.0" layoutY="14.0" onMouseClicked="#FormatArea" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="64.0">
                     <image>
-                        <Image url="@icon/trash.png" />
+                        <Image url="@icon/double.png" />
                     </image>
                 </ImageView>
             </children>
