@@ -7,8 +7,39 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxmatrixlab.controller.SettingsWindowsController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="752.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxmatrixlab.controller.SettingsWindowsController">
     <stylesheets>
-        <URL value="@/javafxmatrixlab/css/settingswindows.css"/>
+        <URL value="@/javafxmatrixlab/css/settingswindows.css" />
     </stylesheets>
+   <children>
+      <GridPane alignment="CENTER" hgap="5.0" layoutX="15.0" layoutY="23.0" prefHeight="268.0" prefWidth="570.0" vgap="5.0" AnchorPane.bottomAnchor="109.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="336.0" minWidth="288.0" prefWidth="336.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="262.0" minWidth="199.0" prefWidth="262.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="185.0" minWidth="10.0" prefWidth="122.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints prefHeight="35.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="50.0" minHeight="26.0" prefHeight="31.0" />
+          <RowConstraints maxHeight="189.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="189.0" minHeight="10.0" prefHeight="160.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label fx:id="coutOfEps">
+               <graphic>
+                  <Label text="Точность вычисления дробей (eps): " />
+               </graphic>
+            </Label>
+            <Slider fx:id="sliderEps" blockIncrement="1.0" max="9.0" min="1.0" minorTickCount="1" onMouseClicked="#refreshNewValueEps" onMouseMoved="#refreshNewValueEps" showTickMarks="true" value="3.0" GridPane.columnIndex="1" />
+            <Label fx:id="coutOfchar" GridPane.rowIndex="1">
+               <graphic>
+                  <Label text="Количество знаков после запятой : " />
+               </graphic>
+            </Label>
+            <Slider fx:id="sliderCout" blockIncrement="1.0" max="10.0" min="1.0" minorTickCount="1" onMouseClicked="#refreshNewValueCout" onMouseMoved="#refreshNewValueCout" showTickMarks="true" value="2.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Button mnemonicParsing="false" onAction="#setNewValueEps" text="Применить" GridPane.columnIndex="2" />
+            <Button mnemonicParsing="false" onAction="#setNewValueCout" text="Применить" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+         </children>
+      </GridPane>
+   </children>
 </AnchorPane>
