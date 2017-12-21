@@ -1,5 +1,6 @@
 package javafxmatrixlab.controller;
 
+import static java.lang.Math.random;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
@@ -16,19 +17,19 @@ public class createMatrixController implements Initializable {
     TextField fieldN, fieldM, fieldName;
 
     @FXML
-    Button btn_create, btn_rand;
+    Button btn_create, btn_rand, btn_createMatrix;
 
     @FXML
     AnchorPane innerPane;
 
     public int n, m;
     public String name = "Ans";
-    public LinkedList<LinkedList<TextField>> listField = new LinkedList<LinkedList<TextField>>();
+    public TextField[][] arrayField;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        fieldN.setText("0");
-        fieldM.setText("0");
+        fieldN.setText("3");
+        fieldM.setText("3");
         fieldName.setText("Ans");
     }
 
@@ -37,10 +38,8 @@ public class createMatrixController implements Initializable {
         n = Integer.valueOf(fieldN.getText());
         m = Integer.valueOf(fieldM.getText());
         name = fieldName.getText();
-        for (int i = 0; i < n; i++) {
-            listField.get(1).clear();
-        }
-        LinkedList<TextField> rowList = new LinkedList<>();
+        innerPane.getChildren().clear();
+        arrayField = new TextField[n][m];
         double h = 16, w = 16;
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
@@ -48,27 +47,39 @@ public class createMatrixController implements Initializable {
                 newField.setMaxWidth(64);
                 newField.setLayoutX(w);
                 newField.setLayoutY(h);
-                rowList.add(j, newField);
+                arrayField[i][j] = newField;
                 w += 68;
-                innerPane.getChildren().add(newField);
+                innerPane.getChildren().add(arrayField[i][j]);
+
             }
-            listField.add(i, rowList);
-            rowList.clear();
             h += 32;
             w = 16;
         }
-
     }
 
     @FXML
-    public MtF.Matrix getMatrix() {
-        MtF.Matrix matr = new MtF.Matrix(name, n, m);
-        for (int i = 0; i < n; i++) {
+    public void handlerRandFill() {
+          for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
-                matr.matrix[i][j] = Float.valueOf(listField.get(i).get(j).getText());
+                arrayField[i][j].setText( String.valueOf(Math.round(random()*100)));
             }
         }
-        return matr;
+    }
+    
+    @FXML
+    public void getMatrix() {
+        name = fieldName.getText();
+        MtF.Matrix matr = new MtF.Matrix(name, n, m);
+        float[][] res = new float[n][m];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                res[i][j] = Float.valueOf(arrayField[i][j].getText());
+            }
+        }
+        matr.matrix = res;
+        homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.put(name, matr);
+        homeMatrixLabController.PublicVar.listOfHistory.remove(name);
+        homeMatrixLabController.PublicVar.listOfHistory.add(name);
     }
 
 }

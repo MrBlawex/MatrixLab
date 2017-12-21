@@ -55,7 +55,7 @@ public class homeMatrixLabController implements Initializable {
 
     @FXML
     private ImageView ViewFormat;
-    
+
     //Создание экземпляров класса
     JavaFXMatrixLab javaFXMatrixLab = new JavaFXMatrixLab();
     SintacsisFunc sintacsisFunc = new SintacsisFunc();
@@ -63,6 +63,7 @@ public class homeMatrixLabController implements Initializable {
     ErrorFunc errorFunc = new ErrorFunc();
 
     public static class PublicVar {
+
         public static ObservableList<String> listOfHistory = FXCollections.observableArrayList(); //Массив текста из истории
         public static HashMap<String, MtF.Matrix> DATA_BASE_MATRIX = new HashMap<String, MtF.Matrix>();
         public static String OutputText = ""; //Текст из поля вывода
@@ -79,7 +80,7 @@ public class homeMatrixLabController implements Initializable {
         historyContainer.setItems(PublicVar.listOfHistory);
         textOut.setText(PublicVar.OutputText);
     }
-    
+
     @FXML
     public void readCommand() {
         SintacsisFunc.Sintacsis sintacsis = null;
@@ -109,15 +110,15 @@ public class homeMatrixLabController implements Initializable {
     public void FormatArea() {
         MtF.formatMode();
         String mode;
-        
+
         InputStream input1 = JavaFXMatrixLab.class.getResourceAsStream("fxml/icon/double.png");
         InputStream input2 = JavaFXMatrixLab.class.getResourceAsStream("fxml/icon/dec.png");
-        
+
         Image f = new Image(input2);
         Image d = new Image(input1);
-        
+
         if (MtF.Matrix.format) {
-            mode = "on"; 
+            mode = "on";
             ViewFormat.setImage(f);
         } else {
             mode = "off";
@@ -151,25 +152,24 @@ public class homeMatrixLabController implements Initializable {
         FileChooser fc = new FileChooser();
         fc.setTitle(JavaFXMatrixLab.nameProgram + " - " + "Сохранить в");
 
-        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("txt", ".txt");
+        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("*.txt", ".txt");
         fc.getExtensionFilters().add(filter);
 
         File file = fc.showSaveDialog(null);
-        
-        if(file != null){
+
+        if (file != null) {
             try {
                 PrintWriter write = new PrintWriter(file.getAbsolutePath());
                 write.println(PublicVar.OutputText);
                 write.close();
                 modalWindow.newAlert(AlertType.INFORMATION, null, "Файл успешно сохранен");
-            }
-            catch (FileNotFoundException fileNotFoundException) {
+            } catch (FileNotFoundException fileNotFoundException) {
                 modalWindow.newAlert(AlertType.ERROR, null, "Ошибка сохранения. Файл не найден");
             }
         }
-        
+
     }
-    
+
     /**
      * Добавляет окно настроек
      */
@@ -228,16 +228,19 @@ public class homeMatrixLabController implements Initializable {
             }
         });
     }
+
     @FXML
     public void aboutAutors() {
         PublicVar.OutputText += "\n"
-                + "Авторы: \n\t" 
+                + "Авторы: \n\t"
                 + "Студенты ХНЭУ\n\t"
                 + "- Богдан Бида\n\t"
                 + "- Эдуард Белоусов\n"
-                + "20.12.2017\n";
-        textOut.setText(PublicVar.OutputText);       
+                + "21.12.2017\n"
+                + "MatrixLab v.0.1 (beta)";
+        textOut.setText(PublicVar.OutputText);
     }
+
     @FXML
     public void closeProgram(ActionEvent actionEvent) {
         System.exit(0);

@@ -717,11 +717,12 @@ public class MtF {
 
     //Решение СЛАУ методом Крамера - не готово ---------------------------------
     public static Matrix equationKramar(Matrix A, Matrix B) {
-        Matrix Res = new Matrix(A.getN(), 1);
+        Matrix Res = new Matrix(A.getM(), 1);
         Res.autoSetInt(10);
-        // float det = DetGauss(A);
-
-        // float[] Sol = new float[A.getM()];
+        float det = DetGauss(A).matrix[0][0];
+        float[][] Sol = new float[A.getM()][1];
+        
+        Res.matrix = Sol;
         return Res;
     }
  
