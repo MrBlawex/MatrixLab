@@ -199,7 +199,7 @@ public class homeMatrixLabController implements Initializable {
     @FXML
     public void editMatrix(MouseEvent mouseEvent) throws IOException {
         if (mouseEvent.getClickCount() == 2) {
-            Parent root = FXMLLoader.load(getClass().getResource("/javafxmatrixlab/fxml/editMatrix.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/javafxmatrixlab/fxml/createMatrix.fxml"));
             modalWindow.newWindow(root, javaFXMatrixLab.nameProgram + " - " + "Редактирование матрицы", false);
         }
     }
