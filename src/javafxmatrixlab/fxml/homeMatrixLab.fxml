@@ -102,6 +102,8 @@
                         <Image url="@icon/double.png" />
                     </image>
                 </ImageView>
+            <Separator layoutX="592.0" layoutY="54.0" prefHeight="3.0" prefWidth="38.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="54.0" />
+            <Separator layoutX="602.0" layoutY="64.0" prefHeight="3.0" prefWidth="38.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="96.0" />
             </children>
         </AnchorPane>
     </children>

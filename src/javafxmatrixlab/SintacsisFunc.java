@@ -308,7 +308,7 @@ public class SintacsisFunc {
                 stringReturn = formatStringForReturn(sintacsis.getString(), viewMatrix(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
                 break;
             case 22:
-//Не готово     //Вывод элемента матрицы
+                //Вывод элемента матрицы
                 break;
             case 23:
                 //Определитель
@@ -335,7 +335,7 @@ public class SintacsisFunc {
                 stringReturn = sintacsis.getString() + "\n";
                 break;
             case 27:
-//Не готово     //Слау методом крамара
+                //Слау методом крамара
                 stringReturn = formatStringForReturn(sintacsis.getString(), funcSolveKramar(createMatcher(sintacsis.getString(), PatternConst.PATTERN_CONST_HASHMAP.get(IndexOfExeptPattern))));
                 break;
             case 28:

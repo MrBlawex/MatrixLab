@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.media.*?>
 <?import java.lang.*?>
 <?import java.net.*?>
 <?import java.util.*?>
@@ -7,8 +8,23 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxmatrixlab.controller.createMatrixController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="432.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxmatrixlab.controller.createMatrixController">
     <stylesheets>
-        <URL value="@/javafxmatrixlab/css/style.css"/>
+        <URL value="@/javafxmatrixlab/css/style.css" />
     </stylesheets>
+   <children>
+      <ScrollPane layoutX="7.0" layoutY="93.0" prefHeight="302.0" prefWidth="587.0" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="96.0">
+        <content>
+          <AnchorPane fx:id="innerPane" minHeight="-Infinity" minWidth="0.0" />
+        </content>
+      </ScrollPane>
+      <TextField fx:id="fieldN" layoutX="14.0" layoutY="27.0" prefHeight="25.0" prefWidth="64.0" AnchorPane.leftAnchor="16.0" AnchorPane.topAnchor="32.0" />
+      <TextField fx:id="fieldM" layoutX="85.0" layoutY="32.0" prefHeight="25.0" prefWidth="64.0" AnchorPane.leftAnchor="85.0" AnchorPane.topAnchor="32.0" />
+      <Label layoutX="16.0" layoutY="14.0" text="Размер NxM" AnchorPane.leftAnchor="16.0" AnchorPane.topAnchor="14.0" />
+      <Button fx:id="btn_create" layoutX="16.0" layoutY="63.0" mnemonicParsing="false" onMouseClicked="#handlerRun" text="Применить" />
+      <Button fx:id="btn_rand" layoutX="284.0" layoutY="63.0" mnemonicParsing="false" text="Заполнить рандомно" />
+      <ChoiceBox layoutX="284.0" layoutY="32.0" prefHeight="25.0" prefWidth="134.0" />
+      <TextField fx:id="fieldName" layoutX="160.0" layoutY="32.0" prefHeight="25.0" prefWidth="113.0" />
+      <Label layoutX="179.0" layoutY="14.0" text="Имя матрицы" />
+   </children>
 </AnchorPane>

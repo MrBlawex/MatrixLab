@@ -111,7 +111,7 @@ public class homeMatrixLabController implements Initializable {
         String mode;
         
         InputStream input1 = JavaFXMatrixLab.class.getResourceAsStream("fxml/icon/double.png");
-        InputStream input2 = JavaFXMatrixLab.class.getResourceAsStream("fxml/icon/fraction.png");
+        InputStream input2 = JavaFXMatrixLab.class.getResourceAsStream("fxml/icon/dec.png");
         
         Image f = new Image(input2);
         Image d = new Image(input1);
@@ -151,7 +151,7 @@ public class homeMatrixLabController implements Initializable {
         FileChooser fc = new FileChooser();
         fc.setTitle(JavaFXMatrixLab.nameProgram + " - " + "Сохранить в");
 
-        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("TXT(*.txt)", ".txt");
+        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("txt", ".txt");
         fc.getExtensionFilters().add(filter);
 
         File file = fc.showSaveDialog(null);
@@ -159,15 +159,15 @@ public class homeMatrixLabController implements Initializable {
         if(file != null){
             try {
                 PrintWriter write = new PrintWriter(file.getAbsolutePath());
-//                write.println(PublicVar.OutputText);
-                write.write(PublicVar.OutputText);
+                write.println(PublicVar.OutputText);
                 write.close();
+                modalWindow.newAlert(AlertType.INFORMATION, null, "Файл успешно сохранен");
             }
             catch (FileNotFoundException fileNotFoundException) {
+                modalWindow.newAlert(AlertType.ERROR, null, "Ошибка сохранения. Файл не найден");
             }
         }
         
-        modalWindow.newAlert(AlertType.INFORMATION, null, "Файл успешно сохранен");
     }
     
     /**
@@ -228,7 +228,7 @@ public class homeMatrixLabController implements Initializable {
             }
         });
     }
-    
+    @FXML
     public void aboutAutors() {
         PublicVar.OutputText += "\n"
                 + "Авторы: \n\t" 
@@ -238,7 +238,7 @@ public class homeMatrixLabController implements Initializable {
                 + "20.12.2017\n";
         textOut.setText(PublicVar.OutputText);       
     }
-
+    @FXML
     public void closeProgram(ActionEvent actionEvent) {
         System.exit(0);
     }

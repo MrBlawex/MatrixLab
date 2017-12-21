@@ -724,7 +724,7 @@ public class MtF {
         // float[] Sol = new float[A.getM()];
         return Res;
     }
-
+ 
     //Синус элементов
     public static Matrix sinMatrix(Matrix A) {
         Matrix Res = new Matrix(A.getN(), A.getM());
