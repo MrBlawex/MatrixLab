@@ -34,7 +34,7 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="Помощь">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="Справочник" />
+                        <MenuItem mnemonicParsing="false" onAction="#Manual" text="Справочник" />
                         <MenuItem mnemonicParsing="false" onAction="#aboutAutors" text="О программе" />
                     </items>
                 </Menu>

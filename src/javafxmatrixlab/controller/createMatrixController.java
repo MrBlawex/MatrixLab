@@ -8,7 +8,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.PopupWindow.AnchorLocation;
 import javafxmatrixlab.MtF;
 
 public class createMatrixController implements Initializable {
@@ -47,6 +49,9 @@ public class createMatrixController implements Initializable {
                 newField.setMaxWidth(64);
                 newField.setLayoutX(w);
                 newField.setLayoutY(h);
+                Tooltip newTooltip = new Tooltip("N:" + (i+1) + " M:" + (j+1));
+              //  newTooltip.setAnchorLocation(AnchorLocation.);
+                newField.setTooltip(newTooltip);
                 arrayField[i][j] = newField;
                 w += 68;
                 innerPane.getChildren().add(arrayField[i][j]);

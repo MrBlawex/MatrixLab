@@ -7,9 +7,11 @@ import java.util.regex.Pattern;
 import javafxmatrixlab.controller.homeMatrixLabController;
 
 public class MtF {
-
+    
+    static String endl = System.getProperty("line.separator");
+    
     public static strictfp class Matrix {
-
+        
         private int n, m;
         private String name;
 
@@ -72,7 +74,7 @@ public class MtF {
                     res[i] = getRowFromSintacsis(rowList.get(i));
                 }
             } else {
-                this.idError = "Неверная размерность \n";
+                this.idError = "Неверная размерность" + endl;
             }
 
             this.n = nSize;
@@ -219,7 +221,7 @@ public class MtF {
 
         //перевод матрицы в строку
         public String toString(int length) {
-            String result = "\t" + name + ":\n";
+            String result = "\t" + name + ":" + endl;
             String lth = "%." + length + "f";
             float[][] matr = this.matrix;
             if (idError == null) {
@@ -235,7 +237,7 @@ public class MtF {
                             }
                         }
                     }
-                    result += "\n";
+                    result += endl;
                 }
             } else {
                 result = this.idError;
@@ -414,7 +416,7 @@ public class MtF {
         float[][] res = new float[A.getM()][B.getN()];
 
         if (A.getM() != B.getN()) {
-            Res.isWrong("Не подходят размерности \n");
+            Res.isWrong("Не подходят размерности" + endl);
         } else {
             for (int i = 0; i < Res.getN(); i++) {
                 for (int j = 0; j < Res.getM(); j++) {
@@ -439,7 +441,7 @@ public class MtF {
         float[][] res = new float[A.getM()][B.getN()];
 
         if (A.getM() != B.getN()) {
-            Res.isWrong("Не подходят размерности \n");
+            Res.isWrong("Не подходят размерности" + endl);
         } else {
             for (int i = 0; i < Res.getN(); i++) {
                 for (int j = 0; j < Res.getM(); j++) {
@@ -457,7 +459,7 @@ public class MtF {
         float[][] res = new float[A.getM()][B.getN()];
         Matrix Div = InversMatrix(B);
         if (A.getM() != B.getN()) {
-            Res.isWrong("Не подходят размерности \n");
+            Res.isWrong("Не подходят размерности" + endl);
         } else {
             for (int i = 0; i < Res.getN(); i++) {
                 for (int j = 0; j < Res.getM(); j++) {
@@ -482,12 +484,12 @@ public class MtF {
         float[][] res = new float[A.getM()][B.getN()];
 
         if (A.getM() != B.getN()) {
-            Res.isWrong("Не подходят размерности \n");
+            Res.isWrong("Не подходят размерности" + endl);
         } else {
             for (int i = 0; i < Res.getN(); i++) {
                 for (int j = 0; j < Res.getM(); j++) {
                     if (B.matrix[i][j] == 0) {
-                        Res.isWrong("Произошло деление на ноль \n");
+                        Res.isWrong("Произошло деление на ноль" + endl);
                         break;
                     }
                     res[i][j] = A.matrix[i][j] / B.matrix[i][j];
@@ -614,7 +616,7 @@ public class MtF {
             det = Math.round(det * 100) * 0.01f;
             Res.matrix[0][0] = det;
         } else {
-            Res.isWrong("Mатрица не квадратная \n");
+            Res.isWrong("Mатрица не квадратная" + endl);
         }
         return Res;
     }
@@ -692,12 +694,12 @@ public class MtF {
         float det = DetGauss(M).matrix[0][0];
         if (M.isSq()) {
             if (det == 0) {
-                Res.isWrong("Обратной матрицы не существует! определитель = 0 \n");
+                Res.isWrong("Обратной матрицы не существует! определитель = 0" + endl);
             } else {
                 Res = MultMatrixK(1 / DetGauss(M).matrix[0][0], TranspMatrix(UnionMatrix(M)));
             }
         } else {
-            Res.isWrong("Матрица не квадратная \n");
+            Res.isWrong("Матрица не квадратная" + endl);
         }
         return Res;
     }

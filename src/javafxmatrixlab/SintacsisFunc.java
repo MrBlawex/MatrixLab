@@ -1,16 +1,15 @@
 package javafxmatrixlab;
 
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javafx.fxml.FXML;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafxmatrixlab.controller.homeMatrixLabController;
+
 
 public class SintacsisFunc {
 
+    static String endl = System.getProperty("line.separator");
+    
     public static class Sintacsis {
 
         protected String stringFunc;
@@ -39,7 +38,7 @@ public class SintacsisFunc {
     }
 
     public static String formatStringForReturn(String commandOnString, String result) {
-        return ">> " + commandOnString + "\n" + result + "\n";
+        return ">> " + commandOnString + endl + result + endl;
     }
 
     public static class PatternConst {
@@ -64,6 +63,10 @@ public class SintacsisFunc {
          * Создание единичной матрицы
          */
         public static final String CREATE_EYE_MATRIX = "^eye[(]([\\d]{1,})[)]";
+        /**
+         * Рандомная матрица
+         */
+        public static final String CREATE_RANDOM_MATRIX = "^randmatr[(]([0-9]{1,3})[,]([0-9]{1,3})[,]([0-9]{1,8})[,]([a-z]{0,5})[)]";
         /**
          * Создание инвертированной матрицы (обратной)
          */
@@ -162,11 +165,7 @@ public class SintacsisFunc {
 
         public static final String FUNC_SOLVE_KRAMAR = "^solve[(]([A-Za-z][A-Za-z0-9]{0,7})[,]([A-Za-z][A-Za-z0-9]{0,7})[)]";
         /**
-         * Рандомная матрица
-         */
-        public static final String CREATE_RANDOM_MATRIX = "^randmatr[(]([0-9]{1,3})[,]([0-9]{1,3})[,]([0-9]{1,8})[,]([a-z]{0,5})[)]";
-        /**
-         * HashMap представление констант
+        * HashMap представление констант
          */
         public static HashMap<Integer, String> PATTERN_CONST_HASHMAP = new HashMap<Integer, String>();
 
@@ -332,7 +331,7 @@ public class SintacsisFunc {
                 break;
             case 26:
                 // Комментарий
-                stringReturn = sintacsis.getString() + "\n";
+                stringReturn = sintacsis.getString() + endl;
                 break;
             case 27:
                 //Слау методом крамара
@@ -374,7 +373,7 @@ public class SintacsisFunc {
                 homeMatrixLabController.PublicVar.listOfHistory.add(matcher.group(1));
             }
         } catch (Exception e) {
-            System.out.println("Неизвестная ошибка \n");
+            System.out.println("Неизвестная ошибка " + endl);
         }
         return Matrix.toString(homeMatrixLabController.PublicVar.countOfDigits);
     }
@@ -388,7 +387,7 @@ public class SintacsisFunc {
                 ToAnswer(matr);
             }
         } catch (NumberFormatException e) {
-            res = "Неизвестная ошибка \n";
+            res = "Неизвестная ошибка" + endl;
         }
         return res;
     }
@@ -402,7 +401,7 @@ public class SintacsisFunc {
                 ToAnswer(matr);
             }
         } catch (Exception e) {
-            res = "Неизвестная ошибка \n";
+            res = "Неизвестная ошибка" + endl;
         }
         return res;
     }
@@ -432,7 +431,7 @@ public class SintacsisFunc {
                 homeMatrixLabController.PublicVar.listOfHistory.add(matcher.group(1));
             }
         } catch (Exception e) {
-            System.out.println("Неизвестная ошибка \n");
+            System.out.println("Неизвестная ошибка" + endl);
         }
 
         return Matrix.toString(homeMatrixLabController.PublicVar.countOfDigits);
@@ -448,7 +447,7 @@ public class SintacsisFunc {
                 ToAnswer(matr);
             }
         } catch (Exception e) {
-            res = "Неизвестная ошибка\n";
+            res = "Неизвестная ошибка" + endl;
         }
         return res;
     }
@@ -463,7 +462,7 @@ public class SintacsisFunc {
                 ToAnswer(matr);
             }
         } catch (Exception e) {
-            res = "Неизвестная ошибка\n";
+            res = "Неизвестная ошибка" + endl;
         }
         return res;
     }
@@ -478,7 +477,7 @@ public class SintacsisFunc {
                 ToAnswer(matr);
             }
         } catch (Exception e) {
-            res = "Неизвестная ошибка\n";
+            res = "Неизвестная ошибка" + endl;
         }
         return res;
     }
@@ -493,7 +492,7 @@ public class SintacsisFunc {
                 ToAnswer(matr);
             }
         } catch (Exception e) {
-            res = "Неизвестная ошибка\n";
+            res = "Неизвестная ошибка" + endl;
         }
         return res;
     }
@@ -509,7 +508,7 @@ public class SintacsisFunc {
                 ToAnswer(matr);
             }
         } catch (Exception e) {
-            res = "Неизвестная ошибка\n";
+            res = "Неизвестная ошибка" + endl;
         }
         return res;
     }
@@ -525,7 +524,7 @@ public class SintacsisFunc {
                 ToAnswer(matr);
             }
         } catch (Exception e) {
-            res = "Неизвестная ошибка\n";
+            res = "Неизвестная ошибка" + endl;
         }
         return res;
     }
@@ -539,7 +538,7 @@ public class SintacsisFunc {
                 ToAnswer(matr);
             }
         } catch (Exception e) {
-            res = "Неизвестная ошибка \n";
+            res = "Неизвестная ошибка" + endl;
         }
         return res;
     }
@@ -553,7 +552,7 @@ public class SintacsisFunc {
                 ToAnswer(matr);
             }
         } catch (Exception e) {
-            res = "Неизвестная ошибка \n";
+            res = "Неизвестная ошибка" + endl;
         }
         return res;
     }
@@ -568,7 +567,7 @@ public class SintacsisFunc {
                 ToAnswer(matr);
             }
         } catch (Exception e) {
-            res = "Неизвестная ошибка \n";
+            res = "Неизвестная ошибка" + endl;
         }
         return res;
     }
@@ -583,7 +582,7 @@ public class SintacsisFunc {
                 ToAnswer(matr);
             }
         } catch (Exception e) {
-            res = "Неизвестная ошибка \n";
+            res = "Неизвестная ошибка " + endl;
         }
         return res;
     }
@@ -599,7 +598,7 @@ public class SintacsisFunc {
                 ToAnswer(matr);
             }
         } catch (Exception e) {
-            res = "Неизвестная ошибка \n";
+            res = "Неизвестная ошибка" + endl;
         }
         return res;
     }
@@ -615,7 +614,7 @@ public class SintacsisFunc {
                 ToAnswer(matr);
             }
         } catch (Exception e) {
-            res = "Неизвестная ошибка \n";
+            res = "Неизвестная ошибка" + endl;
         }
 
         return res;
@@ -630,7 +629,7 @@ public class SintacsisFunc {
                 ToAnswer(matr);
             }
         } catch (NumberFormatException e) {
-            res = "Неизвестная ошибка \n";
+            res = "Неизвестная ошибка" + endl;
         }
         return res;
     }
@@ -688,11 +687,11 @@ public class SintacsisFunc {
                     returnNum = MtF.DetGauss(buff).toString(homeMatrixLabController.PublicVar.countOfDigits);
                     ToAnswer(MtF.DetGauss(buff));
                 } else {
-                    returnNum = "Матрица не квадратная \n";
+                    returnNum = "Матрица не квадратная" + endl;
                 }
             }
         } catch (Exception e) {
-            returnNum = ("Неизвестная ошибка \n");
+            returnNum = ("Неизвестная ошибка" + endl);
         }
 
         return returnNum;
@@ -707,7 +706,7 @@ public class SintacsisFunc {
                 //Здесь нужно сделать смену ключей в хешмепе
             }
         } catch (Exception e) {
-            res = "Неизвестная ошибка \n";
+            res = "Неизвестная ошибка" + endl;
         }
         return res;
     }
@@ -721,12 +720,12 @@ public class SintacsisFunc {
                 ToAnswer(matr);
             }
         } catch (Exception e) {
-            res = "Неизвестная ошибка \n";
+            res = "Неизвестная ошибка" + endl;
         }
         return res;
     }
 
-    public static String CreateRandomMatrix(Matcher matcher) {//27
+    public static String CreateRandomMatrix(Matcher matcher) {//28
         String res = null;
         try {
             if (matcher.find()) {
@@ -736,7 +735,7 @@ public class SintacsisFunc {
                 ToAnswer(matr);
             }
         } catch (NumberFormatException e) {
-            res = "Неизвестная ошибка \n";
+            res = "Неизвестная ошибка" + endl;
         }
         return res;
     }

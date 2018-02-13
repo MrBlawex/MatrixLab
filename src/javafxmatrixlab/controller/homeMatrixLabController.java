@@ -56,6 +56,8 @@ public class homeMatrixLabController implements Initializable {
     @FXML
     private ImageView ViewFormat;
 
+    String endl = System.getProperty("line.separator");
+    
     //Создание экземпляров класса
     JavaFXMatrixLab javaFXMatrixLab = new JavaFXMatrixLab();
     SintacsisFunc sintacsisFunc = new SintacsisFunc();
@@ -124,7 +126,7 @@ public class homeMatrixLabController implements Initializable {
             mode = "off";
             ViewFormat.setImage(d);
         }
-        PublicVar.OutputText += ">> Format:" + mode + "\n";
+        PublicVar.OutputText += ">> Format:" + mode + endl;
         textOut.setText(PublicVar.OutputText);
     }
 
@@ -231,16 +233,23 @@ public class homeMatrixLabController implements Initializable {
 
     @FXML
     public void aboutAutors() {
-        PublicVar.OutputText += "\n"
-                + "Авторы: \n\t"
-                + "Студенты ХНЭУ\n\t"
-                + "- Богдан Бида\n\t"
-                + "- Эдуард Белоусов\n"
-                + "21.12.2017\n"
-                + "MatrixLab v.0.1 (beta)";
+        PublicVar.OutputText += endl
+                + "Авторы:" + endl + "\t"
+                + "Студенты ХНЭУ" + endl + "\t"
+                + "- Богдан Бида" + endl + "\t"
+                + "- Эдуард Белоусов" + endl
+                + "21.12.2017" + endl
+                + "MatrixLab v.0.1 (beta)" + endl;
         textOut.setText(PublicVar.OutputText);
     }
 
+    @FXML
+    public void Manual() throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/javafxmatrixlab/fxml/ManualWindow.fxml"));
+        modalWindow.newWindow(root, javaFXMatrixLab.nameProgram + " - " + "Справочник", false);
+        
+    }
+    
     @FXML
     public void closeProgram(ActionEvent actionEvent) {
         System.exit(0);
