@@ -800,9 +800,7 @@ public class MtF {
                     line = line.substring(m.end());
                 }
             } else {
-
                 fl = false;
-
             }
         }
 

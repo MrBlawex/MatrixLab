@@ -25,9 +25,19 @@ public class SettingsWindowsController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        sliderEps.valueProperty().addListener((newValue) -> {
+            coutOfEps.setText(String.valueOf((int) sliderEps.getValue()));
+            sliderEps.setValue(Math.round(sliderEps.getValue()));
+        });
+        
+        sliderCout.valueProperty().addListener((newValue) -> {
+            coutOfchar.setText(String.valueOf((int) sliderCout.getValue()));
+            sliderCout.setValue(Math.round(sliderCout.getValue()));
+        });
+        
         sliderEps.setValue(homeMatrixLabController.PublicVar.epsInt);
         sliderCout.setValue(homeMatrixLabController.PublicVar.countOfDigits);
-        
+       
         coutOfEps.setText(String.valueOf((int) sliderEps.getValue()));
         coutOfchar.setText(String.valueOf((int) sliderCout.getValue()));
     }    

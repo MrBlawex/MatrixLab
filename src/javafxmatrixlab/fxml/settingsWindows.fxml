@@ -30,13 +30,13 @@
                   <Label text="Точность вычисления дробей (eps): " />
                </graphic>
             </Label>
-            <Slider fx:id="sliderEps" blockIncrement="1.0" max="9.0" min="1.0" minorTickCount="1" onMouseClicked="#refreshNewValueEps" onMouseMoved="#refreshNewValueEps" showTickMarks="true" value="3.0" GridPane.columnIndex="1" />
+            <Slider fx:id="sliderEps" blockIncrement="1.0" max="9.0" min="1.0" minorTickCount="1" showTickMarks="true" value="3.0" GridPane.columnIndex="1" />
             <Label fx:id="coutOfchar" GridPane.rowIndex="1">
                <graphic>
                   <Label text="Количество знаков после запятой : " />
                </graphic>
             </Label>
-            <Slider fx:id="sliderCout" blockIncrement="1.0" max="10.0" min="1.0" minorTickCount="1" onMouseClicked="#refreshNewValueCout" onMouseMoved="#refreshNewValueCout" showTickMarks="true" value="2.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Slider fx:id="sliderCout" blockIncrement="1.0" max="10.0" min="1.0" minorTickCount="1" showTickMarks="true" value="2.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Button mnemonicParsing="false" onAction="#setNewValueEps" text="Применить" GridPane.columnIndex="2" />
             <Button mnemonicParsing="false" onAction="#setNewValueCout" text="Применить" GridPane.columnIndex="2" GridPane.rowIndex="1" />
          </children>
