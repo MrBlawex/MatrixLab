@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
@@ -16,23 +17,33 @@ import javafxmatrixlab.MtF;
 public class createMatrixController implements Initializable {
 
     @FXML
-    TextField fieldN, fieldM, fieldName;
+    private TextField fieldN, fieldM, fieldName, fieldFromRange, fieldToRange,
+            fieldEps;
 
     @FXML
-    Button btn_create, btn_rand, btn_createMatrix;
+    private Button btn_create, btn_rand, btn_createMatrix;
 
     @FXML
-    AnchorPane innerPane;
+    private ChoiceBox choiceTypeNumber;
 
+    @FXML
+    private AnchorPane innerPane;
+    
     public int n, m;
     public String name = "Ans";
     public TextField[][] arrayField;
-
+    
+    float randRangeS = 0;
+    float randRangeE = 100;
+    
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         fieldN.setText("3");
         fieldM.setText("3");
         fieldName.setText("Ans");
+        choiceTypeNumber.getItems().addAll("Int", "Real");
+        choiceTypeNumber.setValue("Int");
     }
 
     @FXML
@@ -49,8 +60,7 @@ public class createMatrixController implements Initializable {
                 newField.setMaxWidth(64);
                 newField.setLayoutX(w);
                 newField.setLayoutY(h);
-                Tooltip newTooltip = new Tooltip("N:" + (i+1) + " M:" + (j+1));
-              //  newTooltip.setAnchorLocation(AnchorLocation.);
+                Tooltip newTooltip = new Tooltip("N:" + (i + 1) + " M:" + (j + 1));
                 newField.setTooltip(newTooltip);
                 arrayField[i][j] = newField;
                 w += 68;
@@ -64,13 +74,29 @@ public class createMatrixController implements Initializable {
 
     @FXML
     public void handlerRandFill() {
-          for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
-                arrayField[i][j].setText( String.valueOf(Math.round(random()*100)));
+        if (choiceTypeNumber.getValue() == "Int") {
+            randRangeS = (float) Integer.valueOf(fieldFromRange.getText());
+            randRangeE = (float) Integer.valueOf(fieldToRange.getText());
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < m; j++) {
+                    arrayField[i][j].setText(String.valueOf(Math.round(random() * randRangeE + randRangeS)));
+                }
+            }
+        } else if (choiceTypeNumber.getValue() == "Real") {
+            randRangeS = Float.valueOf(fieldFromRange.getText() + "f");
+            randRangeE = Float.valueOf(fieldToRange.getText() + "f");
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < m; j++) {
+                    float t = (float) (random() * randRangeE + randRangeS);
+                    t *= 10*Math.pow(10,Integer.valueOf(fieldEps.getText()) - 1);
+                    t = Math.round(t);
+                    t /= 10*Math.pow(10,Integer.valueOf(fieldEps.getText()) - 1);
+                    arrayField[i][j].setText(String.valueOf(t));
+                }
             }
         }
     }
-    
+    //Добавляет создану матрицу в список
     @FXML
     public void getMatrix() {
         name = fieldName.getText();

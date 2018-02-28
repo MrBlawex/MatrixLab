@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.media.*?>
 <?import java.lang.*?>
 <?import java.net.*?>
@@ -8,24 +10,97 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="432.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxmatrixlab.controller.createMatrixController">
+<AnchorPane id="AnchorPane" prefHeight="482.0" prefWidth="432.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxmatrixlab.controller.createMatrixController">
     <stylesheets>
         <URL value="@/javafxmatrixlab/css/style.css" />
     </stylesheets>
    <children>
-      <ScrollPane layoutX="7.0" layoutY="93.0" prefHeight="302.0" prefWidth="587.0" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="96.0">
-        <content>
-          <AnchorPane fx:id="innerPane" minHeight="-Infinity" minWidth="0.0" />
-        </content>
-      </ScrollPane>
-      <TextField fx:id="fieldN" layoutX="14.0" layoutY="27.0" prefHeight="25.0" prefWidth="64.0" AnchorPane.leftAnchor="16.0" AnchorPane.topAnchor="32.0" />
-      <TextField fx:id="fieldM" layoutX="85.0" layoutY="32.0" prefHeight="25.0" prefWidth="64.0" AnchorPane.leftAnchor="85.0" AnchorPane.topAnchor="32.0" />
-      <Label layoutX="16.0" layoutY="14.0" text="Размер NxM" AnchorPane.leftAnchor="16.0" AnchorPane.topAnchor="14.0" />
-      <Button fx:id="btn_create" layoutX="16.0" layoutY="63.0" mnemonicParsing="false" onMouseClicked="#handlerRun" text="Применить" />
-      <Button fx:id="btn_rand" layoutX="284.0" layoutY="63.0" mnemonicParsing="false" onMouseClicked="#handlerRandFill" text="Заполнить рандомно" />
-      <ChoiceBox layoutX="284.0" layoutY="32.0" prefHeight="25.0" prefWidth="134.0" />
-      <TextField fx:id="fieldName" layoutX="160.0" layoutY="32.0" prefHeight="25.0" prefWidth="113.0" />
-      <Label layoutX="179.0" layoutY="14.0" text="Имя матрицы" />
-      <Button fx:id="btn_createMatrix" layoutX="105.0" layoutY="63.0" mnemonicParsing="false" onMouseClicked="#getMatrix" text="Создать матрицу" />
+      <VBox layoutX="9.0" layoutY="4.0" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="6.0">
+         <children>
+            <ScrollPane layoutX="9.0" layoutY="100.0" prefHeight="296.0" prefWidth="414.0" AnchorPane.bottomAnchor="392.0" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="4.0">
+              <content>
+                <AnchorPane fx:id="innerPane" minHeight="-Infinity" minWidth="0.0" />
+              </content>
+            </ScrollPane>
+            <BorderPane>
+               <center>
+                  <VBox alignment="CENTER" BorderPane.alignment="CENTER">
+                     <children>
+                        <TextField fx:id="fieldName" layoutX="11.0" layoutY="269.0" prefHeight="25.0" prefWidth="98.0" promptText="Имя Матрицы">
+                           <HBox.margin>
+                              <Insets left="4.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <Label layoutX="31.0" layoutY="302.0" text="Имя матрицы" />
+                     </children>
+                     <BorderPane.margin>
+                        <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+                     </BorderPane.margin>
+                     <padding>
+                        <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+                     </padding>
+                  </VBox>
+               </center>
+               <left>
+                  <VBox alignment="CENTER" BorderPane.alignment="CENTER">
+                     <children>
+                        <HBox alignment="CENTER" layoutX="12.0" layoutY="328.0" spacing="4.0">
+                           <children>
+                              <TextField fx:id="fieldN" layoutX="12.0" layoutY="328.0" prefHeight="25.0" prefWidth="64.0" promptText="N" />
+                              <TextField fx:id="fieldM" layoutX="12.0" layoutY="353.0" prefHeight="25.0" prefWidth="64.0" promptText="M" />
+                           </children>
+                        </HBox>
+                        <Label text="Размер" />
+                     </children>
+                     <BorderPane.margin>
+                        <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+                     </BorderPane.margin>
+                  </VBox>
+               </left>
+               <right>
+                  <VBox alignment="CENTER_RIGHT" spacing="4.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Button fx:id="btn_create" layoutX="43.0" layoutY="413.0" mnemonicParsing="false" onMouseClicked="#handlerRun" text="Применить">
+                           <HBox.margin>
+                              <Insets left="32.0" />
+                           </HBox.margin>
+                           <VBox.margin>
+                              <Insets top="4.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button fx:id="btn_createMatrix" layoutX="12.0" layoutY="445.0" mnemonicParsing="false" onMouseClicked="#getMatrix" text="Создать матрицу">
+                           <HBox.margin>
+                              <Insets left="56.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                     <BorderPane.margin>
+                        <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+                     </BorderPane.margin>
+                  </VBox>
+               </right>
+            </BorderPane>
+            <HBox spacing="6.0">
+               <children>
+                  <Button fx:id="btn_rand" layoutX="24.0" layoutY="333.0" mnemonicParsing="false" onMouseClicked="#handlerRandFill" text="Заполнить рандомно" />
+                  <TextField fx:id="fieldFromRange" layoutX="166.0" layoutY="333.0" prefHeight="25.0" prefWidth="63.0" promptText="От" text="0" />
+                  <TextField fx:id="fieldToRange" layoutX="237.0" layoutY="333.0" prefHeight="25.0" prefWidth="63.0" promptText="До" text="100" />
+                  <ChoiceBox fx:id="choiceTypeNumber" prefWidth="150.0" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" spacing="6.0">
+               <children>
+                  <Label text="Eps:" />
+                  <TextField fx:id="fieldEps" prefHeight="25.0" prefWidth="64.0" promptText="eps" text="2" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>
