@@ -704,6 +704,10 @@ public class SintacsisFunc {
             if (matcher.find()) {
                 res = "swap " + matcher.group(1) + " <-> " + matcher.group(2);
                 //Здесь нужно сделать смену ключей в хешмепе
+                MtF.Matrix t = homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(1));
+                MtF.Matrix t1 = homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.get(matcher.group(2));
+                homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.put(matcher.group(1), t1);
+                homeMatrixLabController.PublicVar.DATA_BASE_MATRIX.put(matcher.group(2), t);
             }
         } catch (Exception e) {
             res = "Неизвестная ошибка" + endl;

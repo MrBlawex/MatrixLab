@@ -6,34 +6,112 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
+    <style>
+		body {
+			background-color: #202020;
+			color: #d0d0d0;
+		} 
+		table {
+			background-color: #303030;
+		}
+		td {
+			padding: 3px;
+			padding-left: 8px;
+		}
+    </style>
     <body>
-        <h2>Справочник</h2> <br>
-        <h3>Функции создания матриц: </h3> <br>
+        <h1 style="text-align: center;">Справочник</h1> <br>
         <div class="infobox">
-            Создание новой матрицы: name = [1,2;3,4;3.14,0.4,1] <br>
-            Сумма матриц: A+B <br>
-            Разность матриц: A-B <br>
-            Произведение матриц: A*B <br>
-            Деление матриц: A/B <br>
-            Матрица в степени a: A^a <br>
-            .  <br>
-            . <br>
-            . <br>
-            . <br>
-            . <br>
-            . <br>
-            . <br>
-            . <br>
-            . <br>
-            . <br>
-            . <br>
-            Авторы: <br>
-            Студенты ХНЭУ<br>
-            - Богдан Бида<br>
-            - Эдуард Белоусов<br>
-            
-            21.12.2017<br>
-            MatrixLab v.0.1 (beta)<br>
+        
+        <table width="90%" bgcolor="#c0c0c0" border="1px" style="margin-left: 5%">
+        	<tr>
+        		<td>Функция</td>
+        		<td>Описание</td>
+        	</tr>
+        	<tr>
+        		<td style="text-align: center;">Функции создания и вывода матриц</td>
+        		<td>Нужны для определения (создания) матриц</td>
+        	</tr>
+
+        	<tr>
+        		<td>A = [a11, a12, ... a1n; ... ; am1, am2, ... amn]</td>
+        		<td><pre>Определение матрицы MxN <br> Например: 
+        			<br> A = [1,2,3.14; 4,5,6; 7,8,9] 
+        			<br> A = 
+        			<br>	1	2	3.14
+        			<br>	4	5	6
+        			<br>	7	8	9
+        		<pre></td>
+        	</tr>
+		        	
+			<tr>
+		    	<td>A()</td>
+		    	<td>Вывод матрицы A</td>
+		    </tr>
+
+		    <tr>
+		    	<td style="text-align: center;">Операции над матрицами</td>
+		    	<td></td>
+		    </tr>
+
+        	<tr>
+        		<td>A + B</td>
+        		<td>Сумма матриц. Возвращает матрицу Ans</td>
+        	</tr>
+        	
+        	<tr>
+        		<td>A - B</td>
+        		<td>Разность матриц.</td>
+        	</tr>
+        	
+        	<tr>
+        		<td>A * B</td>
+        		<td>Произведение матриц</td>
+        	</tr>
+
+        	<tr>
+        		<td>A / B</td>
+        		<td></td>
+        	</tr>
+
+        	<tr>
+        		<td>A^n</td>
+        		<td>Возведение (квадратной!) матрицы A в степень n </td>
+        	</tr>
+        	<tr>
+        		<td>A'</td>
+        		<td>Транспорация матрицы А</td>
+        	</tr>
+
+        	<tr>
+        		<td style="text-align: center;">Функции</td>
+        		<td></td>
+        	</tr>
+
+        	<tr>
+        		<td>det(A)</td>
+        		<td>Определитель матрицы А</td>
+        	</tr>
+        	<tr>
+        		<td>inv(A)</td>
+        		<td></td>
+        	</tr>
+
+        	<tr>
+        		<td>..</td>
+        		<td></td>
+        	</tr>
+        </table>
+
+        	<br>
+        	<div class="footer" style="text-align: center;">
+            	Авторы: <br>
+            	Студенты ХНЭУ им. С. Кузнеца<br>
+            	- Богдан Бида (bogdanbida.ua@gmail.com) <br>
+            	- Эдуард Белоусов (впиши свой email)<br>
+            	MatrixLab v.0.1 (beta)<br>
+            	21.12.2017<br>
+        	</div>
         </div>
     </body>
 </html>
