@@ -6,7 +6,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafxmatrixlab.JavaFXMatrixLab;
 
 public class ModalWindow {
     JavaFXMatrixLab javaFXMatrixLab = new JavaFXMatrixLab();
@@ -25,7 +24,7 @@ public class ModalWindow {
         Stage stage = new Stage();
 //        stage.setMinWidth(640);
 //        stage.setMinHeight(headpix + 480);
-        stage.setTitle(title);
+        stage.setTitle(javaFXMatrixLab.nameProgram + " - " + title);
         stage.setResizable(resizeble);
         stage.initModality(Modality.APPLICATION_MODAL);
         

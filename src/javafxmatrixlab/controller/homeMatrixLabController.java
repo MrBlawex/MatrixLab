@@ -25,6 +25,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafxmatrixlab.ErrorFunc;
@@ -178,7 +179,7 @@ public class homeMatrixLabController implements Initializable {
     @FXML
     public void settingsProgram() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/javafxmatrixlab/fxml/settingsWindows.fxml"));
-        modalWindow.newWindow(root, javaFXMatrixLab.nameProgram + " - " + "Настройки", false);
+        modalWindow.newWindow(root, "Настройки", false);
     }
 
     /**
@@ -189,7 +190,7 @@ public class homeMatrixLabController implements Initializable {
     @FXML
     public void addMatrix() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/javafxmatrixlab/fxml/createMatrix.fxml"));
-        modalWindow.newWindow(root, javaFXMatrixLab.nameProgram + " - " + "Добавить матрицу", false);
+        modalWindow.newWindow(root, "Добавить матрицу", false);
     }
 
     /**
@@ -200,9 +201,9 @@ public class homeMatrixLabController implements Initializable {
      */
     @FXML
     public void editMatrix(MouseEvent mouseEvent) throws IOException {
-        if (mouseEvent.getClickCount() == 2) {
+        if (mouseEvent.getClickCount() == 2 && mouseEvent.getButton() == MouseButton.PRIMARY) {
             Parent root = FXMLLoader.load(getClass().getResource("/javafxmatrixlab/fxml/createMatrix.fxml"));
-            modalWindow.newWindow(root, javaFXMatrixLab.nameProgram + " - " + "Редактирование матрицы", false);
+            modalWindow.newWindow(root, "Редактирование матрицы", false);
         }
     }
 
@@ -246,7 +247,7 @@ public class homeMatrixLabController implements Initializable {
     @FXML
     public void Manual() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/javafxmatrixlab/fxml/ManualWindow.fxml"));
-        modalWindow.newWindow(root, javaFXMatrixLab.nameProgram + " - " + "Справочник", false);
+        modalWindow.newWindow(root, "Справочник", false);
         
     }
     
