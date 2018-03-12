@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javafxmatrixlab.controller.homeMatrixLabController;
+import javafxmatrixlab.ReversePolishNotation;
 
 
 public class SintacsisFunc {
