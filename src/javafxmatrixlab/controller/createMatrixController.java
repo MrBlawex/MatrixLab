@@ -1,9 +1,9 @@
 package javafxmatrixlab.controller;
 
-import static java.lang.Math.random;
 import java.net.URL;
-import java.util.LinkedList;
+import java.util.Random;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -11,9 +11,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.PopupWindow.AnchorLocation;
 import javafxmatrixlab.MtF;
-import java.util.Random;
 
 public class createMatrixController implements Initializable {
 
@@ -44,6 +42,97 @@ public class createMatrixController implements Initializable {
         fieldName.setText("Ans");
         choiceTypeNumber.getItems().addAll("Int", "Real");
         choiceTypeNumber.setValue("Int");
+
+        Pattern patternForNumber = Pattern.compile("[\\d]{0,}");
+        Pattern patternForName = Pattern.compile("^[\\s]{0,}([A-Za-z][A-Za-z0-9]{0,7})[\\s]{0,}");
+
+        fieldM.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.isEmpty()) {
+                if (!patternForNumber.matcher(newValue).matches()) {
+                    fieldM.setText(oldValue);
+                }
+                if (!fieldN.getText().isEmpty() && !fieldName.getText().isEmpty()) {
+                    btn_create.setDisable(false);
+                }
+            } else {
+                btn_create.setDisable(true);
+            }
+        }
+        );
+        fieldN.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.isEmpty()) {
+                if (!patternForNumber.matcher(newValue).matches()) {
+                    fieldN.setText(oldValue);
+                }
+                if (!fieldM.getText().isEmpty() && !fieldName.getText().isEmpty()) {
+                    btn_create.setDisable(false);
+                }
+            } else {
+                btn_create.setDisable(true);
+            }
+        }
+        );
+
+        fieldName.textProperty()
+                .addListener((observable, oldValue, newValue) -> {
+                    try {
+                        if (!fieldName.getText().isEmpty()) {
+                            if (!patternForName.matcher(newValue).matches()) {
+                                fieldName.setText(oldValue);
+                            }
+                            if (!fieldM.getText().isEmpty() && !fieldN.getText().isEmpty()) {
+                                btn_create.setDisable(false);
+                            }
+                        } else {
+                            btn_create.setDisable(true);
+                        }
+                    } catch (Exception e) {
+                    }
+                }
+                );
+        fieldFromRange.textProperty()
+                .addListener((observable, oldValue, newValue) -> {
+                    try {
+                        if (!fieldFromRange.getText().isEmpty()) {
+                            if (!patternForNumber.matcher(newValue).matches()) {
+                                fieldFromRange.setText(oldValue);
+                            }
+                            if (Float.valueOf(fieldFromRange.getText()).equals(Float.valueOf(fieldToRange.getText())) || Float.valueOf(fieldFromRange.getText()) > Float.valueOf(fieldToRange.getText())) {
+                                fieldFromRange.setStyle("-fx-background-color:  #f05040");
+                                btn_rand.setDisable(true);
+                            } else {
+                                fieldFromRange.setStyle("-fx-background-color:  #fff");
+                                fieldToRange.setStyle("-fx-background-color:  #fff");
+                                btn_rand.setDisable(false);
+                            }
+                        }
+                    } catch (NumberFormatException numberFormatException) {
+                    }
+                }
+                );
+        fieldToRange.textProperty()
+                .addListener(((observable, oldValue, newValue) -> {
+                    try {
+                        if (!patternForNumber.matcher(newValue).matches()) {
+                            fieldToRange.setText(oldValue);
+                        }
+                        if (!fieldFromRange.getText().isEmpty()) {
+                            if (Float.valueOf(fieldToRange.getText()).equals(Float.valueOf(fieldFromRange.getText())) || Float.valueOf(fieldFromRange.getText()) > Float.valueOf(fieldToRange.getText())) {
+                                fieldToRange.setStyle("-fx-background-color:  #f05040");
+                                btn_rand.setDisable(true);
+                            } else {
+                                fieldFromRange.setStyle("-fx-background-color:  #fff");
+                                fieldToRange.setStyle("-fx-background-color:  #fff");
+                                btn_rand.setDisable(false);
+                            }
+                        } else {
+                            fieldFromRange.setStyle("-fx-background-color:  #f05040");
+                            fieldToRange.setStyle("-fx-background-color:  #f05040");
+                            btn_rand.setDisable(true);
+                        }
+                    } catch (NumberFormatException numberFormatException) {
+                    }
+                }));
     }
 
     @FXML
