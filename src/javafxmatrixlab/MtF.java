@@ -221,28 +221,30 @@ public class MtF {
 
         //перевод матрицы в строку
         public String toString(int length) {
-            String result = "\t" + name + ":" + endl;
+            StringBuilder result = new StringBuilder("\t" + name + ":" + endl);
             String lth = "%." + length + "f";
             float[][] matr = this.matrix;
             if (idError == null) {
                 for (int i = 0; i < n; i++) {
                     for (int j = 0; j < m; j++) {
                         if (matr[i][j] == Math.round(matr[i][j])) {
-                            result += "\t " + String.valueOf((int) matr[i][j]);
+                            result.append("\t " + String.valueOf((int) matr[i][j]));
                         } else {
                             if (!format) {
-                                result += "\t " + String.format(lth, matr[i][j]);
+                                result.append("\t " + String.format(lth, matr[i][j]));
                             } else {
-                                result += "\t " + toFormat(matr[i][j]);
+                                result.append("\t " + toFormat(matr[i][j]));
                             }
                         }
                     }
-                    result += endl;
+                    result.append(endl);
                 }
             } else {
-                result = this.idError;
+                result = new StringBuilder("");
+                result.append(this.idError);
             }
-            return result;
+            String res = result.toString();
+            return res;
         }
     }
 

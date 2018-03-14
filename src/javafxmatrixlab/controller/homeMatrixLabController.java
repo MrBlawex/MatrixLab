@@ -156,7 +156,7 @@ public class homeMatrixLabController implements Initializable {
         FileChooser fc = new FileChooser();
         fc.setTitle(JavaFXMatrixLab.nameProgram + " - " + "Сохранить в");
 
-        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("*.txt", ".txt");
+        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("txt files (*.txt)", "*.txt");
         fc.getExtensionFilters().add(filter);
 
         File file = fc.showSaveDialog(null);
@@ -164,7 +164,7 @@ public class homeMatrixLabController implements Initializable {
         if (file != null) {
             try {
                 PrintWriter write = new PrintWriter(file.getAbsolutePath());
-                write.println(PublicVar.OutputText);
+                write.print(PublicVar.OutputText);
                 write.close();
                 modalWindow.newAlert(AlertType.INFORMATION, null, "Файл успешно сохранен");
             } catch (FileNotFoundException fileNotFoundException) {

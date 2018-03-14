@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 public class JavaFXMatrixLab extends Application {
     
-    public static String nameProgram = "MatrixLab";
+    public static final String nameProgram = "MatrixLab";
     
     @Override
     public void start(Stage stage) throws Exception {
@@ -35,7 +35,6 @@ public class JavaFXMatrixLab extends Application {
 /*
     Замеченые Баги:
         - Кривой вывод при большом количестве знаков
-        - Баг при сохранении "ошибочной" матрицы в Ans
         - Ошибка при вызове несуществующей матрицы в списке
 
 */

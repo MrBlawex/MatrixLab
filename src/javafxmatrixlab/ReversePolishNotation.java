@@ -52,7 +52,7 @@ public class ReversePolishNotation {
                         B.push(i);
                     }
                 }
-            } else { // -------------------------- is MtF.Matrix
+            } else { // -------------------------- is Matrix
                 if (MapMatrix.containsKey(i)) {
                     A.push(MapMatrix.get(i));
                 } else {
