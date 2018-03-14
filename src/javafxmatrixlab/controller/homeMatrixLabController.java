@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -58,7 +59,7 @@ public class homeMatrixLabController implements Initializable {
     private ImageView ViewFormat;
 
     String endl = System.getProperty("line.separator");
-    
+
     //Создание экземпляров класса
     JavaFXMatrixLab javaFXMatrixLab = new JavaFXMatrixLab();
     SintacsisFunc sintacsisFunc = new SintacsisFunc();
@@ -250,10 +251,21 @@ public class homeMatrixLabController implements Initializable {
         modalWindow.newWindow(root, "Справочник", false);
         
     }
-    
+
     @FXML
     public void closeProgram(ActionEvent actionEvent) {
         System.exit(0);
+    }
+
+    public ArrayList<String> functionList = new ArrayList<>();
+
+    {
+        functionList.add("det(");
+        functionList.add("inv(");
+        functionList.add("Temp = ");
+        functionList.add("");
+        functionList.add("");
+
     }
 
 }

@@ -13,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
 import javafxmatrixlab.MtF;
+import java.util.Random;
 
 public class createMatrixController implements Initializable {
 
@@ -123,7 +124,7 @@ public class createMatrixController implements Initializable {
 
             for (int i = 0; i < n; i++) {
                 for (int j = 0; j < m; j++) {
-                    arrayField[i][j].setText(String.valueOf(randRangeS + rand.nextInt((int) (randRangeE - randRangeS))));
+                    arrayField[i][j].setText(String.valueOf(randRangeS + rand.nextInt((int) (randRangeE - randRangeS + 1))));
                 }
             }
         } else if (choiceTypeNumber.getValue() == "Real") {
@@ -132,7 +133,9 @@ public class createMatrixController implements Initializable {
             randRangeE = Float.valueOf(fieldToRange.getText() + "f");
             for (int i = 0; i < n; i++) {
                 for (int j = 0; j < m; j++) {
-                    float t = (float) (random() * randRangeE + randRangeS);
+
+                    float t = rand.nextFloat() * (randRangeE - randRangeS) + 1 + randRangeS;
+
                     t *= 10 * Math.pow(10, Integer.valueOf(fieldEps.getText()) - 1);
                     t = Math.round(t);
                     t /= 10 * Math.pow(10, Integer.valueOf(fieldEps.getText()) - 1);
