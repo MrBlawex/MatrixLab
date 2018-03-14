@@ -162,4 +162,6 @@ public class createMatrixController implements Initializable {
         homeMatrixLabController.PublicVar.listOfHistory.add(name);
     }
 
+    
+    // Ограничить варианты названия матриц
 }
